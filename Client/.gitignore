@@ -11,6 +11,9 @@
 # production
 /build
 
+# Optional cache directory
+.vscode/
+
 # misc
 .DS_Store
 .env.local
