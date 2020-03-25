@@ -1,17 +1,5 @@
 const mongoose = require('mongoose');
 
-const userTrainingSchema = new Schema({
-    title: String, 
-    bodyPartName:  String,
-    exerciseInformation:  [exerciseInformationSchema]
-});
-
-const exerciseInformationSchema = new Schema({
-    title: String,
-    sets: Number,
-    reps: String
-});
-
 const UserSchema = mongoose.Schema({
     surname: {
         type: String,
@@ -44,7 +32,7 @@ const UserSchema = mongoose.Schema({
     admin: {
         type: Boolean
     },
-    userTraining: [userTrainingSchema]
+    userTrainingChallenge: []
 });
 
 const User = mongoose.model('user', UserSchema);
