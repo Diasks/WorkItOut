@@ -6,10 +6,10 @@ const logger = require('morgan');
 config = require('dotenv').config();
 const mongoose = require('mongoose');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
 
-var app = express();
+const app = express();
 
 
 //Connect to DB
