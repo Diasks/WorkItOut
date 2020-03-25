@@ -32,7 +32,7 @@ const UserSchema = mongoose.Schema({
     admin: {
         type: Boolean
     },
-    userTrainingChallenge: []
+    userFitnessChallenge: []
 });
 
 const User = mongoose.model('user', UserSchema);
