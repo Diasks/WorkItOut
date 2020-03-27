@@ -2,7 +2,9 @@ import React from 'react';
 
 function Navbar() {
     return (
-        <nav>Hej nav</nav>
+        <nav>
+          <span className="logo logo-full"></span>
+        </nav>
     );
   }
 

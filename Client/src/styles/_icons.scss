@@ -1,0 +1,32 @@
+.icon {
+    display: block;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    
+
+    &.icon-linkedin {
+        background: url(../styles/icons/linkedin-icon.svg);
+        margin-right: 10px;
+        height: 30px;
+        width: 30px;
+    }
+
+    &.icon-email {
+        background: url(../styles/icons/email-icon.svg); 
+        height: 25px;
+        width: 30px;
+        padding: 2px;
+    }
+}
+
+.logo {
+    display: flex;
+    background-size: 100%;
+
+    &.logo-full {
+        background: url(../styles/icons/logo-full.svg); 
+        background-repeat: no-repeat;
+        height: 25px;
+        width: 150px;
+    }
+}
