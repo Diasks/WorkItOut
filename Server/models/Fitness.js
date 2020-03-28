@@ -1,18 +1,6 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const FitnessSchema = mongoose.Schema({
-    title: {
-        type: String,
-        required: true,
-        trim: true,
-    }, 
-    bodyPartName: {
-        type: String,
-        required: true,
-        trim: true,
-    },
-    exerciseInformation:  [exerciseInformationSchema]
-});
 
 const exerciseInformationSchema = new Schema({
     title: {
@@ -35,6 +23,24 @@ const exerciseInformationSchema = new Schema({
     }
 });
 
-const Fitness = mongoose.model('fitness', FitnessSchema);
+const FitnessSchema = new Schema({
+    title: {
+        type: String,
+        required: true,
+        trim: true,
+    }, 
+    bodyPartName: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+    exerciseInformation:  [exerciseInformationSchema]
+});
 
-module.exports = Fitness;
+
+
+const FitnessSchedule = mongoose.model('fitness', FitnessSchema);
+
+module.exports = FitnessSchedule;
+
+
