@@ -1,3 +1,27 @@
 body {
-    font-family: "Roboto Regular";
+  font-family: "Roboto Regular";
+}
+
+.main {
+  margin-top: 80px;
+  text-align: center;
+
+  @media (min-width: $medium) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 140px;
+  }
+}
+
+.page-container {
+  width: 100%;
+
+  @media (min-width: $medium-l) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+  }
 }

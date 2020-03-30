@@ -1,7 +1,13 @@
 import React from 'react';
 
 function FrontPage() {
-    return <h1>Hej startsida!</h1>;
+    return (
+      <main className="main">
+        <section className="page-container">
+          <h1>Hej Startsida!</h1>
+        </section>
+      </main>
+    );
   }
 
 export default FrontPage;
