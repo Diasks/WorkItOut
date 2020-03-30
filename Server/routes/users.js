@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 
+//CRUD USER!!!
+
 /* GET users listing. */
 router.get('/', async (req, res) => {
     try {
@@ -63,6 +65,5 @@ router.patch('/:userId', async (req, res) => {
         res.json(err);
     }  
 });
-
 
 module.exports = router;
