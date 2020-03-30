@@ -18,12 +18,28 @@ router.post('/register', async (req, res) => {
         email: req.body.email,
         password: hashedPassword
       });
-
+      
         const savedUser = await user.save();
         res.json(savedUser);
     } catch(err) {
         res.json(err);
     }
 });
+
+router.post('/login', async (req, res) => {
+    const user = await User.findOne({email: req.body.email });
+    if (user == null) return res.status(400).send('Cannot find user!');
+    const passwordValid = await bcrypt.compare(req.body.password, user.password);
+    if (!passwordValid) return res.status(400).send("Invalid password");
+    
+    try {
+        const accessToken =  jwt.sign({ id: user._id }, process.env.SECRET, { expiresIn: "1h" });
+        return res.status(200).send({ accessToken: accessToken });    
+    } catch(err) {
+        res.status(400).send(err)
+    }
+});  
+
+
 
 module.exports = router;
