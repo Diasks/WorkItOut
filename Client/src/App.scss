@@ -1,6 +1,8 @@
-@import "normalize.css";
+@import "../node_modules/normalize.css/normalize.css";
 @import "styles/_global-vars.scss";
 
 @import "styles/_base.scss";
+@import "styles/_icons.scss";
 @import "styles/_navbar.scss";
+@import "styles/menu";
 @import "styles/_footer.scss";
