@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const FitnessSchedule = require('../models/Fitness');
 
+//CRUD FITNESS-SCHEDULES!!!
+
 /* GET all fitness-schedules. */
 router.get('/', async (req, res) => {
     try {
