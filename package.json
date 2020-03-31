@@ -3,7 +3,7 @@
     "version": "0.0.0",
     "private": true,
     "scripts": {
-      "build": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build && cd ../server && npm install",
-      "start:prod": "cd server && node ./bin/www"
+      "build": "cd Client && npm install && npm install --only=dev --no-shrinkwrap && npm run build && cd ../server && npm install",
+      "start:prod": "cd Server && node ./bin/www"
     }
   }
