@@ -3,7 +3,6 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const config = require('dotenv').config();
 const bodyParser = require('body-parser');
 const config = require('dotenv').config();
 const mongoose = require('mongoose');
@@ -17,7 +16,7 @@ const app = express();
 app.use(cors());
 
 //Connect to DB
-mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@workitout-p1prh.mongodb.net/test?retryWrites=true&w=majority`, { useUnifiedTopology: true, useNewUrlParser: true }, () => console.log('connected to DB!')
+mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@workitout-p1prh.mongodb.net/test?retryWrites=true&w=majority`, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }, () => console.log('connected to DB!')
 );
 
 // view engine setup
@@ -31,8 +30,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
-app.use('/users', usersRouter);
-app.use('/fitness', fitnessRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/fitness', fitnessRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
