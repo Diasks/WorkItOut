@@ -12,7 +12,8 @@ function Footer() {
             <section className="contact">
               <h3>Kontakt</h3>
               <div>
-                <p>hej!</p>
+                <a href="www.linkedin.com" className="icon icon-linkedin" target="_blank" rel="noopener noreferrer"></a>
+                <a href="mailto:a.sinabian@gmail.com" className="icon icon-email" target="_blank" rel="noopener noreferrer"></a>
               </div>
             </section>
           </div>
