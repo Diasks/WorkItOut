@@ -7,7 +7,6 @@ const bodyParser = require('body-parser');
 const config = require('dotenv').config();
 const mongoose = require('mongoose');
 const cors = require('cors');
-const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const usersRouter = require('./routes/users');
 const fitnessRouter = require('./routes/fitness');
@@ -19,7 +18,6 @@ app.use(cors());
 mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@workitout-p1prh.mongodb.net/test?retryWrites=true&w=majority`, { useUnifiedTopology: true, useNewUrlParser: true }, () => console.log('connected to DB!')
 );
 
-app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 app.use('/fitness', fitnessRouter);
