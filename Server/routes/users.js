@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const verifyToken = require('../middleware/VerifyToken');
 const User = require('../models/User');
 
 //CRUD USER!!!
 
 /* GET users listing. */
-router.get('/', async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
     try {
         const users = await User.find();
         res.json(users);
@@ -34,7 +35,8 @@ router.post('/', async (req, res) => {
 });
 
 /* Get specific user. */
-router.get('/:userId', async (req,res) => {
+router.get('/:userId', verifyToken, async (req,res) => {
+    debugger;
     try {
         const user = await User.findById(req.params.userId);
         res.json(user);

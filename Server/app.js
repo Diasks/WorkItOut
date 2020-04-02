@@ -15,7 +15,7 @@ const app = express();
 app.use(cors());
 
 //Connect to DB
-mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@workitout-p1prh.mongodb.net/test?retryWrites=true&w=majority`, { useUnifiedTopology: true, useNewUrlParser: true }, () => console.log('connected to DB!')
+mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@workitout-p1prh.mongodb.net/test?retryWrites=true&w=majority`, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }, () => console.log('connected to DB!')
 );
 
 app.use('/auth', authRouter);
@@ -30,10 +30,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use('/auth', authRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/fitness', fitnessRouter);
 app.use(express.static(path.join(__dirname, '../Client/build')));
 app.get('*', function(request, response) {
   response.sendFile(path.resolve(__dirname, '../Client/build', 'index.html'));
 });
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
