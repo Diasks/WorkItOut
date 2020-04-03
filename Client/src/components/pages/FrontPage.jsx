@@ -1,13 +1,15 @@
-import React from 'react';
+import React from "react";
+import LoginForm from "../layout/LoginForm";
 
-function FrontPage() {
-    return (
-      <main className="main">
-        <section className="page-container">
-          <h1>Hej Startsida!</h1>
-        </section>
-      </main>
-    );
-  }
+const FrontPage = () => {
+  return (
+    <main className="main">
+      <section className="page-container">
+        <h1>Hej Startsida!</h1>
+        <LoginForm />
+      </section>
+    </main>
+  );
+};
 
 export default FrontPage;
