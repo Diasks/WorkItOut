@@ -4,36 +4,36 @@ import "./App.scss";
 
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
-import FrontPage from "./components/pages/FrontPage";
-import DashboardPage from "./components/pages/AdminDashboardPage";
-import OverviewPage from "./components/pages/UserOverviewPage";
-import UserListPage from "./components/pages/UserListPage";
-import UserProfilePage from "./components/pages/UserProfilePage";
-import ProgramTemplatesPage from "./components/pages/ProgramTemplatesPage";
-import NotFoundPage from "./components/pages/NotFoundPage";
-import FaqPage from "./components/pages/FaqPage";
-import RegisterPage from "./components/pages/RegisterPage";
-import SettingsPage from "./components/pages/SettingsPage";
+import Home from "./components/pages/Home";
+import Dashboard from "./components/pages/Admin/Dashboard";
+import Overview from "./components/pages/User/Overview";
+import UserList from "./components/pages/Admin/UserList";
+import UserProfile from "./components/pages/UserProfile";
+import ProgramTemplates from "./components/pages/Admin/ProgramTemplates";
+import NotFound from "./components/pages/NotFound";
+import Faq from "./components/pages/Faq";
+import Register from "./components/pages/Register";
+import Settings from "./components/pages/Settings";
 
-function App() {
+const App = () => {
   return (
     <Router>
       <Navbar />
       <Switch>
-        <Route path="/" exact component={FrontPage} />
-        <Route path="/register" component={RegisterPage} />
-        <Route path="/dashboard" exact component={DashboardPage} />
-        <Route path="/overview" exact component={OverviewPage} />
-        <Route path="/users" exact component={UserListPage} />
-        <Route path="/user/profile" exact component={UserProfilePage} />
-        <Route path="/programs" exact component={ProgramTemplatesPage} />
-        <Route path="/faq" exact component={FaqPage} />
-        <Route path="/settings" exact component={SettingsPage} />
-        <Route path="*" component={NotFoundPage} />
+        <Route path="/" exact component={Home} />
+        <Route path="/register" component={Register} />
+        <Route path="/dashboard" exact component={Dashboard} />
+        <Route path="/overview" exact component={Overview} />
+        <Route path="/users" exact component={UserList} />
+        <Route path="/user/profile" exact component={UserProfile} />
+        <Route path="/programs" exact component={ProgramTemplates} />
+        <Route path="/faq" exact component={Faq} />
+        <Route path="/settings" exact component={Settings} />
+        <Route path="*" component={NotFound} />
       </Switch>
       <Footer />
     </Router>
   );
-}
+};
 
 export default App;

@@ -1,7 +1,7 @@
 import React from "react";
 import LoginForm from "../layout/LoginForm";
 
-const FrontPage = () => {
+const Home = () => {
   return (
     <main className="main">
       <section className="page-container">
@@ -12,4 +12,4 @@ const FrontPage = () => {
   );
 };
 
-export default FrontPage;
+export default Home;
