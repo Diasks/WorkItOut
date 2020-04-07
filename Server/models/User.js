@@ -32,6 +32,10 @@ const UserSchema = new Schema({
   admin: {
     type: Boolean,
   },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
   userFitnessChallenge: [],
 });
 
