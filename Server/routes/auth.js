@@ -13,10 +13,10 @@ router.post("/register", async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const user = new User({
-      surname: req.body.surname,
+      firstname: req.body.firstname,
       lastname: req.body.lastname,
       email: req.body.email,
-      password: hashedPassword
+      password: hashedPassword,
     });
 
     const savedUser = await user.save();
@@ -34,7 +34,7 @@ router.post("/login", async (req, res) => {
 
   try {
     const accessToken = jwt.sign({ id: user._id }, process.env.SECRET, {
-      expiresIn: "1h"
+      expiresIn: "1h",
     });
     debugger;
     return res.status(200).send({ accessToken: accessToken });

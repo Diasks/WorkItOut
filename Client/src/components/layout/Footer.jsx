@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Footer() {
+const Footer = () => {
   return (
     <footer>
       <div className="information">
@@ -36,6 +36,6 @@ function Footer() {
       </section>
     </footer>
   );
-}
+};
 
 export default Footer;

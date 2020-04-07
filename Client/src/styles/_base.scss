@@ -11,7 +11,11 @@ body {
     justify-content: center;
     align-items: center;
 
-    margin: 140px 0;
+    margin: 180px 0;
+  }
+
+  &.column {
+    flex-direction: column;
   }
 }
 
@@ -36,7 +40,7 @@ body {
 .link {
   text-underline-position: under;
   color: $grafit;
-  padding: 10px;
+  padding: 5px;
 
   &.small {
     font-size: 12px;
@@ -46,5 +50,21 @@ body {
     text-align: right;
     width: 250px;
     padding-right: 30px;
+  }
+}
+
+.margin {
+  margin: 10px;
+}
+
+.text {
+  color: $grafit;
+
+  &.small {
+    font-size: 12px;
+  }
+
+  &.bold {
+    font-weight: bold;
   }
 }
