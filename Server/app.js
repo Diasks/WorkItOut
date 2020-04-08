@@ -21,10 +21,6 @@ mongoose.connect(
   () => console.log("connected to DB!")
 );
 
-app.use("/api/auth", authRouter);
-app.use("/api/users", usersRouter);
-app.use("/api/fitness", fitnessRouter);
-
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
@@ -33,6 +29,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+app.use("/api/auth", authRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/fitness", fitnessRouter);
+
 app.use(express.static(path.join(__dirname, "../Client/build")));
 app.get("*", function (request, response) {
   response.sendFile(path.resolve(__dirname, "../Client/build", "index.html"));

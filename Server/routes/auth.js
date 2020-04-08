@@ -11,7 +11,7 @@ const User = require("../models/User");
 router.post(
   "/register",
   [
-    check("firstname", "Please add surname").not().isEmpty(),
+    check("firstname", "Please add firstname").not().isEmpty(),
     check("lastname", "Please add lastname").not().isEmpty(),
     check("email", "Please include a valid email").isEmail(),
     check(
@@ -62,10 +62,12 @@ router.post(
 
     const user = await User.findOne({ email: req.body.email });
     if (user == null) return res.status(400).send("Cannot find user");
+
     const passwordValid = await bcrypt.compare(
       req.body.password,
       user.password
     );
+
     if (!passwordValid) return res.status(400).send("Invalid password");
 
     try {
