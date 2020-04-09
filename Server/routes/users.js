@@ -20,7 +20,7 @@ router.get("/", verifyToken, async (req, res) => {
 // @access Private
 router.post("/", verifyToken, async (req, res) => {
   const user = new User({
-    surname: req.body.surname,
+    firstname: req.body.firstname,
     lastname: req.body.lastname,
     email: req.body.email,
     password: req.body.password,
@@ -67,7 +67,7 @@ router.patch("/:userId", async (req, res) => {
   try {
     const updatedUser = await User.updateOne(
       { _id: req.params.userId },
-      { $set: { surname: req.body.surname } }
+      { $set: { firstname: req.body.firstname } }
     );
     res.json(updatedUser);
   } catch (err) {
