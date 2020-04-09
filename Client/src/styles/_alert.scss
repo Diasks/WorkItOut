@@ -1,0 +1,13 @@
+.alert {
+  margin-top: 150px;
+
+  &.alert-danger {
+    background-color: red;
+    color: white;
+  }
+
+  &.alert-sucess {
+    background-color: green;
+    color: white;
+  }
+}

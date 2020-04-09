@@ -14,25 +14,32 @@ import NotFound from "./components/pages/NotFound";
 import Faq from "./components/pages/Faq";
 import Register from "./components/pages/Register";
 import Settings from "./components/pages/Settings";
+import Alert from "./components/layout/Alert";
+
+import { Provider } from "react-redux";
+import store from "./store";
 
 const App = () => {
   return (
-    <Router>
-      <Navbar />
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/register" component={Register} />
-        <Route path="/dashboard" exact component={Dashboard} />
-        <Route path="/overview" exact component={Overview} />
-        <Route path="/users" exact component={UserList} />
-        <Route path="/user/profile" exact component={UserProfile} />
-        <Route path="/programs" exact component={ProgramTemplates} />
-        <Route path="/faq" exact component={Faq} />
-        <Route path="/settings" exact component={Settings} />
-        <Route path="*" component={NotFound} />
-      </Switch>
-      <Footer />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Navbar />
+        <Alert />
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/register" component={Register} />
+          <Route path="/dashboard" exact component={Dashboard} />
+          <Route path="/overview" exact component={Overview} />
+          <Route path="/users" exact component={UserList} />
+          <Route path="/user/profile" exact component={UserProfile} />
+          <Route path="/programs" exact component={ProgramTemplates} />
+          <Route path="/faq" exact component={Faq} />
+          <Route path="/settings" exact component={Settings} />
+          <Route path="*" component={NotFound} />
+        </Switch>
+        <Footer />
+      </Router>
+    </Provider>
   );
 };
 
