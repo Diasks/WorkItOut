@@ -1,0 +1,20 @@
+.login-wrapper,
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.input {
+  background-color: $lightgray;
+  border: 1px $lightgray;
+  border-radius: 50px;
+
+  font-size: 14px;
+
+  padding: 15px 0 15px 30px;
+  margin: 3px 0;
+  width: 250px;
+}

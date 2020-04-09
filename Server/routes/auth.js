@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
@@ -11,7 +11,7 @@ const User = require("../models/User");
 router.post(
   "/register",
   [
-    check("surname", "Please add surname").not().isEmpty(),
+    check("firstname", "Please add firstname").not().isEmpty(),
     check("lastname", "Please add lastname").not().isEmpty(),
     check("email", "Please include a valid email").isEmail(),
     check(
@@ -31,7 +31,7 @@ router.post(
     try {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
       const user = new User({
-        surname: req.body.surname,
+        firstname: req.body.firstname,
         lastname: req.body.lastname,
         email: req.body.email,
         password: hashedPassword,
@@ -62,10 +62,12 @@ router.post(
 
     const user = await User.findOne({ email: req.body.email });
     if (user == null) return res.status(400).send("Cannot find user");
+
     const passwordValid = await bcrypt.compare(
       req.body.password,
       user.password
     );
+
     if (!passwordValid) return res.status(400).send("Invalid password");
 
     try {

@@ -3,7 +3,7 @@ body {
 }
 
 .main {
-  margin-top: 80px;
+  margin: 80px 0;
   text-align: center;
 
   @media (min-width: $medium) {
@@ -11,7 +11,11 @@ body {
     justify-content: center;
     align-items: center;
 
-    margin-top: 140px;
+    margin: 180px 0;
+  }
+
+  &.column {
+    flex-direction: column;
   }
 }
 
@@ -20,8 +24,47 @@ body {
 
   @media (min-width: $medium-l) {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 700px;
+  }
+}
+
+.label {
+  &.rose {
+    color: $rose;
+  }
+}
+
+.link {
+  text-underline-position: under;
+  color: $grafit;
+  padding: 5px;
+
+  &.small {
+    font-size: 12px;
+  }
+
+  &.right {
+    text-align: right;
+    width: 250px;
+    padding-right: 30px;
+  }
+}
+
+.margin {
+  margin: 10px;
+}
+
+.text {
+  color: $grafit;
+
+  &.small {
+    font-size: 12px;
+  }
+
+  &.bold {
+    font-weight: bold;
   }
 }
