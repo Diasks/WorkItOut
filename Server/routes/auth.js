@@ -37,8 +37,21 @@ router.post(
         password: hashedPassword,
       });
 
-      const savedUser = await user.save();
-      res.json(savedUser);
+      await user.save();
+
+      jwt.sign(
+        {
+          id: user._id,
+        },
+        process.env.SECRET,
+        {
+          expiresIn: "3600",
+        },
+        (error, token) => {
+          if (error) throw error;
+          res.json({ token });
+        }
+      );
     } catch (err) {
       res.status(400).send(err);
     }
@@ -71,10 +84,19 @@ router.post(
     if (!passwordValid) return res.status(400).send("Invalid password");
 
     try {
-      const accessToken = jwt.sign({ id: user._id }, process.env.SECRET, {
-        expiresIn: "3600",
-      });
-      return res.status(200).send({ accessToken: accessToken });
+      jwt.sign(
+        {
+          id: user._id,
+        },
+        process.env.SECRET,
+        {
+          expiresIn: "3600",
+        },
+        (error, token) => {
+          if (error) throw error;
+          res.json({ token });
+        }
+      );
     } catch (err) {
       res.status(400).send(err);
     }
