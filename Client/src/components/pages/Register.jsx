@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { setAlert } from "../../_actions/alertAction";
 import { register } from "../../_actions/authAction";
 import PropTypes from "prop-types";
 
-const Register = ({ setAlert, register, history }) => {
+const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
@@ -25,9 +26,12 @@ const Register = ({ setAlert, register, history }) => {
       setAlert("Passwords do not match", "danger");
     } else {
       register({ firstname, lastname, email, password });
-      history.push("/");
     }
   };
+
+  if (isAuthenticated) {
+    return <Redirect to="/overview" />;
+  }
 
   return (
     <main className="main column">
@@ -97,6 +101,11 @@ const Register = ({ setAlert, register, history }) => {
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
 };
 
-export default connect(null, { setAlert, register })(Register);
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { setAlert, register })(Register);
