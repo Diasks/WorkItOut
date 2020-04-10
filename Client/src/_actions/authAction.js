@@ -1,4 +1,5 @@
 import axios from "axios";
+import history from "../_utils/history";
 import { setAlert } from "./alertAction";
 import {
   REGISTER_SUCCESS,
@@ -7,6 +8,7 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  LOGOUT,
 } from "./types";
 import setAuthToken from "../_utils/setAuthToken";
 
@@ -101,4 +103,9 @@ export const login = (email, password) => async (dispatch) => {
       type: LOGIN_FAIL,
     });
   }
+};
+
+export const logout = () => (dispatch) => {
+  dispatch({ type: LOGOUT });
+  history.push("/");
 };

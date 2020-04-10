@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
 import "./App.scss";
+import history from "./_utils/history";
 
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
@@ -32,7 +33,7 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <Router>
+      <Router history={history}>
         <Navbar />
         <Alert />
         <Switch>
