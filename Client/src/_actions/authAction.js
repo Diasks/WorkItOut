@@ -3,9 +3,33 @@ import { setAlert } from "./alertAction";
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
+  USER_LOADED,
+  AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
 } from "./types";
+import setAuthToken from "../_utils/setAuthToken";
+
+export const loadUser = () => async (dispatch) => {
+  const id = localStorage.id;
+
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+
+  try {
+    const res = await axios.get(`http://localhost:5000/api/users/${id}`);
+
+    dispatch({
+      type: USER_LOADED,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+};
 
 export const register = ({ firstname, lastname, email, password }) => async (
   dispatch
@@ -29,6 +53,8 @@ export const register = ({ firstname, lastname, email, password }) => async (
       type: REGISTER_SUCCESS,
       payload: res.data,
     });
+
+    dispatch(loadUser());
   } catch (error) {
     const errors = error.response.data.errors;
 
@@ -58,12 +84,12 @@ export const login = (email, password) => async (dispatch) => {
       config
     );
 
-    console.log(res.data);
-
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
+
+    dispatch(loadUser());
   } catch (error) {
     const errors = error.response.data.errors;
 

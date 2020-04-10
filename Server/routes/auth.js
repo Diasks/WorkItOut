@@ -45,11 +45,11 @@ router.post(
         },
         process.env.SECRET,
         {
-          expiresIn: "3600",
+          expiresIn: "1h",
         },
         (error, token) => {
           if (error) throw error;
-          res.json({ token });
+          res.json({ token, id: user._id });
         }
       );
     } catch (err) {
@@ -90,11 +90,11 @@ router.post(
         },
         process.env.SECRET,
         {
-          expiresIn: "3600",
+          expiresIn: "1h",
         },
         (error, token) => {
           if (error) throw error;
-          res.json({ token });
+          res.json({ token, id: user._id });
         }
       );
     } catch (err) {
