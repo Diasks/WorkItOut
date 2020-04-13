@@ -11,6 +11,7 @@ import {
 const initalState = {
   token: localStorage.getItem("token"),
   id: localStorage.getItem("id"),
+  admin: localStorage.getItem("admin"),
   isAuthenticated: null,
   loading: true,
   user: null,
@@ -32,6 +33,7 @@ export default function (state = initalState, action) {
     case LOGIN_SUCCESS:
       localStorage.setItem("token", payload.token);
       localStorage.setItem("id", payload.id);
+      localStorage.setItem("admin", payload.admin);
       return {
         ...state,
         ...payload,
@@ -45,6 +47,7 @@ export default function (state = initalState, action) {
     case LOGOUT:
       localStorage.removeItem("token");
       localStorage.removeItem("id");
+      localStorage.removeItem("admin");
       return {
         ...state,
         token: null,

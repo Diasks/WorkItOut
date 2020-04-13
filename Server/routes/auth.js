@@ -35,6 +35,7 @@ router.post(
         lastname: req.body.lastname,
         email: req.body.email,
         password: hashedPassword,
+        admin: req.body.admin,
       });
 
       await user.save();
@@ -49,7 +50,11 @@ router.post(
         },
         (error, token) => {
           if (error) throw error;
-          res.json({ token, id: user._id });
+          res.json({
+            token,
+            id: user._id,
+            admin: user.admin,
+          });
         }
       );
     } catch (err) {
@@ -94,7 +99,11 @@ router.post(
         },
         (error, token) => {
           if (error) throw error;
-          res.json({ token, id: user._id });
+          res.json({
+            token,
+            id: user._id,
+            admin: user.admin,
+          });
         }
       );
     } catch (err) {
