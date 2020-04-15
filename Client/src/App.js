@@ -23,7 +23,6 @@ import NotFound from "./components/pages/NotFound";
 import Faq from "./components/pages/Faq";
 import Register from "./components/pages/Register";
 import Settings from "./components/pages/Settings";
-import Alert from "./components/layout/Alert";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -38,7 +37,6 @@ const App = () => {
     <Provider store={store}>
       <Router history={history}>
         <Navbar />
-        <Alert />
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/register" component={Register} />

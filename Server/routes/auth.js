@@ -26,7 +26,7 @@ router.post(
     }
 
     const emailExist = await User.findOne({ email: req.body.email });
-    if (emailExist) return res.status(400).send("Email already exists");
+    if (emailExist) return res.status(400).send("E-post upptaget");
 
     try {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -79,14 +79,14 @@ router.post(
     }
 
     const user = await User.findOne({ email: req.body.email });
-    if (user == null) return res.status(400).send("Cannot find user");
+    if (user == null) return res.status(400).send("E-post kunde inte hittas");
 
     const passwordValid = await bcrypt.compare(
       req.body.password,
       user.password
     );
 
-    if (!passwordValid) return res.status(400).send("Invalid password");
+    if (!passwordValid) return res.status(400).send("Ogiltigt lösenord");
 
     try {
       jwt.sign(
