@@ -33,9 +33,12 @@ export const loadUser = () => async (dispatch) => {
   }
 };
 
-export const register = ({ firstname, lastname, email, password }) => async (
-  dispatch
-) => {
+export const registerUser = ({
+  firstname,
+  lastname,
+  email,
+  password,
+}) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -58,10 +61,10 @@ export const register = ({ firstname, lastname, email, password }) => async (
 
     dispatch(loadUser());
   } catch (error) {
-    const errors = error.response.data.errors;
+    const errorResponse = error.response.data;
 
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    if (errorResponse) {
+      dispatch(setAlert(errorResponse, "danger"));
     }
 
     dispatch({
@@ -70,7 +73,7 @@ export const register = ({ firstname, lastname, email, password }) => async (
   }
 };
 
-export const login = (email, password) => async (dispatch) => {
+export const loginUser = (email, password) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -93,10 +96,10 @@ export const login = (email, password) => async (dispatch) => {
 
     dispatch(loadUser());
   } catch (error) {
-    const errors = error.response.data.errors;
+    const errorResponse = error.response.data;
 
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    if (errorResponse) {
+      dispatch(setAlert(errorResponse, "danger"));
     }
 
     dispatch({
