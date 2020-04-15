@@ -31,6 +31,7 @@ const UserSchema = new Schema({
   },
   admin: {
     type: Boolean,
+    default: false,
   },
   date: {
     type: Date,
