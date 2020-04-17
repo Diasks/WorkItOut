@@ -1,0 +1,43 @@
+.banner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: 80px 20px;
+  z-index: 2;
+
+  @media (min-width: $small-l) {
+    padding: 130px 20px 150px 20px;
+  }
+
+  &::before {
+    content: "";
+    display: block;
+    background-color: $plum;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    border-radius: 150vw;
+    width: 300vw;
+    height: 300vw;
+    z-index: -1;
+
+    @media (min-width: $large) {
+      border-radius: 300vw;
+    }
+  }
+}
+
+.label {
+  color: $mustard;
+}
+
+.description {
+  color: $cream;
+  font-size: 14px;
+}
