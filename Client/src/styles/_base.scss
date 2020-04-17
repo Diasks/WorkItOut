@@ -1,5 +1,6 @@
 body {
   font-family: "Roboto Regular";
+  background-color: $lightCream;
 }
 
 .main {
@@ -16,6 +17,11 @@ body {
 
   &.column {
     flex-direction: column;
+  }
+
+  &.home {
+    margin: 0;
+    padding: 8vw 8vw 12vw 8vw;
   }
 }
 
@@ -49,7 +55,7 @@ body {
   &.right {
     text-align: right;
     width: 250px;
-    padding-right: 30px;
+    padding-right: 5px;
   }
 }
 

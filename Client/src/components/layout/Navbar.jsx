@@ -63,21 +63,23 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     </div>
   );
 
-  return (
+  const navBar = (
     <nav>
       <div className="navbar-small-screen">
         <span className="logo logo-full"></span>
-        {!loading && <Fragment>{isAuthenticated ? menuMobile : null}</Fragment>}
+        {!loading && <Fragment>{menuMobile}</Fragment>}
       </div>
 
       <div className="navbar-big-screen">
         <div className="logo-wrapper">
           <span className="logo logo-full"></span>
         </div>
-        {!loading && <Fragment>{isAuthenticated ? menu : null}</Fragment>}
+        {!loading && <Fragment>{menu}</Fragment>}
       </div>
     </nav>
   );
+
+  return <Fragment>{isAuthenticated ? navBar : null}</Fragment>;
 };
 
 Navbar.propTypes = {
