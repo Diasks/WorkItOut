@@ -6,11 +6,16 @@ import {
   REGISTER_FAIL,
   USER_LOADED,
   AUTH_ERROR,
+  AUTH_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
 } from "./types";
 import setAuthToken from "../_utils/setAuthToken";
+
+export const authRequest = () => ({
+  type: AUTH_REQUEST,
+});
 
 export const loadUser = () => async (dispatch) => {
   const id = localStorage.id;
@@ -33,7 +38,6 @@ export const loadUser = () => async (dispatch) => {
   }
 };
 
-
 export const registerUser = ({
   firstname,
   lastname,
@@ -41,6 +45,8 @@ export const registerUser = ({
   password,
   admin,
 }) => async (dispatch) => {
+  dispatch(authRequest());
+
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -82,6 +88,8 @@ export const registerUser = ({
 };
 
 export const loginUser = (email, password) => async (dispatch) => {
+  dispatch(authRequest());
+
   const config = {
     headers: {
       "Content-Type": "application/json",

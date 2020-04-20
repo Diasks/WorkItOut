@@ -17,6 +17,8 @@ body {
 
   &.column {
     flex-direction: column;
+    margin: 0;
+    padding: 8vw 8vw 12vw 8vw;
   }
 
   &.home {

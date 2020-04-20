@@ -3,6 +3,7 @@ import {
   REGISTER_FAIL,
   USER_LOADED,
   AUTH_ERROR,
+  AUTH_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
@@ -39,6 +40,12 @@ export default function (state = initalState, action) {
         ...payload,
         isAuthenticated: true,
         loading: false,
+      };
+
+    case AUTH_REQUEST:
+      return {
+        ...state,
+        loading: true,
       };
 
     case REGISTER_FAIL:
