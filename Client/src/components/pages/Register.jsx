@@ -59,7 +59,7 @@ const Register = ({ setAlert, registerUser, isAuthenticated, loading }) => {
       }}
     >
       <Banner />
-      <main className="main column">
+      <main className="main column no-margin padding">
         <div className="login-wrapper">
           <Alert />
           <form

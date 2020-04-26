@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_FAQ, FAQ_FAIL } from "./types";
+import { GET_FAQ, ADD_FAQ, FAQ_FAIL } from "./types";
 
 export const getFaq = () => async (dispatch) => {
   try {
@@ -11,6 +11,28 @@ export const getFaq = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: FAQ_FAIL,
+    });
+  }
+};
+
+export const addFaq = (data) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const res = await axios.post(`http://localhost:5000/api/faq`, data, config);
+
+    dispatch({
+      type: ADD_FAQ,
+      payload: res.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: FAQ_FAIL,
+      payload: error,
     });
   }
 };

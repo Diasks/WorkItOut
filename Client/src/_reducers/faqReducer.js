@@ -1,8 +1,9 @@
-import { GET_FAQ } from "../_actions/types";
+import { GET_FAQ, ADD_FAQ, FAQ_FAIL } from "../_actions/types";
 
 const initalState = {
-  loading: true,
   faq: [],
+  loading: true,
+  error: null,
 };
 
 export default function (state = initalState, action) {
@@ -11,8 +12,22 @@ export default function (state = initalState, action) {
   switch (type) {
     case GET_FAQ:
       return {
-        loading: false,
         faq: payload,
+        loading: false,
+      };
+
+    case ADD_FAQ:
+      return {
+        ...state,
+        faq: [...state.faq, payload],
+        loading: false,
+      };
+
+    case FAQ_FAIL:
+      return {
+        ...state,
+        error: payload,
+        loading: false,
       };
     default:
       return state;
