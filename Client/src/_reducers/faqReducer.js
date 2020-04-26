@@ -1,4 +1,4 @@
-import { GET_FAQ, ADD_FAQ, FAQ_FAIL } from "../_actions/types";
+import { GET_FAQ, ADD_FAQ, FAQ_FAIL, DELETE_FAQ } from "../_actions/types";
 
 const initalState = {
   faq: [],
@@ -23,6 +23,14 @@ export default function (state = initalState, action) {
         loading: false,
       };
 
+    case DELETE_FAQ:
+      return {
+        ...state,
+        faq: state.faq.filter(
+          (questionAnswer) => questionAnswer._id !== payload
+        ),
+        loading: false,
+      };
     case FAQ_FAIL:
       return {
         ...state,
