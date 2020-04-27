@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addFaq } from "../../_actions/faqAction";
 import { useForm } from "react-hook-form";
+import Collapse from "@material-ui/core/Collapse";
+import AddIcon from "@material-ui/icons/Add";
 
 const Faq = ({ addFaq }) => {
   let defaultValues = {
@@ -13,6 +15,7 @@ const Faq = ({ addFaq }) => {
   const { register, handleSubmit, errors, reset } = useForm({ defaultValues });
 
   const [formData, setFormData] = useState("");
+  const [expanded, setExpanded] = useState(false);
 
   const { question, answer } = formData;
 
@@ -24,6 +27,8 @@ const Faq = ({ addFaq }) => {
     reset();
     addFaq({ question, answer });
   };
+
+  const handleExpandClick = (e) => setExpanded(!expanded);
 
   const form = (
     <form
@@ -66,7 +71,14 @@ const Faq = ({ addFaq }) => {
     </form>
   );
 
-  return <section>{form}</section>;
+  return (
+    <section>
+      <button className="btn btn-toggle" onClick={handleExpandClick}>
+        <AddIcon className="icon-add" /> Lägg till FAQ
+      </button>
+      <Collapse in={expanded}>{form}</Collapse>
+    </section>
+  );
 };
 
 Faq.propTypes = {

@@ -4,7 +4,7 @@
   align-items: flex-start;
   text-align: left;
 
-  padding: 6vw;
+  padding: 3vw 3vw 7vw;
 }
 
 .faq {
@@ -12,5 +12,9 @@
 
   &.bold {
     font-weight: bold;
+  }
+
+  &.extra-padding {
+    padding: 10px 10px 40px 40px;
   }
 }

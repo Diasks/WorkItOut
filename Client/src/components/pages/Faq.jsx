@@ -6,8 +6,10 @@ import { useEffect } from "react";
 import store from "../../store";
 import FaqForm from "../layout/FaqForm";
 import Alert from "../layout/Alert";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Banner from "../layout/Banner";
 
-const Faq = ({ faq, deleteFaq, admin }) => {
+const Faq = ({ faq, deleteFaq, admin, isAuthenticated }) => {
   useEffect(() => {
     store.dispatch(getFaq());
   }, []);
@@ -15,27 +17,35 @@ const Faq = ({ faq, deleteFaq, admin }) => {
   const questionsAndAnswers = faq.map((questionAndAnswer) => {
     return (
       <Fragment key={questionAndAnswer._id}>
-        <div className="faq bold">{questionAndAnswer.question}</div>
-        <div className="faq">{questionAndAnswer.answer}</div>
-        {admin === "true" && (
-          <button
-            onClick={(e) => deleteFaq(questionAndAnswer._id)}
-            type="button"
-          >
-            Ta bort
-          </button>
-        )}
+        <div className="btn-onleft">
+          {admin === "true" && (
+            <button
+              className="btn btn-danger small"
+              onClick={(e) => deleteFaq(questionAndAnswer._id)}
+              type="button"
+            >
+              <DeleteIcon className="icon icon-delete" />
+            </button>
+          )}
+          <div className="faq bold">{questionAndAnswer.question}</div>
+        </div>
+        <div className={"faq" + (admin === "true" ? " extra-padding" : "")}>
+          {questionAndAnswer.answer}
+        </div>
       </Fragment>
     );
   });
 
   return (
-    <main className="main column">
-      <h2>FAQ</h2>
-      {admin === "true" && <FaqForm />}
-      <Alert />
-      <section className="faq-container">{questionsAndAnswers}</section>
-    </main>
+    <Fragment>
+      {!isAuthenticated && <Banner />}
+      <main className={"main column" + (!isAuthenticated ? " no-margin" : "")}>
+        <h2 className="heading">FAQ</h2>
+        {admin === "true" && <FaqForm />}
+        <Alert />
+        <section className="faq-container">{questionsAndAnswers}</section>
+      </main>
+    </Fragment>
   );
 };
 
