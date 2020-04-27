@@ -1,4 +1,10 @@
-import { GET_FAQ, ADD_FAQ, FAQ_FAIL, DELETE_FAQ } from "../_actions/types";
+import {
+  GET_FAQ,
+  ADD_FAQ,
+  FAQ_FAIL,
+  FAQ_REQUEST,
+  DELETE_FAQ,
+} from "../_actions/types";
 
 const initalState = {
   faq: [],
@@ -37,6 +43,13 @@ export default function (state = initalState, action) {
         error: payload,
         loading: false,
       };
+
+    case FAQ_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
     default:
       return state;
   }

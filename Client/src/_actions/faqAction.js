@@ -1,9 +1,14 @@
 import axios from "axios";
-import { GET_FAQ, ADD_FAQ, DELETE_FAQ, FAQ_FAIL } from "./types";
+import { GET_FAQ, ADD_FAQ, DELETE_FAQ, FAQ_FAIL, FAQ_REQUEST } from "./types";
 import { setAlert } from "./alertAction";
+
+export const faqRequest = () => ({
+  type: FAQ_REQUEST,
+});
 
 export const getFaq = () => async (dispatch) => {
   try {
+    dispatch(faqRequest());
     const res = await axios.get(`http://localhost:5000/api/faq`);
     dispatch({
       type: GET_FAQ,
@@ -18,6 +23,7 @@ export const getFaq = () => async (dispatch) => {
 
 export const addFaq = (data) => async (dispatch) => {
   try {
+    dispatch(faqRequest());
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -40,6 +46,7 @@ export const addFaq = (data) => async (dispatch) => {
 
 export const deleteFaq = (id) => async (dispatch) => {
   try {
+    dispatch(faqRequest());
     const res = await axios.delete(`http://localhost:5000/api/faq/${id}`);
     dispatch({
       type: DELETE_FAQ,

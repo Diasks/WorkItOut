@@ -13,3 +13,4 @@ export const ADD_FAQ = "ADD_FAQ";
 export const DELETE_FAQ = "DELETE_FAQ";
 export const UPDATE_FAQ = "UPDATE_FAQ";
 export const FAQ_FAIL = "FAQ_FAIL";
+export const FAQ_REQUEST = "FAQ_REQUEST";
