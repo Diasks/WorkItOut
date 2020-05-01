@@ -31,15 +31,23 @@ router.get("/:fitnessId", verifyToken, async (req, res) => {
 // @desc Create new fitness-schedule
 // @access Private
 router.post("/", verifyToken, async (req, res) => {
+  debugger;
   const fitness = new FitnessSchedule({
+
+    programTitle: req.body.programTitle,
+    description: req.body.description,
+    length: req.body.length,
     title: req.body.title,
-    bodyPartName: req.body.bodyPartName,
     exerciseInformation: req.body.exerciseInformation,
   });
+  debugger;
   try {
+    debugger;
     const savedFitness = await fitness.save();
     res.json(savedFitness);
+    debugger;
   } catch (err) {
+    debugger;
     res.json(err);
   }
 });
