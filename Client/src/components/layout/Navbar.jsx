@@ -18,7 +18,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
           <Link to="">Program</Link>
         </li>
         <li className="menu-list-item">
-          <Link to="/faq">FAQ</Link>
+          <Link to="/faq?page=1">FAQ</Link>
         </li>
         <li className="menu-list-item">
           <Link to="">Inställningar</Link>
@@ -50,7 +50,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
             <Link to="">Program</Link>
           </li>
           <li className="menu-list-item">
-            <Link to="/faq">FAQ</Link>
+            <Link to="/faq?page=1">FAQ</Link>
           </li>
           <li className="menu-list-item">
             <Link to="">Inställningar</Link>
