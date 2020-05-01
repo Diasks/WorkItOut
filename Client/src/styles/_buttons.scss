@@ -1,7 +1,7 @@
 .btn {
   color: $white;
 
-  border: 1px $sky;
+  border: 1px;
   border-radius: 50px;
   font-family: $robotoBold;
 
@@ -14,4 +14,40 @@
   &.btn-sky {
     background-color: $sky;
   }
+
+  &.btn-danger {
+    background-color: $danger;
+
+    &.small {
+      padding: 5px;
+      margin: 0;
+      width: 30px;
+      height: 30px;
+
+      line-height: 0.8;
+    }
+  }
+
+  &.btn-toggle {
+    margin-top: 0;
+    padding: 0 0 20px;
+    background-color: inherit;
+    color: $mustard;
+    width: auto;
+  }
+
+  .icon-delete {
+    font-size: 20px;
+  }
+
+  .icon-add {
+    padding-right: 5px;
+    position: relative;
+    top: 5px;
+    left: 5px;
+  }
+}
+
+.btn-onleft {
+  display: flex;
 }

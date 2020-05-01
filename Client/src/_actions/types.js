@@ -8,9 +8,14 @@ export const AUTH_REQUEST = "AUTH_REQUEST";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGOUT = "LOGOUT";
+export const GET_FAQ = "GET_FAQ";
+export const ADD_FAQ = "ADD_FAQ";
+export const DELETE_FAQ = "DELETE_FAQ";
+export const UPDATE_FAQ = "UPDATE_FAQ";
+export const FAQ_FAIL = "FAQ_FAIL";
+export const FAQ_REQUEST = "FAQ_REQUEST";
 export const GET_USERS = "GET_USERS";
 export const ADD_USER = "ADD_USER";
 export const UPDATE_USER = "UPDATE_USER";
 export const REMOVE_USER = "REMOVE_USER";
 export const GET_USER = "GET_USER";
-

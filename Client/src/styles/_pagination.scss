@@ -1,0 +1,25 @@
+.pagination-wrapper {
+  margin: 0 30px 50px 30px;
+}
+
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+.pagination-link {
+  padding: 10px 15px;
+  margin: 2px;
+  border-radius: 50%;
+  color: $plum;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.pagination-link {
+  &.active {
+    color: $white;
+    background-color: $plum;
+  }
+}

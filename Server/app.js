@@ -10,6 +10,7 @@ const cors = require("cors");
 const authRouter = require("./routes/auth");
 const usersRouter = require("./routes/users");
 const fitnessRouter = require("./routes/fitness");
+const faqRouter = require("./routes/faq");
 
 const app = express();
 app.use(cors());
@@ -33,6 +34,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/fitness", fitnessRouter);
+app.use("/api/faq", faqRouter);
 
 app.use(express.static(path.join(__dirname, "../Client/build")));
 app.get("*", function (request, response) {

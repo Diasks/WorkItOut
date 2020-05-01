@@ -18,7 +18,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
           <Link to="/programs">Program</Link>
         </li>
         <li className="menu-list-item">
-          <Link to="">FAQ</Link>
+          <Link to="/faq?page=1">FAQ</Link>
         </li>
         <li className="menu-list-item">
           <Link to="/settings">Inställningar</Link>
@@ -50,7 +50,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
             <Link to="/programs">Program</Link>
           </li>
           <li className="menu-list-item">
-            <Link to="">FAQ</Link>
+            <Link to="/faq?page=1">FAQ</Link>
           </li>
           <li className="menu-list-item">
             <Link to="/settings">Inställningar</Link>
@@ -64,7 +64,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   );
 
   const navBar = (
-    <nav>
+    <nav className="nav">
       <div className="navbar-small-screen">
         <span className="logo logo-full"></span>
         {!loading && <Fragment>{menuMobile}</Fragment>}
