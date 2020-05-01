@@ -18,7 +18,7 @@ app.use(cors());
 //Connect to DB
 mongoose.connect(
   `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@workitout-p1prh.mongodb.net/test?retryWrites=true&w=majority`,
-  { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true },
+  { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false },
   () => console.log("connected to DB!")
 );
 

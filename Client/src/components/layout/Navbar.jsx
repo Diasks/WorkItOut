@@ -9,19 +9,19 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     <div className="menu-wrapper">
       <ul className="menu-list">
         <li className="menu-list-item">
-          <Link to="">Skapa ny användare</Link>
+          <Link to="/create-user">Skapa ny användare</Link>
         </li>
         <li className="menu-list-item">
-          <Link to="">Användarlista</Link>
+          <Link to="/users">Användarlista</Link>
         </li>
         <li className="menu-list-item">
-          <Link to="">Program</Link>
+          <Link to="/programs">Program</Link>
         </li>
         <li className="menu-list-item">
           <Link to="/faq?page=1">FAQ</Link>
         </li>
         <li className="menu-list-item">
-          <Link to="">Inställningar</Link>
+          <Link to="/settings">Inställningar</Link>
         </li>
         <li className="menu-list-item">
           <button onClick={logout}>Logga ut</button>
@@ -41,19 +41,19 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
       <div className="menu">
         <ul className="menu-list">
           <li className="menu-list-item">
-            <Link to="">Skapa ny användare</Link>
+            <Link to="/create-user">Skapa ny användare</Link>
           </li>
           <li className="menu-list-item">
-            <Link to="">Användarlista</Link>
+            <Link to="/users">Användarlista</Link>
           </li>
           <li className="menu-list-item">
-            <Link to="">Program</Link>
+            <Link to="/programs">Program</Link>
           </li>
           <li className="menu-list-item">
             <Link to="/faq?page=1">FAQ</Link>
           </li>
           <li className="menu-list-item">
-            <Link to="">Inställningar</Link>
+            <Link to="/settings">Inställningar</Link>
           </li>
           <li className="menu-list-item">
             <button onClick={logout}>Logga ut</button>

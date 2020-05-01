@@ -16,13 +16,16 @@ import Footer from "./components/layout/Footer";
 import Home from "./components/pages/Home";
 import Dashboard from "./components/pages/Admin/Dashboard";
 import Overview from "./components/pages/User/Overview";
-import UserList from "./components/pages/Admin/UserList";
+import CreateUser from "./components/pages/Admin/CreateUser";
+import Users from "./components/pages/Admin/Users";
 import UserProfile from "./components/pages/UserProfile";
 import ProgramTemplates from "./components/pages/Admin/ProgramTemplates";
 import NotFound from "./components/pages/NotFound";
 import Faq from "./components/pages/Faq";
 import Register from "./components/pages/Register";
 import Settings from "./components/pages/Settings";
+import UserItem from "./components/pages/Admin/UserItem";
+
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -42,7 +45,9 @@ const App = () => {
           <Route path="/register" component={Register} />
           <PrivateRoute path="/dashboard" exact component={Dashboard} />
           <PrivateRoute path="/overview" exact component={Overview} />
-          <PrivateRoute path="/users" exact component={UserList} />
+          <PrivateRoute path="/create-user" exact component={CreateUser} />
+          <PrivateRoute path="/users" exact component={Users} />
+          <PrivateRoute path="/users/:id" exact component={UserItem} />
           <PrivateRoute path="/user/profile" exact component={UserProfile} />
           <PrivateRoute path="/programs" exact component={ProgramTemplates} />
           <Route path="/faq" exact component={Faq} />
