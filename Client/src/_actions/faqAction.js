@@ -6,10 +6,11 @@ export const faqRequest = () => ({
   type: FAQ_REQUEST,
 });
 
-export const getFaq = () => async (dispatch) => {
+export const getFaq = (page) => async (dispatch) => {
   try {
     dispatch(faqRequest());
-    const res = await axios.get(`http://localhost:5000/api/faq`);
+    const res = await axios.get(`http://localhost:5000/api/faq?page=${page}`);
+
     dispatch({
       type: GET_FAQ,
       payload: res.data,

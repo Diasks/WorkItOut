@@ -1,23 +1,41 @@
-import React, { Fragment } from "react";
+import React, { useState, Fragment } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getFaq, deleteFaq } from "../../_actions/faqAction";
 import { useEffect } from "react";
 import store from "../../store";
 
-import FaqForm from "../layout/FaqForm";
 import Alert from "../layout/Alert";
 import DeleteIcon from "@material-ui/icons/Delete";
-import Banner from "../layout/Banner";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
 
-const Faq = ({ faq, deleteFaq, admin, isAuthenticated, loading }) => {
-  useEffect(() => {
-    store.dispatch(getFaq());
-  }, []);
+import Banner from "../layout/Banner";
+import FaqForm from "../layout/FaqForm";
 
-  const questionsAndAnswers = faq.map((questionAndAnswer) => {
+const Faq = ({
+  deleteFaq,
+  admin,
+  isAuthenticated,
+  loading,
+  pager,
+  pageOfFaq,
+}) => {
+  const [page, setPagination] = useState(pager);
+
+  const handlePageChange = () => {
+    setPagination(!page);
+  };
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const page = parseInt(params.get("page"));
+
+    store.dispatch(getFaq(page));
+  }, [page]);
+
+  const questionsAndAnswers = pageOfFaq.map((questionAndAnswer) => {
     return (
       <Fragment key={questionAndAnswer._id}>
         <div className="btn-onleft">
@@ -59,6 +77,24 @@ const Faq = ({ faq, deleteFaq, admin, isAuthenticated, loading }) => {
           {admin === "true" && <FaqForm />}
           <Alert />
           <section className="faq-container">{questionsAndAnswers}</section>
+
+          <div className="pagination-wrapper">
+            {pager.pages && pager.pages.length && (
+              <ul className="pagination">
+                {pager.pages.map((page) => (
+                  <li key={page}>
+                    <Link
+                      onClick={handlePageChange}
+                      to={{ search: `?page=${page}` }}
+                      className="pagination-link"
+                    >
+                      {page}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </main>
       </LoadingOverlay>
     </Fragment>
@@ -71,10 +107,14 @@ Faq.propTypes = {
   isAuthenticated: PropTypes.bool,
   admin: PropTypes.string,
   loading: PropTypes.bool,
+  pager: PropTypes.object.isRequired,
+  pageOfFaq: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   faq: state.faq.faq,
+  pager: state.faq.pager,
+  pageOfFaq: state.faq.pageOfFaq,
   isAuthenticated: state.auth.isAuthenticated,
   admin: state.auth.admin,
   loading: state.faq.loading,

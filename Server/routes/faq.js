@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const paginate = require("jw-paginate");
 const verifyToken = require("../middleware/VerifyToken");
 const FaqSchedule = require("../models/faq");
 
@@ -9,7 +10,12 @@ const FaqSchedule = require("../models/faq");
 router.get("/", async (req, res) => {
   try {
     const faq = await FaqSchedule.find();
-    res.json(faq);
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = 5;
+    const pager = paginate(faq.length, page, pageSize);
+    const pageOfFaq = faq.slice(pager.startIndex, pager.endIndex + 1);
+
+    res.json({ faq, pager, pageOfFaq });
   } catch (err) {
     res.json(err);
   }

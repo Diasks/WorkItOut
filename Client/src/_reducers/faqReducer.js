@@ -10,6 +10,8 @@ const initalState = {
   faq: [],
   loading: true,
   error: null,
+  pager: {},
+  pageOfFaq: [],
 };
 
 export default function (state = initalState, action) {
@@ -18,7 +20,9 @@ export default function (state = initalState, action) {
   switch (type) {
     case GET_FAQ:
       return {
-        faq: payload,
+        faq: payload.faq,
+        pager: payload.pager,
+        pageOfFaq: payload.pageOfFaq,
         loading: false,
       };
 

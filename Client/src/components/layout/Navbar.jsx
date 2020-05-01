@@ -64,7 +64,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   );
 
   const navBar = (
-    <nav>
+    <nav className="nav">
       <div className="navbar-small-screen">
         <span className="logo logo-full"></span>
         {!loading && <Fragment>{menuMobile}</Fragment>}
