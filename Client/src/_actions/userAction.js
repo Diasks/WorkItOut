@@ -8,13 +8,13 @@ import {
 } from "./types";
 import setAuthToken from "../_utils/setAuthToken";
 
-export const getUsers = () => async dispatch => {
+export const getUsers = () => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
 
   try {
-    const res = await axios.get("http://localhost:5000/api/users");
+    const res = await axios.get("/api/users");
 
     dispatch({
       type: GET_USERS,
@@ -25,13 +25,13 @@ export const getUsers = () => async dispatch => {
   }
 };
 
-export const getUser = userId => async dispatch => {
+export const getUser = (userId) => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
 
   try {
-    const res = await axios.get(`http://localhost:5000/api/users/${userId}`);
+    const res = await axios.get(`/api/users/${userId}`);
 
     dispatch({
       type: GET_USER,
@@ -48,7 +48,7 @@ export const createUser = ({
   email,
   password,
   admin,
-}) => async dispatch => {
+}) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -64,11 +64,7 @@ export const createUser = ({
   });
 
   try {
-    const res = await axios.post(
-      "http://localhost:5000/api/users",
-      body,
-      config
-    );
+    const res = await axios.post("/api/users", body, config);
 
     dispatch({
       type: ADD_USER,
@@ -79,7 +75,7 @@ export const createUser = ({
   }
 };
 
-export const updateUser = user => async dispatch => {
+export const updateUser = (user) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -89,11 +85,7 @@ export const updateUser = user => async dispatch => {
   const body = JSON.stringify(user);
 
   try {
-    const res = await axios.patch(
-      `http://localhost:5000/api/users/${user.userId}`,
-      body,
-      config
-    );
+    const res = await axios.patch(`/api/users/${user.userId}`, body, config);
 
     dispatch({
       type: UPDATE_USER,
@@ -104,7 +96,7 @@ export const updateUser = user => async dispatch => {
   }
 };
 
-export const deleteUser = id => async dispatch => {
+export const deleteUser = (id) => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -116,13 +108,10 @@ export const deleteUser = id => async dispatch => {
   };
 
   try {
-    const res = await axios.delete(
-      `http://localhost:5000/api/users/${id}`,
-      config
-    );
+    const res = await axios.delete(`/api/users/${id}`, config);
     dispatch({
       type: REMOVE_USER,
-      payload: res
+      payload: res,
     });
   } catch (err) {
     console.error(err);
