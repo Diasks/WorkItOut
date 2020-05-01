@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const paginate = require("jw-paginate");
 const verifyToken = require("../middleware/VerifyToken");
-const FaqSchedule = require("../models/faq");
+const FaqSchedule = require("../models/Faq");
 
 // @route GET api/faq
 // @desc Get all faq-schedules
