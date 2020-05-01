@@ -20,7 +20,7 @@ const Home = ({ loading }) => {
         }}
       >
         <Banner />
-        <main className="main home">
+        <main className="main no-margin padding">
           <section className="page-container">
             <LoginForm />
           </section>
