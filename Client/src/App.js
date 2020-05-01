@@ -20,6 +20,7 @@ import CreateUser from "./components/pages/Admin/CreateUser";
 import Users from "./components/pages/Admin/Users";
 import UserProfile from "./components/pages/UserProfile";
 import ProgramTemplates from "./components/pages/Admin/ProgramTemplates";
+import CreateProgramTemplate from "./components/pages/Admin/CreateProgramTemplate";
 import NotFound from "./components/pages/NotFound";
 import Faq from "./components/pages/Faq";
 import Register from "./components/pages/Register";
@@ -50,6 +51,7 @@ const App = () => {
           <PrivateRoute path="/users/:id" exact component={UserItem} />
           <PrivateRoute path="/user/profile" exact component={UserProfile} />
           <PrivateRoute path="/programs" exact component={ProgramTemplates} />
+          <PrivateRoute path="/create-program" exact component={CreateProgramTemplate} />
           <Route path="/faq" exact component={Faq} />
           <PrivateRoute path="/settings" exact component={Settings} />
           <Route path="*" component={NotFound} />
