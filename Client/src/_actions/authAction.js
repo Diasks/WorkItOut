@@ -12,6 +12,7 @@ import {
   LOGOUT,
 } from "./types";
 import setAuthToken from "../_utils/setAuthToken";
+import { cleanUpUser } from "../_actions/userAction";
 
 export const authRequest = () => ({
   type: AUTH_REQUEST,
@@ -126,5 +127,6 @@ export const loginUser = (email, password) => async (dispatch) => {
 
 export const logout = () => (dispatch) => {
   dispatch({ type: LOGOUT });
+  dispatch(cleanUpUser());
   history.push("/");
 };
