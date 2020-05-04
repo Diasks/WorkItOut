@@ -5,10 +5,11 @@ import {
   REMOVE_USER,
   GET_USER,
   UPDATE_USER,
+  CLEAN_UP_USER,
 } from "./types";
 import setAuthToken from "../_utils/setAuthToken";
 
-export const getUsers = () => async dispatch => {
+export const getUsers = () => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -25,7 +26,7 @@ export const getUsers = () => async dispatch => {
   }
 };
 
-export const getUser = userId => async dispatch => {
+export const getUser = (userId) => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -48,7 +49,7 @@ export const createUser = ({
   email,
   password,
   admin,
-}) => async dispatch => {
+}) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -79,7 +80,7 @@ export const createUser = ({
   }
 };
 
-export const updateUser = user => async dispatch => {
+export const updateUser = (user) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -104,7 +105,7 @@ export const updateUser = user => async dispatch => {
   }
 };
 
-export const deleteUser = id => async dispatch => {
+export const deleteUser = (id) => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -122,9 +123,15 @@ export const deleteUser = id => async dispatch => {
     );
     dispatch({
       type: REMOVE_USER,
-      payload: res
+      payload: res,
     });
   } catch (err) {
     console.error(err);
   }
+};
+
+export const cleanUpUser = () => async (dispatch) => {
+  dispatch({
+    type: CLEAN_UP_USER,
+  });
 };
