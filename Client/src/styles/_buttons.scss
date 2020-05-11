@@ -15,6 +15,15 @@
     background-color: $sky;
   }
 
+  &.btn-mustard {
+    background-color: $mustard;
+
+    &:disabled {
+      background-color: $mustardLight;
+      pointer-events: none;
+    }
+  }
+
   &.btn-danger {
     background-color: $danger;
 

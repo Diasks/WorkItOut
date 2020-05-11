@@ -26,7 +26,6 @@ import Register from "./components/pages/Register";
 import Settings from "./components/pages/Settings";
 import UserItem from "./components/pages/Admin/UserItem";
 
-
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
@@ -48,7 +47,7 @@ const App = () => {
           <PrivateRoute path="/create-user" exact component={CreateUser} />
           <PrivateRoute path="/users" exact component={Users} />
           <PrivateRoute path="/users/:id" exact component={UserItem} />
-          <PrivateRoute path="/user/profile" exact component={UserProfile} />
+          <PrivateRoute path="/profile" exact component={UserProfile} />
           <PrivateRoute path="/programs" exact component={ProgramTemplates} />
           <Route path="/faq" exact component={Faq} />
           <PrivateRoute path="/settings" exact component={Settings} />

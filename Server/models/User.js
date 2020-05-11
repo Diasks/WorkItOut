@@ -27,7 +27,7 @@ const UserSchema = new Schema({
     minlength: 6,
   },
   profilePicture: {
-    type: String,
+    type: Object,
   },
   admin: {
     type: Boolean,

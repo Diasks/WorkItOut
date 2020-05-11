@@ -3,7 +3,31 @@ const router = express.Router();
 const verifyToken = require("../middleware/VerifyToken");
 const User = require("../models/User");
 const { check, validationResult } = require("express-validator");
+const fs = require("fs");
 const bcrypt = require("bcryptjs");
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+  filename: (req, file, cb) => {
+    cb(null, `${file.fieldname}_${+new Date()}.jpg`);
+  },
+});
+
+const upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    if (
+      file.mimetype == "image/png" ||
+      file.mimetype == "image/jpg" ||
+      file.mimetype == "image/jpeg"
+    ) {
+      cb(null, true);
+    } else {
+      cb(null, false);
+      return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
+    }
+  },
+});
 
 // @route GET api/users
 // @desc Get all users
@@ -90,7 +114,7 @@ router.delete("/:userId", verifyToken, async (req, res) => {
 // @route PATCH api/users/:userId
 // @desc Update specific user
 // @access Private
-router.patch("/:userId", async (req, res) => {
+router.patch("/:userId", upload.single("profilePicture"), async (req, res) => {
   const {
     firstname,
     lastname,
@@ -108,7 +132,20 @@ router.patch("/:userId", async (req, res) => {
   if (email) userFields.email = email;
   if (password) userFields.password = password;
   if (admin) userFields.admin = admin;
-  if (profilePicture) userFields.profilePicture = profilePicture;
+  if (req.file) {
+    const img = fs.readFileSync(req.file.path);
+    const encodeImg = img.toString("base64");
+
+    const finalImg = {
+      contentType: req.file.mimetype,
+      path: req.file.path,
+      image: new Buffer.from(encodeImg, "base64"),
+    };
+
+    userFields.profilePicture = finalImg;
+  } else if (profilePicture === "") {
+    userFields.profilePicture = "";
+  }
   if (userFitnessChallenge)
     userFields.userFitnessChallenge = userFitnessChallenge;
 
@@ -120,7 +157,6 @@ router.patch("/:userId", async (req, res) => {
     );
     return res.json(updatedUser);
   } catch (err) {
-    debugger;
     console.error(err.message);
     res.status(500).send("Server Error");
   }

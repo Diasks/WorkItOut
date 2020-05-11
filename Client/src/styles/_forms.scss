@@ -27,6 +27,10 @@
       width: 450px;
     }
   }
+
+  &.darken {
+    background-color: $darkgray;
+  }
 }
 
 .textarea {
