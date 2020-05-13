@@ -25,6 +25,7 @@ import Faq from "./components/pages/Faq";
 import Register from "./components/pages/Register";
 import Settings from "./components/pages/Settings";
 import UserItem from "./components/pages/Admin/UserItem";
+import UserHistory from "./components/layout/profile/UserHistory";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -48,6 +49,7 @@ const App = () => {
           <PrivateRoute path="/users" exact component={Users} />
           <PrivateRoute path="/users/:id" exact component={UserItem} />
           <PrivateRoute path="/profile" exact component={UserProfile} />
+          <PrivateRoute path="/profile/history" exact component={UserHistory} />
           <PrivateRoute path="/programs" exact component={ProgramTemplates} />
           <Route path="/faq" exact component={Faq} />
           <PrivateRoute path="/settings" exact component={Settings} />

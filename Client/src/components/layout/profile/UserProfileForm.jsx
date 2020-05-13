@@ -5,11 +5,11 @@ import {
   getUserProfile,
   updateUser,
   uploadImage,
-} from "../../_actions/userAction";
+} from "../../../_actions/userAction";
 import { useEffect } from "react";
-import store from "../../store";
+import store from "../../../store";
 import { useForm } from "react-hook-form";
-import Alert from "../layout/Alert";
+import Alert from "../../layout/Alert";
 
 const UserProfileForm = ({ selectedUser, updateUser, uploadImage }) => {
   let defaultValues = {

@@ -38,6 +38,12 @@ const UserSchema = new Schema({
     default: Date.now,
   },
   userFitnessChallenge: [],
+  activities: [
+    {
+      title: String,
+      time: Number,
+    },
+  ],
 });
 
 const User = mongoose.model("user", UserSchema);

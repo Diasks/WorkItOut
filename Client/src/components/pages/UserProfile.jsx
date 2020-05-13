@@ -2,7 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
-import UserProfileForm from "../layout/UserProfileForm";
+import UserProfileForm from "../layout/profile/UserProfileForm";
+import ActiveChallenges from "../layout/profile/ActiveChallenges";
+import HorizontalLine from "../layout/HorizontalLine";
+import { Link } from "react-router-dom";
 
 const UserProfile = ({ loading }) => {
   return (
@@ -18,7 +21,10 @@ const UserProfile = ({ loading }) => {
     >
       <main className="main column">
         <UserProfileForm />
-        <h3>Utmaningar igång</h3>
+        <ActiveChallenges />
+        <HorizontalLine />
+        <Link to="/profile/history">Historik</Link>
+        <Link to="/settings">Inställningar</Link>
       </main>
     </LoadingOverlay>
   );
