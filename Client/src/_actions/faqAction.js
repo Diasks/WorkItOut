@@ -9,7 +9,7 @@ export const faqRequest = () => ({
 export const getFaq = (page) => async (dispatch) => {
   try {
     dispatch(faqRequest());
-    const res = await axios.get(`/api/faq?page=${page}`);
+    const res = await axios.get(`http://localhost:5000/api/faq?page=${page}`);
 
     dispatch({
       type: GET_FAQ,
@@ -31,7 +31,7 @@ export const addFaq = (data) => async (dispatch) => {
       },
     };
 
-    const res = await axios.post(`/api/faq`, data, config);
+    const res = await axios.post(`http://localhost:5000/api/faq`, data, config);
 
     dispatch({
       type: ADD_FAQ,
@@ -48,7 +48,7 @@ export const addFaq = (data) => async (dispatch) => {
 export const deleteFaq = (id) => async (dispatch) => {
   try {
     dispatch(faqRequest());
-    const res = await axios.delete(`/api/faq/${id}`);
+    const res = await axios.delete(`http://localhost:5000/api/faq/${id}`);
     dispatch({
       type: DELETE_FAQ,
       payload: id,

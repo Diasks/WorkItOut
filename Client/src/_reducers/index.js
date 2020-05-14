@@ -6,5 +6,5 @@ import fitness from "./fitnessReducer";
 import faq from "./faqReducer";
 
 
-
+export default combineReducers({ alert, auth, user, fitness, faq });
 

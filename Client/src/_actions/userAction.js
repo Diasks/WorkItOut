@@ -14,7 +14,7 @@ export const getUsers = () => async (dispatch) => {
   }
 
   try {
-    const res = await axios.get("/api/users");
+    const res = await axios.get("http://localhost:5000/api/users");
 
     dispatch({
       type: GET_USERS,
@@ -31,7 +31,7 @@ export const getUser = (userId) => async (dispatch) => {
   }
 
   try {
-    const res = await axios.get(`/api/users/${userId}`);
+    const res = await axios.get(`http://localhost:5000/api/users/${userId}`);
 
     dispatch({
       type: GET_USER,
@@ -64,7 +64,7 @@ export const createUser = ({
   });
 
   try {
-    const res = await axios.post("/api/users", body, config);
+    const res = await axios.post("http://localhost:5000/api/users", body, config);
 
     dispatch({
       type: ADD_USER,
@@ -85,7 +85,7 @@ export const updateUser = (user) => async (dispatch) => {
   const body = JSON.stringify(user);
 
   try {
-    const res = await axios.patch(`/api/users/${user.userId}`, body, config);
+    const res = await axios.patch(`http://localhost:5000/api/users/${user.userId}`, body, config);
 
     dispatch({
       type: UPDATE_USER,
@@ -108,7 +108,7 @@ export const deleteUser = (id) => async (dispatch) => {
   };
 
   try {
-    const res = await axios.delete(`/api/users/${id}`, config);
+    const res = await axios.delete(`http://localhost:5000/api/users/${id}`, config);
     dispatch({
       type: REMOVE_USER,
       payload: res,

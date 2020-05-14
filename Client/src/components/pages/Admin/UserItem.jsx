@@ -6,8 +6,11 @@ import store from "../../../store";
 import { getUser } from "../../../_actions/userAction";
 import { deleteUser } from "../../../_actions/userAction";
 import { updateUser } from "../../../_actions/userAction";
-import Spinner from "../../layout/Spinner";
 import { useForm } from "react-hook-form";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import Collapse from "@material-ui/core/Collapse";
+import LoadingOverlay from "react-loading-overlay";
+import PulseLoader from "react-spinners/PulseLoader";
 
 export const UserItem = props => {
   let user = props.user;
@@ -16,6 +19,10 @@ export const UserItem = props => {
   useEffect(() => {
     store.dispatch(getUser(userId));
   }, []);
+
+  const [expanded, setExpanded] = useState(false);
+
+  const handleExpandClick = e => setExpanded(!expanded);
 
   const { handleSubmit } = useForm();
 
@@ -45,11 +52,31 @@ export const UserItem = props => {
       <div className="login-wrapper">
         <section>
           {user == null ? (
-            <Spinner />
+            <LoadingOverlay
+              active={props.loading}
+              spinner={<PulseLoader color={"#f5af61"} />}
+              styles={{
+                overlay: base => ({
+                  ...base,
+                  background: "#efeeee",
+                }),
+              }}
+            />
           ) : (
             <div>
               <h3>
                 {user.firstname} {user.lastname}
+                <button className="btn btn-toggle" onClick={handleExpandClick}>
+                  <MoreVertIcon className="icon icon-moreverticon" />
+                </button>
+                <Collapse in={expanded}>
+                  <button
+                    className="btn btn-sky"
+                    onClick={() => store.dispatch(deleteUser(user._id))}
+                  >
+                    Radera
+                  </button>
+                </Collapse>
               </h3>
 
               <form
@@ -105,13 +132,6 @@ export const UserItem = props => {
                   Spara
                 </button>
               </form>
-
-              <button
-                className="btn btn-sky"
-                onClick={() => store.dispatch(deleteUser(user._id))}
-              >
-                Radera
-              </button>
             </div>
           )}
         </section>
@@ -129,6 +149,7 @@ UserItem.propTypes = {
 const mapStateToProps = state => ({
   user: state.user.selectedUser,
   successful: state.user.successful,
+  loading: state.user.loading,
 });
 
 export default connect(mapStateToProps, { getUser, deleteUser, updateUser })(
