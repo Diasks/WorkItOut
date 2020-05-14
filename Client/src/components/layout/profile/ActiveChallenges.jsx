@@ -2,7 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 
 const ActiveChallenges = ({ selectedUser }) => {
-  const noChallengesActive = <div>Inga utmaningar igång</div>;
+  const noChallengesActive = (
+    <div className="label-nochallenge">Inga utmaningar igång</div>
+  );
 
   const challengesActive = (
     <div>

@@ -24,8 +24,8 @@ const UserHistory = ({ selectedUser, loading, deleteActivity }) => {
     activities = selectedUser.activities.map((activity) => {
       return (
         <li className="list-item" key={activity._id}>
-          <button className="btn btn-danger small" type="button">
-            <DeleteIcon
+          <button className="btn btn-danger smallest" type="button">
+            <span
               className="icon icon-delete"
               onClick={(e) =>
                 deleteActivity({
@@ -33,7 +33,7 @@ const UserHistory = ({ selectedUser, loading, deleteActivity }) => {
                   userId: selectedUser._id,
                 })
               }
-            />
+            ></span>
           </button>
           <Moment className="date" format="YYYY-MM-DD">
             {activity.date}

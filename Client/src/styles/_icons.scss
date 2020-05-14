@@ -23,6 +23,20 @@
     background-repeat: no-repeat;
     background-size: 100%;
   }
+
+  &.icon-delete {
+    background: url(../styles/icons/trash.svg);
+    padding: 7px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
+}
+
+.icon-add {
+  padding-right: 5px;
+  position: relative;
+  top: 5px;
+  left: 5px;
 }
 
 .logo-wrapper {

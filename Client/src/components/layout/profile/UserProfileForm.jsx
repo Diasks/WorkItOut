@@ -49,13 +49,7 @@ const UserProfileForm = ({ selectedUser, updateUser, uploadImage }) => {
   };
   return (
     <div>
-      <div
-        style={{
-          border: "1px solid black",
-          height: "100px",
-          width: "100px",
-        }}
-      >
+      <div>
         <img
           src={`data:${
             selectedUser.profilePicture !== undefined &&
@@ -64,10 +58,7 @@ const UserProfileForm = ({ selectedUser, updateUser, uploadImage }) => {
             selectedUser.profilePicture !== undefined &&
             selectedUser.profilePicture.image
           }`}
-          style={{
-            height: "100px",
-            width: "100px",
-          }}
+          className="avatar"
           alt=""
         />
       </div>
@@ -75,11 +66,16 @@ const UserProfileForm = ({ selectedUser, updateUser, uploadImage }) => {
       <input
         type="file"
         name="file"
+        id="btn-avatar"
         onChange={(e) => onFileChange(e)}
         defaultValue={defaultValues.image}
       />
 
-      <button onClick={uploadProfilePicture} className="btn btn-mustard">
+      <label htmlFor="btn-avatar" className="btn btn-plum wide margin">
+        Välj fil
+      </label>
+
+      <button onClick={uploadProfilePicture} className="btn btn-plum margin">
         Ladda upp
       </button>
 
