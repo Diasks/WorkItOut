@@ -80,10 +80,31 @@ body {
 
 .heading {
   margin-top: 40px;
+
+  &.rose {
+    color: $rose;
+  }
+
+  &.mustard {
+    color: $mustard;
+  }
 }
 
 .horizontal-line {
   border: 1px solid $mediumgray;
   width: 350px;
   margin: 50px 0;
+}
+
+.link-menu {
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+  text-decoration: none;
+
+  span {
+    color: $lightBlack;
+    font-weight: bold;
+    margin: 8px 0;
+  }
 }

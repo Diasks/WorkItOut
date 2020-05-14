@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import store from "../../../store";
 import { useForm } from "react-hook-form";
 import Alert from "../../layout/Alert";
+import Moment from "react-moment";
 
 const UserProfileForm = ({ selectedUser, updateUser, uploadImage }) => {
   let defaultValues = {
@@ -113,11 +114,9 @@ const UserProfileForm = ({ selectedUser, updateUser, uploadImage }) => {
           onChange={(e) => onChange(e)}
         />
 
-        <input
-          className="input wide darken"
-          placeholder={selectedUser.date}
-          disabled
-        />
+        <Moment className="input input-date wide darken" format="YYYY-MM-DD">
+          {selectedUser.date}
+        </Moment>
 
         <button
           className="btn btn-mustard"

@@ -23,8 +23,14 @@ const UserProfile = ({ loading }) => {
         <UserProfileForm />
         <ActiveChallenges />
         <HorizontalLine />
-        <Link to="/profile/history">Historik</Link>
-        <Link to="/settings">Inställningar</Link>
+        <Link className="link-menu" to="/profile/history">
+          <span>Historik</span>
+          <span className="icon icon-arrow-right"></span>
+        </Link>
+        <Link className="link-menu" to="/settings">
+          <span>Inställningar</span>
+          <span className="icon icon-arrow-right"></span>
+        </Link>
       </main>
     </LoadingOverlay>
   );

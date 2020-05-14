@@ -189,3 +189,50 @@ export const deleteUser = (id) => async (dispatch) => {
     console.error(err);
   }
 };
+
+export const deleteActivity = (user) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  try {
+    const res = await axios.delete(
+      `http://localhost:5000/api/users/activities/${user.userId}/${user.activityId}`,
+      config
+    );
+
+    dispatch({
+      type: UPDATE_USER,
+      payload: res,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const editActivity = (user) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const body = JSON.stringify(user);
+
+  try {
+    const res = await axios.patch(
+      `http://localhost:5000/api/users/activities/${user.userId}`,
+      config,
+      body
+    );
+
+    dispatch({
+      type: UPDATE_USER,
+      payload: res,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};

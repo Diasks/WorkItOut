@@ -1,0 +1,40 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+
+  @media (min-width: $small) {
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+.list-item {
+  margin: 20px 50px;
+  text-align: left;
+  list-style: none;
+
+  @media (min-width: $small) {
+    margin-top: 30px;
+    width: 150px;
+    text-align: center;
+  }
+}
+
+.date {
+  color: $mustard;
+  font-weight: bold;
+}
+
+.title,
+.timeInMinutes {
+  margin: 10px 0;
+  color: $lightBlack;
+  font-size: 14px;
+}
+
+.title {
+  margin-top: 15px;
+}

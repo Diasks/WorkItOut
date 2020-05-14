@@ -16,6 +16,13 @@
     width: 30px;
     padding: 2px;
   }
+
+  &.icon-arrow-right {
+    background: url(../styles/icons/arrow-right.svg);
+    padding: 12px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
 }
 
 .logo-wrapper {

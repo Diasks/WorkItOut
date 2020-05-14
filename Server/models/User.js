@@ -40,6 +40,7 @@ const UserSchema = new Schema({
   userFitnessChallenge: [],
   activities: [
     {
+      date: Date,
       title: String,
       time: Number,
     },

@@ -15,7 +15,7 @@ const ActiveChallenges = ({ selectedUser }) => {
 
   return (
     <div className="block">
-      <h3>Utmaningar igång</h3>
+      <h3 className="heading mustard">Utmaningar igång</h3>
       {selectedUser.userFitnessChallenges
         ? challengesActive
         : noChallengesActive}

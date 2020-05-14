@@ -115,14 +115,17 @@ router.delete("/:userId", verifyToken, async (req, res) => {
 // @desc Post activities on specific user
 // @access Private
 router.post("/activities/:userId", verifyToken, async (req, res) => {
+  const { date, title, time } = req.body;
+
   try {
     const updatedActivity = await User.findByIdAndUpdate(
       { _id: req.params.userId },
       {
         $push: {
           activities: {
-            title: req.body.activities.title,
-            time: req.body.activities.time,
+            date,
+            title,
+            time,
           },
         },
       },
@@ -135,27 +138,31 @@ router.post("/activities/:userId", verifyToken, async (req, res) => {
   }
 });
 
-// @route DELETE api/users/activities/:userId
+// @route DELETE api/users/activities/:userId/:activityId
 // @desc Delete activity on specific user
 // @access Private
-router.delete("/activities/:userId", verifyToken, async (req, res) => {
-  let activityId = req.body.activityId;
+router.delete(
+  "/activities/:userId/:activityId",
+  verifyToken,
+  async (req, res) => {
+    debugger;
 
-  try {
-    const deleteActivity = await User.findByIdAndUpdate(
-      { _id: req.params.userId },
-      {
-        $pull: {
-          activities: { _id: activityId },
-        },
-      }
-    );
-    return res.json(deleteActivity);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
+    try {
+      const deleteActivity = await User.findByIdAndUpdate(
+        { _id: req.params.userId },
+        {
+          $pull: {
+            activities: { _id: req.params.activityId },
+          },
+        }
+      );
+      return res.json(deleteActivity);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
   }
-});
+);
 
 // @route PATCH api/users/:userId
 // @desc Update specific user

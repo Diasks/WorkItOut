@@ -31,6 +31,11 @@
   &.darken {
     background-color: $darkgray;
   }
+
+  &.input-date {
+    text-align: left;
+    color: #797575;
+  }
 }
 
 .textarea {
