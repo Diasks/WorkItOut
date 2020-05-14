@@ -14,6 +14,7 @@ import {
 import setAuthToken from "../_utils/setAuthToken";
 import { cleanUpUser } from "../_actions/userAction";
 
+
 export const authRequest = () => ({
   type: AUTH_REQUEST,
 });
@@ -63,11 +64,13 @@ export const registerUser = ({
   });
 
   try {
+
     const res = await axios.post(
       "http://localhost:5000/api/auth/register",
       body,
       config
     );
+
 
     dispatch({
       type: REGISTER_SUCCESS,
@@ -100,11 +103,13 @@ export const loginUser = (email, password) => async (dispatch) => {
   const body = JSON.stringify({ email, password });
 
   try {
+
     const res = await axios.post(
       "http://localhost:5000/api/auth/login",
       body,
       config
     );
+
 
     dispatch({
       type: LOGIN_SUCCESS,

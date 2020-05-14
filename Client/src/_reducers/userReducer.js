@@ -12,6 +12,7 @@ const initalState = {
   users: [],
   selectedUser: null,
   successful: false,
+  loading: true
 };
 
 export default function (state = initalState, action) {
@@ -21,11 +22,13 @@ export default function (state = initalState, action) {
     case GET_USERS:
       return {
         users: payload,
+        loading: false,
       };
 
     case GET_USER:
       return {
         selectedUser: payload,
+        loading: false,
       };
 
     case ADD_USER:

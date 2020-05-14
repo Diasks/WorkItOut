@@ -90,7 +90,7 @@ router.delete("/:userId", verifyToken, async (req, res) => {
 // @route PATCH api/users/:userId
 // @desc Update specific user
 // @access Private
-router.patch("/:userId", async (req, res) => {
+router.patch("/:userId", verifyToken, async (req, res) => {
   const {
     firstname,
     lastname,

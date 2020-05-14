@@ -32,15 +32,42 @@ router.get("/:fitnessId", verifyToken, async (req, res) => {
 // @access Private
 router.post("/", verifyToken, async (req, res) => {
   const fitness = new FitnessSchedule({
-    title: req.body.title,
-    bodyPartName: req.body.bodyPartName,
-    exerciseInformation: req.body.exerciseInformation,
+    programTitle: req.body.fitness.programTitle,
+    description: req.body.fitness.description,
+    length: req.body.fitness.length,
+    title: req.body.fitness.title,
+    exerciseInformation: req.body.exerciseObject,
   });
   try {
     const savedFitness = await fitness.save();
     res.json(savedFitness);
   } catch (err) {
     res.json(err);
+  }
+});
+
+// @route DELETE api/fitness/:fitnessId/:exerciseId
+// @desc Delete specific exercise-object in specific fitness-schedule
+// @access Private
+router.delete("/:fitnessId/:exerciseId", verifyToken, async (req, res) => {
+  let programId = req.params.fitnessId;
+  let exerciseId = req.params.exerciseId;
+
+  try {
+    const deleteFitness = await FitnessSchedule.findByIdAndUpdate(
+      { _id: programId },
+      {
+        $pull: {
+          exerciseInformation: { _id: exerciseId },
+        },
+      },
+      { new: true }
+    );
+
+    return res.json(deleteFitness);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
   }
 });
 
@@ -52,6 +79,7 @@ router.delete("/:fitnessId", verifyToken, async (req, res) => {
     const removedFitness = await FitnessSchedule.deleteOne({
       _id: req.params.fitnessId,
     });
+
     res.json(removedFitness);
   } catch (err) {
     res.json(err);
@@ -62,14 +90,27 @@ router.delete("/:fitnessId", verifyToken, async (req, res) => {
 // @desc Update specific fitness-schedule
 // @access Private
 router.patch("/:fitnessId", verifyToken, async (req, res) => {
+  let programId = req.body.programId;
+  let exerciseId = req.body.exerciseId;
+
   try {
-    const updatedFitness = await FitnessSchedule.updateOne(
-      { _id: req.params.fitnessId },
-      { $set: { title: req.body.title } }
+    const updatedFitness = await FitnessSchedule.findOneAndUpdate(
+      { _id: programId, "exerciseInformation._id": exerciseId },
+      {
+        $set: {
+          "exerciseInformation.$.exerciseTitle": req.body.exerciseTitle,
+          "exerciseInformation.$.reps": req.body.reps,
+          "exerciseInformation.$.sets": req.body.sets,
+          "exerciseInformation.$.url": req.body.url,
+        },
+      },
+      { new: true }
     );
-    res.json(updatedFitness);
+
+    return res.json(updatedFitness);
   } catch (err) {
-    res.json(err);
+    console.error(err.message);
+    res.status(500).send("Server Error");
   }
 });
 
