@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 const Dashboard = (props) => {
   return (
@@ -18,11 +19,11 @@ const Dashboard = (props) => {
         </p>
         <div>
           {" "}
-          <Link to="/programs">Skapa nytt program ></Link>
+          <Link to="/create-program">Skapa nytt program  <ArrowForwardIosIcon className="icon icon-arrowforwardiosicon" /> </Link>
         </div>
         <div>
           {" "}
-          <Link to="/settings">Inställningar ></Link>
+          <Link to="/settings">Inställningar  <ArrowForwardIosIcon className="icon icon-arrowforwardiosicon" /> </Link>
         </div>
       </section>
     </main>

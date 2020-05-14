@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const exerciseInformationSchema = new Schema({
-  title: {
+  exerciseTitle: {
     type: String,
     required: true,
     trim: true,
@@ -12,7 +12,7 @@ const exerciseInformationSchema = new Schema({
     required: true,
   },
   reps: {
-    type: String,
+    type: Number,
     required: true,
     trim: true,
   },
@@ -23,15 +23,25 @@ const exerciseInformationSchema = new Schema({
 });
 
 const FitnessSchema = new Schema({
-  title: {
+  programTitle: {
     type: String,
     required: true,
     trim: true,
   },
-  bodyPartName: {
+  description: {
     type: String,
     required: true,
     trim: true,
+  },
+  length: {
+    type: Number,
+    required: true,
+    trim: true
+  },
+  title: {
+    type: String,
+    required: true,
+    trim: true
   },
   exerciseInformation: [exerciseInformationSchema],
 });

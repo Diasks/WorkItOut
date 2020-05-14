@@ -6,6 +6,7 @@ import {
   REMOVE_USER,
   USER_REQUEST,
   USER_FAIL,
+  CLEAN_UP_USER,
 } from "../_actions/types";
 
 const initalState = {
@@ -67,6 +68,14 @@ export default function (state = initalState, action) {
         ...state,
         loading: true,
         error: payload,
+      };
+      
+     case CLEAN_UP_USER:
+      return {
+        ...state,
+        users: [],
+        selectedUser: null,
+        successful: false,
       };
 
     default:
