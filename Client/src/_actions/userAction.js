@@ -5,6 +5,7 @@ import {
   REMOVE_USER,
   GET_USER,
   UPDATE_USER,
+  CLEAN_UP_USER,
 } from "./types";
 import setAuthToken from "../_utils/setAuthToken";
 
@@ -117,3 +118,14 @@ export const deleteUser = (id) => async (dispatch) => {
     console.error(err);
   }
 };
+
+export const cleanUpUser = () => async (dispatch) => {
+  dispatch({
+    type: CLEAN_UP_USER,
+  });
+};
+
+
+  
+
+  

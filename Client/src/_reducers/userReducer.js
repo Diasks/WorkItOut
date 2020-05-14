@@ -4,6 +4,7 @@ import {
   ADD_USER,
   UPDATE_USER,
   REMOVE_USER,
+  CLEAN_UP_USER,
 } from "../_actions/types";
 
 const initalState = {
@@ -48,6 +49,14 @@ export default function (state = initalState, action) {
         ...state,
         selectedUser: null,
         successful: true,
+      };
+
+    case CLEAN_UP_USER:
+      return {
+        ...state,
+        users: [],
+        selectedUser: null,
+        successful: false,
       };
 
     default:
