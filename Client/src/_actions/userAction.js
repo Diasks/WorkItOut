@@ -7,6 +7,7 @@ import {
   UPDATE_USER,
   USER_REQUEST,
   USER_FAIL,
+  CLEAN_UP_USER,
 } from "./types";
 import { setAlert } from "./alertAction";
 import setAuthToken from "../_utils/setAuthToken";
@@ -235,4 +236,10 @@ export const editActivity = (user) => async (dispatch) => {
   } catch (err) {
     console.error(err);
   }
+};
+
+export const cleanUpUser = () => async (dispatch) => {
+  dispatch({
+    type: CLEAN_UP_USER,
+  });
 };
