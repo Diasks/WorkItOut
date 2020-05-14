@@ -26,10 +26,9 @@ import Faq from "./components/pages/Faq";
 import Register from "./components/pages/Register";
 import Settings from "./components/pages/Settings";
 import UserItem from "./components/pages/Admin/UserItem";
+import UserHistory from "./components/layout/profile/UserHistory";
 import ProgramItem from "./components/pages/Admin/ProgramItem";
 import ProgramDayDisplay from "./components/pages/Admin/ProgramDayDisplay";
-
-
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -52,7 +51,8 @@ const App = () => {
           <PrivateRoute path="/create-user" exact component={CreateUser} />
           <PrivateRoute path="/users" exact component={Users} />
           <PrivateRoute path="/users/:id" exact component={UserItem} />
-          <PrivateRoute path="/user/profile" exact component={UserProfile} />
+          <PrivateRoute path="/profile" exact component={UserProfile} />
+          <PrivateRoute path="/profile/history" exact component={UserHistory} />
           <PrivateRoute path="/programs" exact component={ProgramTemplates} />
           <PrivateRoute path="/programs/program/:id" exact component={ProgramItem} />
           <PrivateRoute path="/programs/:id" exact component={ProgramDayDisplay} />

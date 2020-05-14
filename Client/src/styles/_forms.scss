@@ -27,9 +27,24 @@
       width: 450px;
     }
   }
+
+  &.darken {
+    background-color: $darkgray;
+  }
+
+  &.input-date {
+    text-align: left;
+    color: #797575;
+  }
 }
 
 .textarea {
   resize: vertical;
   border-radius: 20px;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
 }
