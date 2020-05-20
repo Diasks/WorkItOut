@@ -191,16 +191,19 @@ export const deleteUser = (id) => async (dispatch) => {
   }
 };
 
-export const deleteActivity = (user) => async (dispatch) => {
+export const addActivity = (user) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
 
+  const body = JSON.stringify(user);
+
   try {
-    const res = await axios.delete(
-      `http://localhost:5000/api/users/activities/${user.userId}/${user.activityId}`,
+    const res = await axios.post(
+      `http://localhost:5000/api/users/activities/${user.userId}`,
+      body,
       config
     );
 
@@ -213,20 +216,17 @@ export const deleteActivity = (user) => async (dispatch) => {
   }
 };
 
-export const editActivity = (user) => async (dispatch) => {
+export const deleteActivity = (user) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
 
-  const body = JSON.stringify(user);
-
   try {
-    const res = await axios.patch(
-      `http://localhost:5000/api/users/activities/${user.userId}`,
-      config,
-      body
+    const res = await axios.delete(
+      `http://localhost:5000/api/users/activities/${user.userId}/${user.activityId}`,
+      config
     );
 
     dispatch({

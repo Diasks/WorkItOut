@@ -30,6 +30,15 @@
     background-repeat: no-repeat;
     background-size: 100%;
   }
+
+  &.icon-running {
+    background: url(../styles/icons/running.svg);
+    padding: 7px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    height: 20px;
+    width: 20px;
+  }
 }
 
 .icon-add {
@@ -37,6 +46,12 @@
   position: relative;
   top: 5px;
   left: 5px;
+}
+
+.icon-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
 }
 
 .logo-wrapper {
