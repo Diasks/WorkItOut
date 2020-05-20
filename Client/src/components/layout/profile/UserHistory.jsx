@@ -6,7 +6,6 @@ import { useEffect } from "react";
 import store from "../../../store";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
-import DeleteIcon from "@material-ui/icons/Delete";
 import Moment from "react-moment";
 
 const UserHistory = ({ selectedUser, loading, deleteActivity }) => {

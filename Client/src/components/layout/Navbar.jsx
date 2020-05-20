@@ -4,10 +4,17 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../_actions/authAction";
 
-const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
+const Navbar = ({ auth: { isAuthenticated, loading, admin }, logout }) => {
   const menu = (
     <div className="menu-wrapper">
       <ul className="menu-list">
+        <li className="menu-list-item">
+          {admin === "true" ? (
+            <Link to="/dashboard">Överblick</Link>
+          ) : (
+            <Link to="/overview">Överblick</Link>
+          )}
+        </li>
         <li className="menu-list-item">
           <Link to="/profile">Profil</Link>
         </li>

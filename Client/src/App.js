@@ -54,9 +54,21 @@ const App = () => {
           <PrivateRoute path="/profile" exact component={UserProfile} />
           <PrivateRoute path="/profile/history" exact component={UserHistory} />
           <PrivateRoute path="/programs" exact component={ProgramTemplates} />
-          <PrivateRoute path="/programs/program/:id" exact component={ProgramItem} />
-          <PrivateRoute path="/programs/:id" exact component={ProgramDayDisplay} />
-          <PrivateRoute path="/create-program" exact component={CreateProgramTemplate} />
+          <PrivateRoute
+            path="/programs/program/:id"
+            exact
+            component={ProgramItem}
+          />
+          <PrivateRoute
+            path="/programs/:id"
+            exact
+            component={ProgramDayDisplay}
+          />
+          <PrivateRoute
+            path="/create-program"
+            exact
+            component={CreateProgramTemplate}
+          />
           <Route path="/faq" exact component={Faq} />
           <PrivateRoute path="/settings" exact component={Settings} />
           <Route path="*" component={NotFound} />
