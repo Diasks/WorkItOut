@@ -45,12 +45,19 @@ const Overview = ({ auth: { admin }, selectedUser, loading, addActivity }) => {
   );
 
   const noChallengesActive = (
-    <div>
+    <div className="block">
       <div>
-        <h4>Vill du anta en utmaning?</h4>
-        <p>Lorem ipsum dolor sit amet consectetur.</p>
+        <h4 className="heading darkgray">Vill du anta en utmaning?</h4>
+        <p className="description-text">
+          Titta bland våra utmaningar under länken{" "}
+          <span className="bold">anta utmaning</span> så är det bara att sätta
+          igång.
+        </p>
       </div>
-      <div>Inga utmaningar igång</div>
+      <div className="faded-text">Inga utmaningar igång</div>
+      <div className="icon-wrap">
+        <span className="icon icon-running"></span>
+      </div>
     </div>
   );
 
@@ -65,13 +72,22 @@ const Overview = ({ auth: { admin }, selectedUser, loading, addActivity }) => {
         }),
       }}
     >
-      <main className="main column">
-        <section>
-          <h2>Hejsan, {selectedUser.firstname}!</h2>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+      <main className="main column less-margin">
+        <section className="curved-banner">
+          <div className="banner-text">
+            <h2 className="heading rose">Hejsan, {selectedUser.firstname}!</h2>
+            <p className="label cream">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.{" "}
+            </p>
+          </div>
+
+          <div className="curved-banner-bottom"></div>
         </section>
         <section>
-          <h4>Har du varit aktiv idag?</h4>
+          <h4 className="heading darkgray">Har du varit aktiv idag?</h4>
+          <p className="description-text">
+            Registrera vad du gjort, så sparas det i din historik.
+          </p>
 
           <form
             className="form-container"
