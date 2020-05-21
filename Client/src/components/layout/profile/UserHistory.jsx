@@ -13,10 +13,6 @@ const UserHistory = ({ selectedUser, loading, deleteActivity }) => {
     store.dispatch(getUserProfile());
   }, []);
 
-  const handleEditActivity = (e) => {
-    console.log(e);
-  };
-
   let activities;
 
   if (selectedUser.activities !== undefined) {
