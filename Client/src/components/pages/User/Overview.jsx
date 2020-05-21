@@ -62,6 +62,62 @@ const Overview = ({ auth: { admin }, selectedUser, loading, addActivity }) => {
   );
 
   const displayOverview = (
+    <main className="main column less-margin">
+      <section className="curved-banner">
+        <div className="banner-text">
+          <h2 className="heading rose">Hejsan, {selectedUser.firstname}!</h2>
+          <p className="label cream">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.{" "}
+          </p>
+        </div>
+
+        <div className="curved-banner-bottom"></div>
+      </section>
+      <section>
+        <h4 className="heading darkgray">Har du varit aktiv idag?</h4>
+        <p className="description-text">
+          Registrera vad du gjort, så sparas det i din historik.
+        </p>
+
+        <form
+          className="form-container"
+          onSubmit={handleSubmit((e) => onSubmit(e))}
+        >
+          <input
+            className="input wide"
+            type="text"
+            name="title"
+            placeholder="Träningspass"
+            defaultValue={defaultValues.title}
+            onChange={(e) => onChange(e)}
+          />
+
+          <input
+            className="input wide"
+            type="text"
+            name="time"
+            placeholder="Minuter"
+            defaultValue={defaultValues.time}
+            onChange={(e) => onChange(e)}
+          />
+
+          <button className="btn btn-mustard" type="submit">
+            Spara
+          </button>
+        </form>
+      </section>
+      <section>
+        {selectedUser.userFitnessChallenge === undefined ||
+        selectedUser.userFitnessChallenge === null
+          ? activeChallengeLog
+          : noChallengesActive}
+      </section>
+    </main>
+  );
+
+  const redirectUser = <Redirect to="/dashboard" />;
+
+  return (
     <LoadingOverlay
       active={loading}
       spinner={<PulseLoader color={"#f5af61"} />}
@@ -72,63 +128,8 @@ const Overview = ({ auth: { admin }, selectedUser, loading, addActivity }) => {
         }),
       }}
     >
-      <main className="main column less-margin">
-        <section className="curved-banner">
-          <div className="banner-text">
-            <h2 className="heading rose">Hejsan, {selectedUser.firstname}!</h2>
-            <p className="label cream">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.{" "}
-            </p>
-          </div>
-
-          <div className="curved-banner-bottom"></div>
-        </section>
-        <section>
-          <h4 className="heading darkgray">Har du varit aktiv idag?</h4>
-          <p className="description-text">
-            Registrera vad du gjort, så sparas det i din historik.
-          </p>
-
-          <form
-            className="form-container"
-            onSubmit={handleSubmit((e) => onSubmit(e))}
-          >
-            <input
-              className="input wide"
-              type="text"
-              name="title"
-              placeholder="Träningspass"
-              defaultValue={defaultValues.title}
-              onChange={(e) => onChange(e)}
-            />
-
-            <input
-              className="input wide"
-              type="text"
-              name="time"
-              placeholder="Minuter"
-              defaultValue={defaultValues.time}
-              onChange={(e) => onChange(e)}
-            />
-
-            <button className="btn btn-mustard" type="submit">
-              Spara
-            </button>
-          </form>
-        </section>
-        <section>
-          {selectedUser.userFitnessChallenge === undefined ||
-          selectedUser.userFitnessChallenge === null
-            ? activeChallengeLog
-            : noChallengesActive}
-        </section>
-      </main>
+      {admin === "false" || admin === false ? displayOverview : redirectUser}
     </LoadingOverlay>
-  );
-  return !admin || admin === "false" ? (
-    displayOverview
-  ) : (
-    <Redirect to="/dashboard" />
   );
 };
 

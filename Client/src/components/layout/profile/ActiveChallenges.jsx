@@ -10,7 +10,7 @@ const ActiveChallenges = ({ selectedUser }) => {
     <div>
       {selectedUser.userFitnessChallenges &&
         selectedUser.userFitnessChallenges.map((key, value) => {
-          console.log(key);
+          return <div>{key}</div>;
         })}
     </div>
   );

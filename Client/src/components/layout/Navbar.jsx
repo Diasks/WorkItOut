@@ -5,38 +5,61 @@ import PropTypes from "prop-types";
 import { logout } from "../../_actions/authAction";
 
 const Navbar = ({ auth: { isAuthenticated, loading, admin }, logout }) => {
+  const userLinks = (
+    <ul className="menu-list">
+      <li className="menu-list-item">
+        <Link to="/overview">Överblick</Link>
+      </li>
+      <li className="menu-list-item">
+        <Link to="/profile">Profil</Link>
+      </li>
+      <li className="menu-list-item">
+        <Link to="/challenges">Anta utmaning</Link>
+      </li>
+      <li className="menu-list-item">
+        <Link to="/faq?page=1">FAQ</Link>
+      </li>
+      <li className="menu-list-item">
+        <Link to="/settings">Inställningar</Link>
+      </li>
+      <li className="menu-list-item">
+        <button onClick={logout}>Logga ut</button>
+      </li>
+    </ul>
+  );
+
+  const adminLinks = (
+    <ul className="menu-list">
+      <li className="menu-list-item">
+        <Link to="/dashboard">Överblick</Link>
+      </li>
+      <li className="menu-list-item">
+        <Link to="/profile">Profil</Link>
+      </li>
+      <li className="menu-list-item">
+        <Link to="/create-user">Skapa ny användare</Link>
+      </li>
+      <li className="menu-list-item">
+        <Link to="/users">Användarlista</Link>
+      </li>
+      <li className="menu-list-item">
+        <Link to="/programs">Program</Link>
+      </li>
+      <li className="menu-list-item">
+        <Link to="/faq?page=1">FAQ</Link>
+      </li>
+      <li className="menu-list-item">
+        <Link to="/settings">Inställningar</Link>
+      </li>
+      <li className="menu-list-item">
+        <button onClick={logout}>Logga ut</button>
+      </li>
+    </ul>
+  );
+
   const menu = (
     <div className="menu-wrapper">
-      <ul className="menu-list">
-        <li className="menu-list-item">
-          {admin === "true" ? (
-            <Link to="/dashboard">Överblick</Link>
-          ) : (
-            <Link to="/overview">Överblick</Link>
-          )}
-        </li>
-        <li className="menu-list-item">
-          <Link to="/profile">Profil</Link>
-        </li>
-        <li className="menu-list-item">
-          <Link to="/create-user">Skapa ny användare</Link>
-        </li>
-        <li className="menu-list-item">
-          <Link to="/users">Användarlista</Link>
-        </li>
-        <li className="menu-list-item">
-          <Link to="/programs">Program</Link>
-        </li>
-        <li className="menu-list-item">
-          <Link to="/faq?page=1">FAQ</Link>
-        </li>
-        <li className="menu-list-item">
-          <Link to="/settings">Inställningar</Link>
-        </li>
-        <li className="menu-list-item">
-          <button onClick={logout}>Logga ut</button>
-        </li>
-      </ul>
+      {admin === "true" || admin === true ? adminLinks : userLinks}
     </div>
   );
 
@@ -50,27 +73,7 @@ const Navbar = ({ auth: { isAuthenticated, loading, admin }, logout }) => {
 
       <div className="menu">
         <ul className="menu-list">
-          <li className="menu-list-item">
-            <Link to="/profile">Profil</Link>
-          </li>
-          <li className="menu-list-item">
-            <Link to="/create-user">Skapa ny användare</Link>
-          </li>
-          <li className="menu-list-item">
-            <Link to="/users">Användarlista</Link>
-          </li>
-          <li className="menu-list-item">
-            <Link to="/programs">Program</Link>
-          </li>
-          <li className="menu-list-item">
-            <Link to="/faq?page=1">FAQ</Link>
-          </li>
-          <li className="menu-list-item">
-            <Link to="/settings">Inställningar</Link>
-          </li>
-          <li className="menu-list-item">
-            <button onClick={logout}>Logga ut</button>
-          </li>
+          {admin === "true" || admin === true ? adminLinks : userLinks}
         </ul>
       </div>
     </div>
