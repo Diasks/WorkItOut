@@ -191,6 +191,31 @@ export const deleteUser = (id) => async (dispatch) => {
   }
 };
 
+export const addActivity = (user) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const body = JSON.stringify(user);
+
+  try {
+    const res = await axios.post(
+      `http://localhost:5000/api/users/activities/${user.userId}`,
+      body,
+      config
+    );
+
+    dispatch({
+      type: UPDATE_USER,
+      payload: res,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 export const deleteActivity = (user) => async (dispatch) => {
   const config = {
     headers: {
@@ -213,37 +238,11 @@ export const deleteActivity = (user) => async (dispatch) => {
   }
 };
 
-export const editActivity = (user) => async (dispatch) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-
-  const body = JSON.stringify(user);
-
-  try {
-    const res = await axios.patch(
-      `http://localhost:5000/api/users/activities/${user.userId}`,
-      config,
-      body
-    );
-
-    dispatch({
-      type: UPDATE_USER,
-      payload: res,
-    });
-  } catch (err) {
-    console.error(err);
-  }
-};
-
 export const cleanUpUser = () => async (dispatch) => {
   dispatch({
     type: CLEAN_UP_USER,
   });
 };
-
 
 
 export const registerNewPassword = (password) => async (dispatch) => {
@@ -275,3 +274,4 @@ try {
   console.log(error);
 }
 };
+
