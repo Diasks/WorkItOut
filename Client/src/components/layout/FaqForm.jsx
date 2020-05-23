@@ -26,6 +26,7 @@ const Faq = ({ addFaq }) => {
   const onSubmit = (e) => {
     reset();
     addFaq({ question, answer });
+    window.location.reload();
   };
 
   const handleExpandClick = (e) => setExpanded(!expanded);

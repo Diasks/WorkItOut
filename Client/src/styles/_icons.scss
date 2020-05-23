@@ -29,6 +29,10 @@
     padding: 7px;
     background-repeat: no-repeat;
     background-size: 100%;
+
+    &.big {
+      padding: 9px;
+    }
   }
 
   &.icon-running {
