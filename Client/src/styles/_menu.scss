@@ -120,6 +120,27 @@
     margin: 35px 0;
     padding: 0;
     cursor: pointer;
+
+    a {
+      text-decoration: none;
+      color: $rose;
+
+      &:hover {
+        color: $mustard;
+      }
+    }
+
+    button {
+      color: $white;
+      background-color: $plum;
+      border: 1px solid $plum;
+      padding: 0;
+      cursor: pointer;
+
+      &:hover {
+        color: $mustard;
+      }
+    }
   }
 }
 
@@ -136,9 +157,35 @@
   }
 
   .menu-list-item {
-    color: $white;
     list-style-type: none;
     cursor: pointer;
     padding: 10px;
+
+    a {
+      text-decoration: none;
+      color: $white;
+
+      &:hover {
+        color: $mustard;
+      }
+    }
+
+    button {
+      color: $white;
+      background-color: $sky;
+      border: 1px solid $sky;
+      padding: 0;
+      cursor: pointer;
+
+      &:hover {
+        color: $mustard;
+      }
+    }
+  }
+}
+
+a {
+  &.is-active {
+    color: $mustard !important;
   }
 }
