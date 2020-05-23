@@ -20,7 +20,7 @@ export const UserItem = (props) => {
 
   useEffect(() => {
     store.dispatch(getUser(userId));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   const [expanded, setExpanded] = useState(false);
