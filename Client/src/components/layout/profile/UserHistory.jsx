@@ -15,6 +15,11 @@ const UserHistory = ({ selectedUser, loading, deleteActivity }) => {
 
   let activities;
 
+  const handleDeleteActivity = (id) => {
+    deleteActivity(id);
+    window.location.reload();
+  };
+
   if (selectedUser.activities !== undefined) {
     activities = selectedUser.activities.map((activity) => {
       return (
@@ -23,7 +28,7 @@ const UserHistory = ({ selectedUser, loading, deleteActivity }) => {
             <span
               className="icon icon-delete"
               onClick={(e) =>
-                deleteActivity({
+                handleDeleteActivity({
                   activityId: activity._id,
                   userId: selectedUser._id,
                 })
