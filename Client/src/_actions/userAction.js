@@ -243,3 +243,35 @@ export const cleanUpUser = () => async (dispatch) => {
     type: CLEAN_UP_USER,
   });
 };
+
+
+export const registerNewPassword = (password) => async (dispatch) => {
+debugger;
+const config = {
+  headers: {
+    "Content-Type": "application/json",
+  },
+};
+
+const body = JSON.stringify(password);
+
+try {
+  debugger;
+  const res = await axios.patch(
+    `http://localhost:5000/api/users/password`,
+    body,
+    config
+  );
+
+  dispatch({
+    type: UPDATE_USER,
+    payload: res.data,
+  });
+
+  dispatch(setAlert("Dina ändringar sparades!", "success"));
+} catch (error) {
+  debugger;
+  console.log(error);
+}
+};
+

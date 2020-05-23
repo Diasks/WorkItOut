@@ -161,6 +161,29 @@ router.delete(
   }
 );
 
+router.patch("/password", verifyToken, async (req, res) => {
+  const userExist = await User.findOne({ _id: req.user.id });
+
+  const passwordMatch = await bcrypt.compare(
+    req.body.oldPassword,
+    userExist.password
+  );
+
+  if (passwordMatch) {
+    const hashedPassword = await bcrypt.hash(req.body.newPassword, 10);
+
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: req.user.id },
+      { $set: { password: hashedPassword } },
+      { new: true }
+    );
+
+    return res.json(updatedUser);
+  } else {
+    return res.status(400).send("Det gamla lösenordet matchar inte!");
+  }
+});
+
 // @route PATCH api/users/:userId
 // @desc Update specific user
 // @access Private
