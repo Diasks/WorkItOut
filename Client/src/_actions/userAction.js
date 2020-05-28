@@ -8,6 +8,7 @@ import {
   USER_REQUEST,
   USER_FAIL,
   CLEAN_UP_USER,
+  REMOVE_ACCOUNT
 } from "./types";
 import { setAlert } from "./alertAction";
 import setAuthToken from "../_utils/setAuthToken";
@@ -167,6 +168,7 @@ export const updateUser = (user) => async (dispatch) => {
 };
 
 export const deleteUser = (id) => async (dispatch) => {
+
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -190,6 +192,34 @@ export const deleteUser = (id) => async (dispatch) => {
     console.error(err);
   }
 };
+
+export const removeAccount = () => async (dispatch) => {
+
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  try {
+
+    const res = await axios.patch(
+      "http://localhost:5000/api/users/removeaccount",
+      config
+    );
+    dispatch({
+      type: REMOVE_ACCOUNT,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 
 export const deleteActivity = (user) => async (dispatch) => {
   const config = {
@@ -247,7 +277,7 @@ export const cleanUpUser = () => async (dispatch) => {
 
 
 export const registerNewPassword = (password) => async (dispatch) => {
-debugger;
+
 const config = {
   headers: {
     "Content-Type": "application/json",
@@ -257,7 +287,7 @@ const config = {
 const body = JSON.stringify(password);
 
 try {
-  debugger;
+
   const res = await axios.patch(
     `http://localhost:5000/api/users/password`,
     body,
@@ -271,7 +301,7 @@ try {
 
   dispatch(setAlert("Dina ändringar sparades!", "success"));
 } catch (error) {
-  debugger;
+
   console.log(error);
 }
 };

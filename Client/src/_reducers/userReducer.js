@@ -7,6 +7,7 @@ import {
   USER_REQUEST,
   USER_FAIL,
   CLEAN_UP_USER,
+  REMOVE_ACCOUNT
 } from "../_actions/types";
 
 const initalState = {
@@ -56,6 +57,15 @@ export default function (state = initalState, action) {
         successful: true,
         loading: false,
       };
+
+      case REMOVE_ACCOUNT:
+        debugger;
+        return {
+          ...state,
+          selectedUser: null,
+          successful: true,
+          loading: false,
+        };
 
     case USER_REQUEST:
       return {
