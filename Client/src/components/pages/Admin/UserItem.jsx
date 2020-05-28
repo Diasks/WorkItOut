@@ -12,17 +12,20 @@ import Collapse from "@material-ui/core/Collapse";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
 
-export const UserItem = props => {
+export const UserItem = (props) => {
   let user = props.user;
   let userId = props.match.params.id;
 
+  console.log(props.auth.admin);
+
   useEffect(() => {
     store.dispatch(getUser(userId));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [expanded, setExpanded] = useState(false);
 
-  const handleExpandClick = e => setExpanded(!expanded);
+  const handleExpandClick = (e) => setExpanded(!expanded);
 
   const { handleSubmit } = useForm();
 
@@ -35,11 +38,11 @@ export const UserItem = props => {
 
   const { firstname, lastname, email, admin } = formData;
 
-  const onChange = e => {
+  const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = async e => {
+  const onSubmit = async (e) => {
     props.updateUser({ userId, firstname, lastname, email, admin });
   };
 
@@ -47,95 +50,103 @@ export const UserItem = props => {
     return <Redirect to="/users" />;
   }
 
+  const displayUserItem = (
+    <div className="login-wrapper">
+      <section>
+        {user == null ? (
+          <LoadingOverlay
+            active={props.loading}
+            spinner={<PulseLoader color={"#f5af61"} />}
+            styles={{
+              overlay: (base) => ({
+                ...base,
+                background: "#efeeee",
+              }),
+            }}
+          />
+        ) : (
+          <div>
+            <h3>
+              {user.firstname} {user.lastname}
+              <button className="btn btn-toggle" onClick={handleExpandClick}>
+                <MoreVertIcon className="icon icon-moreverticon" />
+              </button>
+              <Collapse in={expanded}>
+                <button
+                  className="btn btn-sky"
+                  onClick={() => store.dispatch(deleteUser(user._id))}
+                >
+                  Radera
+                </button>
+              </Collapse>
+            </h3>
+
+            <form
+              className="form-container"
+              onSubmit={handleSubmit((e) => onSubmit(e))}
+              noValidate
+            >
+              <input
+                className="input"
+                type="text"
+                name="firstname"
+                placeholder="Förnamn"
+                value={firstname}
+                onChange={(e) => onChange(e)}
+              />
+
+              <input
+                className="input"
+                type="text"
+                name="lastname"
+                placeholder="Efternamn"
+                value={lastname}
+                onChange={(e) => onChange(e)}
+              />
+
+              <input
+                className="input"
+                type="email"
+                name="email"
+                placeholder="E-post"
+                value={email}
+                onChange={(e) => onChange(e)}
+              />
+
+              <div>
+                Admin?{" "}
+                <input
+                  type="checkbox"
+                  name="admin"
+                  value={admin}
+                  onChange={(e) =>
+                    onChange({
+                      target: {
+                        name: e.target.name,
+                        value: e.target.checked,
+                      },
+                    })
+                  }
+                />
+              </div>
+
+              <button className="btn btn-sky" type="submit">
+                Spara
+              </button>
+            </form>
+          </div>
+        )}
+      </section>
+    </div>
+  );
+
+  const redirectUser = <Redirect to="/overview" />;
+
   return (
     <main className="main column">
-      <div className="login-wrapper">
-        <section>
-          {user == null ? (
-            <LoadingOverlay
-              active={props.loading}
-              spinner={<PulseLoader color={"#f5af61"} />}
-              styles={{
-                overlay: base => ({
-                  ...base,
-                  background: "#efeeee",
-                }),
-              }}
-            />
-          ) : (
-            <div>
-              <h3>
-                {user.firstname} {user.lastname}
-                <button className="btn btn-toggle" onClick={handleExpandClick}>
-                  <MoreVertIcon className="icon icon-moreverticon" />
-                </button>
-                <Collapse in={expanded}>
-                  <button
-                    className="btn btn-sky"
-                    onClick={() => store.dispatch(deleteUser(user._id))}
-                  >
-                    Radera
-                  </button>
-                </Collapse>
-              </h3>
-
-              <form
-                className="form-container"
-                onSubmit={handleSubmit(e => onSubmit(e))}
-                noValidate
-              >
-                <input
-                  className="input"
-                  type="text"
-                  name="firstname"
-                  placeholder="Förnamn"
-                  value={firstname}
-                  onChange={e => onChange(e)}
-                />
-
-                <input
-                  className="input"
-                  type="text"
-                  name="lastname"
-                  placeholder="Efternamn"
-                  value={lastname}
-                  onChange={e => onChange(e)}
-                />
-
-                <input
-                  className="input"
-                  type="email"
-                  name="email"
-                  placeholder="E-post"
-                  value={email}
-                  onChange={e => onChange(e)}
-                />
-
-                <div>
-                  Admin?{" "}
-                  <input
-                    type="checkbox"
-                    name="admin"
-                    value={admin}
-                    onChange={e =>
-                      onChange({
-                        target: {
-                          name: e.target.name,
-                          value: e.target.checked,
-                        },
-                      })
-                    }
-                  />
-                </div>
-
-                <button className="btn btn-sky" type="submit">
-                  Spara
-                </button>
-              </form>
-            </div>
-          )}
-        </section>
-      </div>
+      {props.auth.admin === true || props.auth.admin === "true"
+        ? displayUserItem
+        : redirectUser}
     </main>
   );
 };
@@ -146,10 +157,11 @@ UserItem.propTypes = {
   updateUser: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: state.user.selectedUser,
   successful: state.user.successful,
   loading: state.user.loading,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { getUser, deleteUser, updateUser })(

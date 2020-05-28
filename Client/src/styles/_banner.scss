@@ -34,10 +34,42 @@
 }
 
 .label {
-  color: $mustard;
+  &.mustard {
+    color: $mustard;
+  }
+
+  &.cream {
+    color: $cream;
+  }
+
+  &.rose {
+    color: $rose;
+  }
 }
 
 .description {
   color: $cream;
   font-size: 14px;
+}
+
+.curved-banner {
+  background-color: $plum;
+  height: 300px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.curved-banner-bottom {
+  width: 150%;
+  height: 150%;
+  background-color: $lightCream;
+  border-radius: 100%;
+  top: 15%;
+  left: -25%;
+  right: 0;
+  position: relative;
+}
+
+.banner-text {
+  margin-top: 60px;
 }

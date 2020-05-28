@@ -48,7 +48,7 @@ export const addFaq = (data) => async (dispatch) => {
 export const deleteFaq = (id) => async (dispatch) => {
   try {
     dispatch(faqRequest());
-    const res = await axios.delete(`http://localhost:5000/api/faq/${id}`);
+    await axios.delete(`http://localhost:5000/api/faq/${id}`);
     dispatch({
       type: DELETE_FAQ,
       payload: id,

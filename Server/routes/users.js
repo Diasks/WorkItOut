@@ -33,7 +33,6 @@ const upload = multer({
 // @desc Get all users
 // @access Private
 router.get("/", verifyToken, async (req, res) => {
-  debugger;
   try {
     const users = await User.find().select("-password").sort({ date: -1 });
     res.json(users);
@@ -145,8 +144,6 @@ router.delete(
   "/activities/:userId/:activityId",
   verifyToken,
   async (req, res) => {
-    debugger;
-
     try {
       const deleteActivity = await User.findByIdAndUpdate(
         { _id: req.params.userId },

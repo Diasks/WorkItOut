@@ -11,8 +11,9 @@ import PulseLoader from "react-spinners/PulseLoader";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import { useForm } from "react-hook-form";
+import { Redirect } from "react-router-dom";
 
-export const ProgramItem = props => {
+export const ProgramItem = (props) => {
   const [expanded, setExpanded] = useState(false);
   let program = props.fitness;
   let programId = props.match.params.id;
@@ -27,9 +28,9 @@ export const ProgramItem = props => {
 
   const { exerciseId, exerciseTitle, sets, reps, url } = exerciseObjectState;
 
-  const handleExpandClick = e => setExpanded(!expanded);
+  const handleExpandClick = (e) => setExpanded(!expanded);
 
-  const onSubmit = async e => {
+  const onSubmit = async (e) => {
     props.updateExercise({
       exerciseId,
       programId,
@@ -40,7 +41,7 @@ export const ProgramItem = props => {
     });
   };
 
-  const onChange = async e => {
+  const onChange = async (e) => {
     let excerciseId = e.currentTarget.form.id;
     setExerciseObjectState({
       ...exerciseObjectState,
@@ -51,96 +52,101 @@ export const ProgramItem = props => {
 
   const { handleSubmit } = useForm({});
 
+  const displayProgramItem = (
+    <div className="login-wrapper">
+      <section>
+        {program == null ? (
+          <LoadingOverlay
+            active={props.loading}
+            spinner={<PulseLoader color={"#f5af61"} />}
+            styles={{
+              overlay: (base) => ({
+                ...base,
+                background: "#efeeee",
+              }),
+            }}
+          />
+        ) : (
+          <div>
+            <h4>
+              {program.title} {program.length}
+            </h4>
+
+            {program.exerciseInformation.map((exercise, index) => (
+              <div>
+                {exercise._id} {index}
+                <h3> {exercise.exerciseTitle}</h3>
+                <p>{exercise.sets}</p>
+                <p>{exercise.reps}</p>
+                <div>URL: {exercise.url}</div>
+                <DeleteIcon
+                  className="icon icon-deleteicon"
+                  onClick={() =>
+                    store.dispatch(deleteExercise(program._id, exercise._id))
+                  }
+                />
+                <button className="btn btn-toggle" onClick={handleExpandClick}>
+                  <EditIcon className="icon icon-editicon" />{" "}
+                </button>
+                <Collapse in={expanded}>
+                  <form
+                    id={exercise._id}
+                    className="form-container"
+                    onSubmit={handleSubmit((e) => onSubmit(e))}
+                    noValidate
+                  >
+                    <input
+                      type="text"
+                      name="exerciseTitle"
+                      placeholder="titel"
+                      className="input"
+                      value={exerciseTitle}
+                      onChange={(e) => onChange(e)}
+                    />
+                    <input
+                      type="number"
+                      name="sets"
+                      className="input"
+                      value={sets}
+                      placeholder="sets"
+                      onChange={(e) => onChange(e)}
+                    />
+                    <input
+                      type="number"
+                      name="reps"
+                      className="input"
+                      placeholder="reps"
+                      value={reps}
+                      onChange={(e) => onChange(e)}
+                    />
+                    <input
+                      type="text"
+                      name="url"
+                      className="input"
+                      placeholder="url"
+                      value={url}
+                      onChange={(e) => onChange(e)}
+                    />
+                    <button className="btn btn-sky" type="submit">
+                      Spara
+                    </button>
+                  </form>
+                </Collapse>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+    </div>
+  );
+
+  const redirectUser = <Redirect to="/overview" />;
+
   return (
     <main className="main column">
-      <div className="login-wrapper">
-        <section>
-          {program == null ? (
-            <LoadingOverlay
-              active={props.loading}
-              spinner={<PulseLoader color={"#f5af61"} />}
-              styles={{
-                overlay: base => ({
-                  ...base,
-                  background: "#efeeee",
-                }),
-              }}
-            />
-          ) : (
-            <div>
-              <h4>
-                {program.title} {program.length}
-              </h4>
-
-              {program.exerciseInformation.map((exercise, index) => (
-                <div>
-                  {exercise._id} {index}
-                  <h3> {exercise.exerciseTitle}</h3>
-                  <p>{exercise.sets}</p>
-                  <p>{exercise.reps}</p>
-                  <div>URL: {exercise.url}</div>
-                  <DeleteIcon
-                    className="icon icon-deleteicon"
-                    onClick={() =>
-                      store.dispatch(deleteExercise(program._id, exercise._id))
-                    }
-                  />
-                  <button
-                    className="btn btn-toggle"
-                    onClick={handleExpandClick}
-                  >
-                    <EditIcon className="icon icon-editicon" />{" "}
-                  </button>
-                  <Collapse in={expanded}>
-                    <form
-                      id={exercise._id}
-                      className="form-container"
-                      onSubmit={handleSubmit(e => onSubmit(e))}
-                      noValidate
-                    >
-                      <input
-                        type="text"
-                        name="exerciseTitle"
-                        placeholder="titel"
-                        className="input"
-                        value={exerciseTitle}
-                        onChange={e => onChange(e)}
-                      />
-                      <input
-                        type="number"
-                        name="sets"
-                        className="input"
-                        value={sets}
-                        placeholder="sets"
-                        onChange={e => onChange(e)}
-                      />
-                      <input
-                        type="number"
-                        name="reps"
-                        className="input"
-                        placeholder="reps"
-                        value={reps}
-                        onChange={e => onChange(e)}
-                      />
-                      <input
-                        type="text"
-                        name="url"
-                        className="input"
-                        placeholder="url"
-                        value={url}
-                        onChange={e => onChange(e)}
-                      />
-                      <button className="btn btn-sky" type="submit">
-                        Spara
-                      </button>
-                    </form>
-                  </Collapse>
-                </div>
-              ))}
-            </div>
-          )}
-        </section>
-      </div>
+      {props.auth.admin === true || props.auth.admin === "true"
+        ? displayProgramItem
+        : redirectUser}
     </main>
   );
 };
@@ -149,9 +155,10 @@ ProgramItem.propTypes = {
   deleteFitnessSchema: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   fitness: state.fitness.selectedSchema,
   loading: state.fitness.loading,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, {

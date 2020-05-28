@@ -10,7 +10,7 @@ import {
 } from "./types";
 import setAuthToken from "../_utils/setAuthToken";
 
-export const getFitnessSchemas = () => async dispatch => {
+export const getFitnessSchemas = () => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -27,7 +27,7 @@ export const getFitnessSchemas = () => async dispatch => {
   }
 };
 
-export const getFitnessSchema = programId => async dispatch => {
+export const getFitnessSchema = (programId) => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -41,16 +41,14 @@ export const getFitnessSchema = programId => async dispatch => {
       type: GET_FITNESSSCHEMA,
       payload: res.data,
     });
-    debugger;
   } catch (err) {
     console.error(err);
   }
 };
 
-export const createFitnessSchema = (
-  exerciseObject,
-  fitness
-) => async dispatch => {
+export const createFitnessSchema = (exerciseObject, fitness) => async (
+  dispatch
+) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -81,7 +79,7 @@ export const createFitnessSchema = (
   }
 };
 
-export const updateFitnessSchema = program => async dispatch => {
+export const updateFitnessSchema = (program) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -106,7 +104,7 @@ export const updateFitnessSchema = program => async dispatch => {
   }
 };
 
-export const updateExercise = program => async dispatch => {
+export const updateExercise = (program) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -131,7 +129,7 @@ export const updateExercise = program => async dispatch => {
   }
 };
 
-export const deleteExercise = (programId, exerciseId) => async dispatch => {
+export const deleteExercise = (programId, exerciseId) => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -155,7 +153,7 @@ export const deleteExercise = (programId, exerciseId) => async dispatch => {
   }
 };
 
-export const deleteFitnessSchema = id => async dispatch => {
+export const deleteFitnessSchema = (id) => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
