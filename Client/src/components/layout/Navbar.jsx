@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../_actions/authAction";
@@ -8,19 +8,29 @@ const Navbar = ({ auth: { isAuthenticated, loading, admin }, logout }) => {
   const userLinks = (
     <ul className="menu-list">
       <li className="menu-list-item">
-        <Link to="/overview">Överblick</Link>
+        <NavLink activeClassName="is-active" to="/overview">
+          Överblick
+        </NavLink>
       </li>
       <li className="menu-list-item">
-        <Link to="/profile">Profil</Link>
+        <NavLink activeClassName="is-active" to="/profile">
+          Profil
+        </NavLink>
       </li>
       <li className="menu-list-item">
-        <Link to="/challenges">Anta utmaning</Link>
+        <NavLink activeClassName="is-active" to="/challenges">
+          Anta utmaning
+        </NavLink>
       </li>
       <li className="menu-list-item">
-        <Link to="/faq?page=1">FAQ</Link>
+        <NavLink activeClassName="is-active" to="/faq?page=1">
+          FAQ
+        </NavLink>
       </li>
       <li className="menu-list-item">
-        <Link to="/settings">Inställningar</Link>
+        <NavLink activeClassName="is-active" to="/settings">
+          Inställningar
+        </NavLink>
       </li>
       <li className="menu-list-item">
         <button onClick={logout}>Logga ut</button>
@@ -31,25 +41,39 @@ const Navbar = ({ auth: { isAuthenticated, loading, admin }, logout }) => {
   const adminLinks = (
     <ul className="menu-list">
       <li className="menu-list-item">
-        <Link to="/dashboard">Överblick</Link>
+        <NavLink activeClassName="is-active" to="/dashboard">
+          Överblick
+        </NavLink>
       </li>
       <li className="menu-list-item">
-        <Link to="/profile">Profil</Link>
+        <NavLink activeClassName="is-active" to="/profile">
+          Profil
+        </NavLink>
       </li>
       <li className="menu-list-item">
-        <Link to="/create-user">Skapa ny användare</Link>
+        <NavLink activeClassName="is-active" to="/create-user">
+          Skapa ny användare
+        </NavLink>
       </li>
       <li className="menu-list-item">
-        <Link to="/users">Användarlista</Link>
+        <NavLink activeClassName="is-active" to="/users">
+          Användarlista
+        </NavLink>
       </li>
       <li className="menu-list-item">
-        <Link to="/programs">Program</Link>
+        <NavLink activeClassName="is-active" to="/programs">
+          Program
+        </NavLink>
       </li>
       <li className="menu-list-item">
-        <Link to="/faq?page=1">FAQ</Link>
+        <NavLink activeClassName="is-active" to="/faq?page=1">
+          FAQ
+        </NavLink>
       </li>
       <li className="menu-list-item">
-        <Link to="/settings">Inställningar</Link>
+        <NavLink activeClassName="is-active" to="/settings">
+          Inställningar
+        </NavLink>
       </li>
       <li className="menu-list-item">
         <button onClick={logout}>Logga ut</button>

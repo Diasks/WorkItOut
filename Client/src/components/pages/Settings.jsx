@@ -4,9 +4,11 @@ import { setAlert } from "../../_actions/alertAction";
 import { registerNewPassword } from "../../_actions/userAction";
 import { connect } from "react-redux";
 import Alert from "../layout/Alert";
+import { removeAccount } from "../../_actions/userAction";
+import store from "../../store";
+import { logout } from "../../_actions/authAction";
 
-const Settings = ({setAlert, registerNewPassword}) => {
-
+const Settings = ({setAlert, registerNewPassword, removeAccount, logout, successful}) => {
   let defaultValues = {
     oldPassword: "",
     newPassword: "",
@@ -35,6 +37,10 @@ const Settings = ({setAlert, registerNewPassword}) => {
       registerNewPassword({ oldPassword, newPassword });
     }
   };
+
+if (successful === true) {
+logout();
+}
 
 
   return (
@@ -110,14 +116,18 @@ const Settings = ({setAlert, registerNewPassword}) => {
       </form>
 
       <h3>Radera konto</h3>
-      <p>blablablabla</p>
-      <button className="btn btn-sky">Radera</button>
+      <p>Om du raderar ditt konto kan du inte ångra dig</p>
+      <button className="btn btn-sky" onClick={() => store.dispatch(removeAccount())}>Radera</button>
+
+                    
+                
     </main>
   );
 };
 
 const mapStateToProps = state => ({
-  user: state.user.selectedUser,
+  user: state.user,
+  successful: state.user.successful,
 });
 
-export default connect(mapStateToProps, { setAlert, registerNewPassword })(Settings);
+export default connect(mapStateToProps, { setAlert, registerNewPassword, removeAccount, logout })(Settings);

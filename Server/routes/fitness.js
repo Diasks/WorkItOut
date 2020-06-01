@@ -31,13 +31,19 @@ router.get("/:fitnessId", verifyToken, async (req, res) => {
 // @desc Create new fitness-schedule
 // @access Private
 router.post("/", verifyToken, async (req, res) => {
-  const fitness = new FitnessSchedule({
-    programTitle: req.body.fitness.programTitle,
-    description: req.body.fitness.description,
-    length: req.body.fitness.length,
-    title: req.body.fitness.title,
-    exerciseInformation: req.body.exerciseObject,
+  const { exerciseInformation } = req.body;
+
+  const exerciseInformationArray = exerciseInformation.map((exercise) => {
+    return exercise;
   });
+
+  const fitness = new FitnessSchedule({
+    programTitle: req.body.programTitle,
+    description: req.body.description,
+    title: req.body.title,
+    exerciseInformation: exerciseInformationArray,
+  });
+
   try {
     const savedFitness = await fitness.save();
     res.json(savedFitness);
@@ -47,18 +53,52 @@ router.post("/", verifyToken, async (req, res) => {
 });
 
 // @route DELETE api/fitness/:fitnessId/:exerciseId
-// @desc Delete specific exercise-object in specific fitness-schedule
+// @desc Delete specific exercise-object in exercise-number in specific fitness-schedule
 // @access Private
-router.delete("/:fitnessId/:exerciseId", verifyToken, async (req, res) => {
-  let programId = req.params.fitnessId;
-  let exerciseId = req.params.exerciseId;
+router.delete(
+  "/:programId/exerciseNumber/:exerciseId",
+  verifyToken,
+  async (req, res) => {
+    let programId = req.params.programId;
+    let exerciseId = req.params.exerciseId;
+
+    try {
+      const deleteFitness = await FitnessSchedule.updateOne(
+        {
+          _id: programId,
+          "exerciseInformation.exerciseNumberInformation._id": exerciseId,
+        },
+        {
+          $pull: {
+            "exerciseInformation.$.exerciseNumberInformation": {
+              _id: exerciseId,
+            },
+          },
+        },
+        { multi: true }
+      );
+
+      return res.json(deleteFitness);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
+
+// @route DELETE api/fitness/:fitnessId/:exercisesId
+// @desc Delete specific exercises-object in specific fitness-schedule
+// @access Private
+router.delete("/:programId/:exercisesId", verifyToken, async (req, res) => {
+  let programId = req.params.programId;
+  let exercisesId = req.params.exercisesId;
 
   try {
     const deleteFitness = await FitnessSchedule.findByIdAndUpdate(
       { _id: programId },
       {
         $pull: {
-          exerciseInformation: { _id: exerciseId },
+          exerciseInformation: { _id: exercisesId },
         },
       },
       { new: true }
@@ -74,10 +114,10 @@ router.delete("/:fitnessId/:exerciseId", verifyToken, async (req, res) => {
 // @route DELETE api/fitness/:fitnessId
 // @desc Delete specific fitness-schedule
 // @access Private
-router.delete("/:fitnessId", verifyToken, async (req, res) => {
+router.delete("/:programId", verifyToken, async (req, res) => {
   try {
     const removedFitness = await FitnessSchedule.deleteOne({
-      _id: req.params.fitnessId,
+      _id: req.params.programId,
     });
 
     res.json(removedFitness);
@@ -86,32 +126,40 @@ router.delete("/:fitnessId", verifyToken, async (req, res) => {
   }
 });
 
-// @route PATCH api/fitness/:fitnessId
+// @route PATCH api/fitness/:fitnessId/exerciseNumber/:exerciseId
 // @desc Update specific fitness-schedule
 // @access Private
-router.patch("/:fitnessId", verifyToken, async (req, res) => {
-  let programId = req.body.programId;
-  let exerciseId = req.body.exerciseId;
+router.patch(
+  "/:programId/exerciseNumber/:exerciseId",
+  verifyToken,
+  async (req, res) => {
+    let programId = req.params.programId;
+    let exerciseId = req.params.exerciseId;
 
-  try {
-    const updatedFitness = await FitnessSchedule.findOneAndUpdate(
-      { _id: programId, "exerciseInformation._id": exerciseId },
-      {
-        $set: {
-          "exerciseInformation.$.exerciseTitle": req.body.exerciseTitle,
-          "exerciseInformation.$.reps": req.body.reps,
-          "exerciseInformation.$.sets": req.body.sets,
-          "exerciseInformation.$.url": req.body.url,
+    const { exerciseTitle, reps, sets, url } = req.body;
+    try {
+      const updatedFitness = await FitnessSchedule.updateOne(
+        {
+          _id: programId,
+          "exerciseInformation.exerciseNumberInformation._id": exerciseId,
         },
-      },
-      { new: true }
-    );
+        {
+          $set: {
+            "exerciseInformation.$.exerciseNumberInformation.0.exerciseTitle": exerciseTitle,
+            "exerciseInformation.$.exerciseNumberInformation.0.reps": reps,
+            "exerciseInformation.$.exerciseNumberInformation.0.sets": sets,
+            "exerciseInformation.$.exerciseNumberInformation.0.url": url,
+          },
+        },
+        { multi: true }
+      );
 
-    return res.json(updatedFitness);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
+      return res.json(updatedFitness);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
   }
-});
+);
 
 module.exports = router;

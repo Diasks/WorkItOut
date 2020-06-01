@@ -19,7 +19,7 @@ const Overview = ({ auth: { admin }, selectedUser, loading, addActivity }) => {
     store.dispatch(getUserProfile());
   }, []);
 
-  const { handleSubmit, reset } = useForm({ defaultValues });
+  const { handleSubmit } = useForm({ defaultValues });
   const [formData, setFormData] = useState("");
   const { title, time } = formData;
   const userId = selectedUser._id;
@@ -29,9 +29,8 @@ const Overview = ({ auth: { admin }, selectedUser, loading, addActivity }) => {
   };
 
   const onSubmit = (e) => {
-    debugger;
     addActivity({ userId, title, time });
-    reset();
+    window.location.reload();
   };
 
   const activeChallengeLog = (

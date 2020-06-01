@@ -95,6 +95,10 @@ body {
     margin: 40px 0 0 0;
     color: $darkest;
   }
+
+  &.no-margin {
+    margin: 0;
+  }
 }
 
 .horizontal-line {
@@ -114,6 +118,33 @@ body {
     font-weight: bold;
     margin: 8px 0;
   }
+}
+
+.link-add {
+  display: flex;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  color: $sky;
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+
+  span:last-child,
+  input {
+    line-height: 2.5;
+    margin-left: 5px;
+  }
+
+  &.left {
+    justify-content: flex-start;
+    width: 100%;
+  }
+}
+
+.link-view-more {
+  display: flex;
+  justify-content: space-between;
 }
 
 .label-nochallenge {

@@ -7,7 +7,6 @@ import { useEffect } from "react";
 import store from "../../store";
 
 import Alert from "../layout/Alert";
-import DeleteIcon from "@material-ui/icons/Delete";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
 
@@ -24,16 +23,21 @@ const Faq = ({
 }) => {
   const [page, setPagination] = useState(pager);
 
-  const handlePageChange = () => {
-    setPagination(!page);
-  };
-
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const page = parseInt(params.get("page"));
 
     store.dispatch(getFaq(page));
   }, [page]);
+
+  const handlePageChange = () => {
+    setPagination(!page);
+  };
+
+  const handleDeleteFaq = (id) => {
+    deleteFaq(id);
+    window.location.reload();
+  };
 
   const questionsAndAnswers = pageOfFaq.map((questionAndAnswer) => {
     return (
@@ -42,10 +46,10 @@ const Faq = ({
           {admin === "true" && (
             <button
               className="btn btn-danger small"
-              onClick={(e) => deleteFaq(questionAndAnswer._id)}
+              onClick={(e) => handleDeleteFaq(questionAndAnswer._id)}
               type="button"
             >
-              <DeleteIcon className="icon icon-delete" />
+              <span className="icon icon-delete big"></span>
             </button>
           )}
           <div className="faq bold">{questionAndAnswer.question}</div>

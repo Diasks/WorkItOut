@@ -8,6 +8,7 @@ import {
   USER_REQUEST,
   USER_FAIL,
   CLEAN_UP_USER,
+  REMOVE_ACCOUNT,
 } from "./types";
 import { setAlert } from "./alertAction";
 import setAuthToken from "../_utils/setAuthToken";
@@ -16,7 +17,7 @@ export const userRequest = () => ({
   type: USER_REQUEST,
 });
 
-export const getUsers = () => async (dispatch) => {
+export const getUsers = () => async dispatch => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -33,7 +34,7 @@ export const getUsers = () => async (dispatch) => {
   }
 };
 
-export const getUser = (userId) => async (dispatch) => {
+export const getUser = userId => async dispatch => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -53,7 +54,7 @@ export const getUser = (userId) => async (dispatch) => {
   }
 };
 
-export const getUserProfile = () => async (dispatch) => {
+export const getUserProfile = () => async dispatch => {
   const userId = localStorage.id;
 
   if (localStorage.token) {
@@ -82,7 +83,8 @@ export const createUser = ({
   email,
   password,
   admin,
-}) => async (dispatch) => {
+
+}) => async dispatch => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -113,7 +115,7 @@ export const createUser = ({
   }
 };
 
-export const uploadImage = (user) => async (dispatch) => {
+export const uploadImage = user => async dispatch => {
   const formData = new FormData();
   formData.append("profilePicture", user.profilePicture);
 
@@ -139,7 +141,7 @@ export const uploadImage = (user) => async (dispatch) => {
   }
 };
 
-export const updateUser = (user) => async (dispatch) => {
+export const updateUser = user => async dispatch => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -166,7 +168,40 @@ export const updateUser = (user) => async (dispatch) => {
   }
 };
 
-export const deleteUser = (id) => async (dispatch) => {
+export const cleanUpUser = () => async dispatch => {
+  dispatch({
+    type: CLEAN_UP_USER,
+  });
+};
+
+export const registerNewPassword = password => async dispatch => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const body = JSON.stringify(password);
+
+  try {
+    const res = await axios.patch(
+      `http://localhost:5000/api/users/password`,
+      body,
+      config
+    );
+
+    dispatch({
+      type: UPDATE_USER,
+      payload: res.data,
+    });
+
+    dispatch(setAlert("Dina ändringar sparades!", "success"));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteUser = id => async dispatch => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -191,7 +226,33 @@ export const deleteUser = (id) => async (dispatch) => {
   }
 };
 
-export const addActivity = (user) => async (dispatch) => {
+export const removeAccount = () => async dispatch => {
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  try {
+    const res = await axios.patch(
+      "http://localhost:5000/api/users/removeaccount",
+      config
+    );
+    dispatch({
+      type: REMOVE_ACCOUNT,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+
+export const addActivity = user => async dispatch => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -216,7 +277,32 @@ export const addActivity = (user) => async (dispatch) => {
   }
 };
 
-export const deleteActivity = (user) => async (dispatch) => {
+export const editActivity = user => async dispatch => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  
+  const body = JSON.stringify(user);
+
+  try {
+    const res = await axios.patch(
+      `http://localhost:5000/api/users/activities/${user.userId}`,
+      config,
+      body
+    );
+
+    dispatch({
+      type: UPDATE_USER,
+      payload: res,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const deleteActivity = user => async dispatch => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -236,42 +322,5 @@ export const deleteActivity = (user) => async (dispatch) => {
   } catch (err) {
     console.error(err);
   }
-};
-
-export const cleanUpUser = () => async (dispatch) => {
-  dispatch({
-    type: CLEAN_UP_USER,
-  });
-};
-
-
-export const registerNewPassword = (password) => async (dispatch) => {
-debugger;
-const config = {
-  headers: {
-    "Content-Type": "application/json",
-  },
-};
-
-const body = JSON.stringify(password);
-
-try {
-  debugger;
-  const res = await axios.patch(
-    `http://localhost:5000/api/users/password`,
-    body,
-    config
-  );
-
-  dispatch({
-    type: UPDATE_USER,
-    payload: res.data,
-  });
-
-  dispatch(setAlert("Dina ändringar sparades!", "success"));
-} catch (error) {
-  debugger;
-  console.log(error);
-}
 };
 
