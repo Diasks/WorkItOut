@@ -83,6 +83,7 @@ export const createUser = ({
   email,
   password,
   admin,
+
 }) => async dispatch => {
   const config = {
     headers: {
@@ -282,7 +283,7 @@ export const editActivity = user => async dispatch => {
       "Content-Type": "application/json",
     },
   };
-
+  
   const body = JSON.stringify(user);
 
   try {
@@ -300,7 +301,6 @@ export const editActivity = user => async dispatch => {
     console.error(err);
   }
 };
-
 
 export const deleteActivity = user => async dispatch => {
   const config = {
@@ -323,8 +323,4 @@ export const deleteActivity = user => async dispatch => {
     console.error(err);
   }
 };
-
-
-
-
 
