@@ -9,6 +9,7 @@ import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Collapse from "@material-ui/core/Collapse";
+import GoBackButton from "../../layout/GoBackButton";
 
 export const ProgramDayDisplay = (props) => {
   let program = props.fitness;
@@ -88,6 +89,7 @@ export const ProgramDayDisplay = (props) => {
           </div>
         )}
       </section>
+<GoBackButton/>
     </div>
   );
 

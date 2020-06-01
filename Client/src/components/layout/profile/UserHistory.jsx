@@ -7,6 +7,7 @@ import store from "../../../store";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
 import Moment from "react-moment";
+import GoBackButton from "../../layout/GoBackButton";
 
 const UserHistory = ({ selectedUser, loading, deleteActivity }) => {
   useEffect(() => {
@@ -65,7 +66,9 @@ const UserHistory = ({ selectedUser, loading, deleteActivity }) => {
       <main className="main column">
         <h2 className="heading rose">Historik</h2>
         <ul className="list">{activities}</ul>
+        <GoBackButton/>
       </main>
+    
     </LoadingOverlay>
   );
 };

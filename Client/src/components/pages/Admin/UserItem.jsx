@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import Collapse from "@material-ui/core/Collapse";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
+import GoBackButton from "../../layout/GoBackButton";
 
 export const UserItem = (props) => {
   let user = props.user;
@@ -153,6 +154,7 @@ export const UserItem = (props) => {
                   Spara
                 </button>
               </form>
+              <GoBackButton/>
             </div>
           )}
         </section>

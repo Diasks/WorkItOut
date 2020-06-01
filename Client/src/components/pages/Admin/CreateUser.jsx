@@ -4,8 +4,13 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { createUser } from "../../../_actions/userAction";
 import { useForm } from "react-hook-form";
+// import { useHistory } from "react-router-dom";
+import GoBackButton from "../../layout/GoBackButton";
 
 const CreateUser = ({ isAdmin, createUser, successful }) => {
+
+  // let history = useHistory();
+    
   let defaultValues = {
     firstname: "",
     lastname: "",
@@ -153,6 +158,8 @@ const CreateUser = ({ isAdmin, createUser, successful }) => {
             Skapa
           </button>
         </form>
+        <GoBackButton/>
+        {/* <button onClick={() => history.goBack()}>Back</button> */}
       </section>
     </div>
   );

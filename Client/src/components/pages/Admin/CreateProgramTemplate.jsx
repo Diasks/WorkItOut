@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { createFitnessSchema } from "../../../_actions/fitnessAction";
 import { useForm } from "react-hook-form";
+import GoBackButton from "../../layout/GoBackButton";
 
 const CreateProgramTemplate = ({
   auth: { admin },
@@ -240,6 +241,7 @@ const CreateProgramTemplate = ({
           Spara
         </button>
       </form>
+      <GoBackButton/>
     </main>
   );
 

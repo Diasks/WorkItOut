@@ -6,6 +6,7 @@ import ProgramList from "./ProgramList";
 import { getFitnessSchemas } from "../../../_actions/fitnessAction";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
+import GoBackButton from "../../layout/GoBackButton";
 
 const ProgramTemplates = ({ auth: { admin }, schemas, loading }) => {
   useEffect(() => {
@@ -38,6 +39,7 @@ const ProgramTemplates = ({ auth: { admin }, schemas, loading }) => {
           <span className="icon icon-add"></span>
           <span>Lägg till program</span>
         </Link>
+        <GoBackButton/>
       </section>
     </div>
   );

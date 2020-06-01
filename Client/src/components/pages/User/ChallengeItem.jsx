@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import store from "../../../store";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
+import GoBackButton from "../../layout/GoBackButton";
 
 const ChallengeItem = ({ loading, selectedSchema, match }) => {
   let challengeId = match.params.id;
@@ -31,6 +32,7 @@ const ChallengeItem = ({ loading, selectedSchema, match }) => {
           {selectedSchema && selectedSchema.programTitle}
         </h3>
         <ul></ul>
+        <GoBackButton/>
       </main>
     </LoadingOverlay>
   );

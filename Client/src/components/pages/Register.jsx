@@ -9,6 +9,7 @@ import Alert from "../layout/Alert";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
 import Banner from "../layout/Banner";
+import GoBackButton from "../layout/GoBackButton";
 
 const Register = ({ setAlert, registerUser, isAuthenticated, loading }) => {
   let defaultValues = {
@@ -169,6 +170,7 @@ const Register = ({ setAlert, registerUser, isAuthenticated, loading }) => {
               Registrera
             </button>
           </form>
+         <GoBackButton/>
         </div>
       </main>
     </LoadingOverlay>

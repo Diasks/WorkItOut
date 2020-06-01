@@ -7,6 +7,7 @@ import Alert from "../layout/Alert";
 import { removeAccount } from "../../_actions/userAction";
 import store from "../../store";
 import { logout } from "../../_actions/authAction";
+import GoBackButton from "../layout/GoBackButton";
 
 const Settings = ({setAlert, registerNewPassword, removeAccount, logout, successful}) => {
   let defaultValues = {
@@ -130,7 +131,7 @@ logout();
       <button className="btn btn-sky" onClick={() => store.dispatch(removeAccount())}>Radera</button>
 
                     
-                
+      <GoBackButton/>
     </main>
   );
 };
