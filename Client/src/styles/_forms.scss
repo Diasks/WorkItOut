@@ -80,6 +80,7 @@
   color: $plum;
   font-weight: bold;
   margin: 10px;
+  line-height: 1.5;
 }
 
 .input-search {
@@ -108,7 +109,7 @@
   display: inline-block;
   vertical-align: top;
   position: relative;
-  margin: 0 0 10px 10px;
+  margin: 0 0 0 5px;
   cursor: pointer;
   border: 1px solid var(--bc, var(--border));
   background: var(--b, var(--background));

@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 
 export const ProgramList = ({ auth: { admin }, schema }) => {
   const displayProgramList = (

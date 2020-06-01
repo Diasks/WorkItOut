@@ -7,7 +7,6 @@ import { getUser } from "../../../_actions/userAction";
 import { deleteUser } from "../../../_actions/userAction";
 import { updateUser } from "../../../_actions/userAction";
 import { useForm } from "react-hook-form";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Collapse from "@material-ui/core/Collapse";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
@@ -118,22 +117,24 @@ export const UserItem = (props) => {
                 />
 
                 <div className="form-section left">
-                  <label className="form-label">Admin?</label>
-                  <input
-                    className="input-checkbox-switch switch"
-                    type="checkbox"
-                    name="admin"
-                    value={admin}
-                    defaultChecked={user.admin}
-                    onChange={(e) =>
-                      onChange({
-                        target: {
-                          name: e.target.name,
-                          value: e.target.checked,
-                        },
-                      })
-                    }
-                  />
+                  <div>
+                    <input
+                      className="input-checkbox-switch switch"
+                      type="checkbox"
+                      name="admin"
+                      value={admin}
+                      defaultChecked={user.admin}
+                      onChange={(e) =>
+                        onChange({
+                          target: {
+                            name: e.target.name,
+                            value: e.target.checked,
+                          },
+                        })
+                      }
+                    />
+                    <label className="form-label">Admin?</label>
+                  </div>
                 </div>
 
                 <button className="btn btn-mustard" type="submit">

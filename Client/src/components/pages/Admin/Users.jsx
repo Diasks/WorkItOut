@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import store from "../../../store";
 import { getUsers } from "../../../_actions/userAction";
 import UserList from "./UserList";
-import SearchIcon from "@material-ui/icons/Search";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
 import { Redirect } from "react-router-dom";
