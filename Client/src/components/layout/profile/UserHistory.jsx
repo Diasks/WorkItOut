@@ -14,7 +14,12 @@ const UserHistory = ({ selectedUser, loading, deleteActivity }) => {
   }, []);
 
   let activities;
-
+  
+    /**
+   * Metod som används för att hantera radering av aktivitet via ett onClick-event
+   *
+   * @param {Object} id Objekt som innehåller ID på användaren och ID på den specifika aktiviteten
+   */
   const handleDeleteActivity = (id) => {
     deleteActivity(id);
     window.location.reload();

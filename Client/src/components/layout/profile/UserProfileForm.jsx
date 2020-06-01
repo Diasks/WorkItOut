@@ -30,19 +30,35 @@ const UserProfileForm = ({ selectedUser, updateUser, uploadImage }) => {
   useEffect(() => {
     store.dispatch(getUserProfile());
   }, []);
-
+    /**
+   * Metod som används för att hantera när värdet av ett element har ändrats
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const onFileChange = (e) => {
     setProfilePicture(e.target.files[0]);
   };
-
+    /** 
+   * Metod som används när man vill ladda upp en profilbild via ett onClick-event
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const uploadProfilePicture = (e) => {
     uploadImage({ userId, profilePicture });
   };
-
+    /**
+   * Metod (används som callback) för att hantera när värdet av ett element har ändrats.
+   *
+   * @param {*} e Det event som gjorde att denna callback anropades
+   */
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+   /**
+   * Metod som används för att hantera när formuläret skickas.
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const onSubmit = (e) => {
     updateUser({ userId, firstname, lastname, email });
     reset();

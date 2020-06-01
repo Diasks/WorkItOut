@@ -28,8 +28,18 @@ export const ProgramItem = (props) => {
 
   const { exerciseId, exerciseTitle, sets, reps, url } = exerciseObjectState;
 
+   /**
+   * Metod som används för att hantera ett toggle-onClick-event
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const handleExpandClick = (e) => setExpanded(!expanded);
 
+   /**
+   * Metod som används för att hantera när formuläret skickas
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const onSubmit = async (e) => {
     props.updateExercise({
       exerciseId,
@@ -41,6 +51,11 @@ export const ProgramItem = (props) => {
     });
   };
 
+    /**
+   * Metod som används för att hantera när värdet av ett element har ändrats
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const onChange = async (e) => {
     let excerciseId = e.currentTarget.form.id;
     setExerciseObjectState({

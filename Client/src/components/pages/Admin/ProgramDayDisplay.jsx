@@ -15,7 +15,11 @@ export const ProgramDayDisplay = (props) => {
   let programId = props.match.params.id;
 
   const [expanded, setExpanded] = useState(false);
-
+   /**
+   * Metod som används för att hantera ett toggle-onClick-event.
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const handleExpandClick = (e) => setExpanded(!expanded);
   useEffect(() => {
     store.dispatch(getFitnessSchema(programId));
@@ -25,7 +29,11 @@ export const ProgramDayDisplay = (props) => {
   if (props.successful === true) {
     return <Redirect to="/programs" />;
   }
-
+    /**
+   * Metod som används för att hämta träningsmallarna och dess innehåll
+   *
+   * @param {*} program ???
+   */
   const getProgramContent = (program) => {
     let content = [];
 

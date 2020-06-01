@@ -16,7 +16,12 @@ const CreateProgramTemplate = ({
     length: "",
     title: "",
   });
-
+  
+    /**
+   * Metod som används för att hantera när värdet av ett element har ändrats.
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const handleFitnessChange = (e) =>
     setFitnessState({
       ...fitnessState,
@@ -34,6 +39,11 @@ const CreateProgramTemplate = ({
     { ...blankExerciseObject },
   ]);
 
+    /**
+   * Metod som används för att hantera när värdet av ett element har ändrats
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const handleExerciseObjectChange = (e) => {
     const updatedExerciseObject = [...exerciseObjectState];
 
@@ -41,7 +51,10 @@ const CreateProgramTemplate = ({
       e.target.value;
     setExerciseObjectState(updatedExerciseObject);
   };
-
+    
+   /**
+   * Metod som används för att lägga till ett nytt objekt till exerciseObjectState.
+   */
   const addExerciseObject = () => {
     setExerciseObjectState([
       ...exerciseObjectState,
@@ -50,7 +63,12 @@ const CreateProgramTemplate = ({
   };
 
   const { register, handleSubmit, errors } = useForm({});
-
+    
+   /**
+   * Metod som används för att hantera när formuläret skickas.
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const onSubmit = async (e) => {
     createFitnessSchema(exerciseObjectState, fitnessState);
   };

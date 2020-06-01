@@ -30,10 +30,18 @@ const Faq = ({
     store.dispatch(getFaq(page));
   }, [page]);
 
+  /**
+   * Metod som används för att ???
+   */
   const handlePageChange = () => {
     setPagination(!page);
   };
 
+    /**
+   * Metod som används för att hantera radering av aktivitet via ett onClick-event
+   *
+   * @param {Number} id Nummer som innehåller ID på objektet som ska raderas
+   */
   const handleDeleteFaq = (id) => {
     deleteFaq(id);
     window.location.reload();
