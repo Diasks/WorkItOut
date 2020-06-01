@@ -6,7 +6,6 @@ import { useEffect } from "react";
 import store from "../../../store";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
-import UserQuantity from "./UserQuantity";
 
 const Dashboard = ({ auth: { admin }, selectedUser, loading, users }) => {
   useEffect(() => {
@@ -40,17 +39,6 @@ const Dashboard = ({ auth: { admin }, selectedUser, loading, users }) => {
         </div>
 
         <div className="curved-banner-bottom"></div>
-      </section>
-
-      <section className="box-wrapper">
-        <div className="box">
-          <h4>Antal registrerade</h4>
-          <div className="rounded-box">{users && users.length}</div>
-        </div>
-        <div className="box">
-          <h4>Antal admin</h4>
-          <div className="rounded-box">{admins}</div>
-        </div>
       </section>
 
       <section id="border" class="border-class">
