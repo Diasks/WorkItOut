@@ -13,10 +13,18 @@ import {
 import { setAlert } from "./alertAction";
 import setAuthToken from "../_utils/setAuthToken";
 
+//???
+
 export const userRequest = () => ({
   type: USER_REQUEST,
 });
 
+/**
+ *  Metod som används för att göra API-anrop till vårt REST-API för att hämta alla användare.
+ *
+ * @returns {Promise} Ett axios.get() Promise
+ *
+ */
 export const getUsers = () => async dispatch => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
@@ -34,6 +42,13 @@ export const getUsers = () => async dispatch => {
   }
 };
 
+/**
+ *  Metod som används för att göra API-anrop till vårt REST-API för att hämta en specifik användare baserat på ID.
+ *
+ * @param {Number} userId Användarens ID som hämtas från URL-parametern
+ * @returns {Promise} Ett axios.get() Promise
+ *
+ */
 export const getUser = userId => async dispatch => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
@@ -54,6 +69,12 @@ export const getUser = userId => async dispatch => {
   }
 };
 
+/**
+ *  Metod som används för att göra API-anrop till vårt REST-API för att hämta en specifik användares profil baserat på ID.
+ *
+ * @returns {Promise} Ett axios.get() Promise
+ *
+ */
 export const getUserProfile = () => async dispatch => {
   const userId = localStorage.id;
 
@@ -77,6 +98,17 @@ export const getUserProfile = () => async dispatch => {
   }
 };
 
+/**
+ *  Metod som används för att göra API-anrop till vårt REST-API för att admin ska skapa en ny användare.
+ *
+ * @param {String} firstname Förnamnet som matats
+ * @param {String} lastname Efternamnet som matats in
+ * @param {String} email Emailen som matats in
+ * @param {*} password Lösenordet som matats in
+ * @param {Boolean} admin Checkbox som valts
+ * @returns {Promise} Ett axios.post() Promise
+ *
+ */
 export const createUser = ({
   firstname,
   lastname,
@@ -114,6 +146,12 @@ export const createUser = ({
   }
 };
 
+/**
+ * Metod som används för att göra API-anrop till vårt REST-API för att uppdatera användarens profilbild.
+ *
+ * @param {Object} user Objekt innehållande användarens ID och profilbild
+ * @returns {Promise} Ett axios.post() Promise
+ */
 export const uploadImage = user => async dispatch => {
   const formData = new FormData();
   formData.append("profilePicture", user.profilePicture);
@@ -140,6 +178,12 @@ export const uploadImage = user => async dispatch => {
   }
 };
 
+/**
+ * Metod som används för att göra API-anrop till vårt REST-API för att uppdatera användaren.
+ *
+ * @param {Object} user Objekt innehållande användarens ID, förnamn, efternamn, email och roll(admin)
+ * @returns {Promise} Ett axios.patch() Promise
+ */
 export const updateUser = user => async dispatch => {
   const config = {
     headers: {
@@ -167,12 +211,23 @@ export const updateUser = user => async dispatch => {
   }
 };
 
+/**
+ * Metod som används för att rensa alla våra states.
+ *
+ * @returns Initial state.
+ */
 export const cleanUpUser = () => async dispatch => {
   dispatch({
     type: CLEAN_UP_USER,
   });
 };
 
+/**
+ * Metod som används för att göra API-anrop till vårt REST-API för att uppdatera användarens lösenord.
+ *
+ * @param {Object} password Objekt innehållande användarens gamla lösenord och användarens nya lösenord.
+ * @returns {Promise} Ett axios.patch() Promise
+ */
 export const registerNewPassword = password => async dispatch => {
   const config = {
     headers: {
@@ -200,6 +255,12 @@ export const registerNewPassword = password => async dispatch => {
   }
 };
 
+/**
+ * Metod som används för att göra API-anrop till vårt REST-API när admin vill radera användaren baserat på användarens ID.
+ *
+ * @param {Number} id Användarens ID som hämtas från URL-parametern
+ * @returns {Promise} Ett axios.delete() Promise
+ */
 export const deleteUser = id => async dispatch => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
@@ -225,6 +286,11 @@ export const deleteUser = id => async dispatch => {
   }
 };
 
+/**
+ * Metod som används för att göra API-anrop till vårt REST-API när användaren vill radera sitt konto.
+ *
+ * @returns {Promise} Ett axios.patch() Promise
+ */
 export const removeAccount = () => async dispatch => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
@@ -250,7 +316,12 @@ export const removeAccount = () => async dispatch => {
   }
 };
 
-
+/**
+ * Metod som används för att göra API-anrop till vårt REST-API när användaren vill lägga till en aktivitet.
+ *
+ * @param {Object} user Objekt som innehåller användarens ID, titel på aktivitet och tid på aktivitet.
+ * @returns {Promise} Ett axios.post() Promise
+ */
 export const addActivity = user => async dispatch => {
   const config = {
     headers: {
@@ -276,6 +347,12 @@ export const addActivity = user => async dispatch => {
   }
 };
 
+/**
+ * Metod som används för att göra API-anrop till vårt REST-API när användaren vill uppdatera en aktivitet.
+ *
+ * @param {Object} user Objekt som innehåller användarens ID, titel på aktivitet och tid på aktivitet.
+ * @returns {Promise} Ett axios.patch() Promise
+ */
 export const editActivity = user => async dispatch => {
   const config = {
     headers: {
@@ -301,7 +378,12 @@ export const editActivity = user => async dispatch => {
   }
 };
 
-
+/**
+ * Metod som används för att göra API-anrop till vårt REST-API när användaren vill radera en aktivitet.
+ *
+ * @param {Object} user Objekt som innehåller användarens ID och aktivitetens ID.
+ * @returns {Promise} Ett axios.delete() Promise
+ */
 export const deleteActivity = user => async dispatch => {
   const config = {
     headers: {
@@ -323,8 +405,3 @@ export const deleteActivity = user => async dispatch => {
     console.error(err);
   }
 };
-
-
-
-
-

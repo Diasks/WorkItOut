@@ -24,7 +24,11 @@ export const UserItem = (props) => {
   }, []);
 
   const [expanded, setExpanded] = useState(false);
-
+   /**
+   * Metod som används för att hantera ett toggle-onClick-event
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const handleExpandClick = (e) => setExpanded(!expanded);
 
   const { handleSubmit } = useForm();
@@ -37,11 +41,19 @@ export const UserItem = (props) => {
   });
 
   const { firstname, lastname, email, admin } = formData;
-
+    /**
+   * Metod som används för att hantera när värdet av ett element har ändrats
+   *
+   * @param {*} e Det event som gjorde att denna callback anropades
+   */
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+   /**
+   * Metod som används för att hantera när formuläret skickas
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const onSubmit = async (e) => {
     props.updateUser({ userId, firstname, lastname, email, admin });
   };

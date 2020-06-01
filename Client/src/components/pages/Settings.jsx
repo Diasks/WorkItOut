@@ -25,11 +25,21 @@ const Settings = ({setAlert, registerNewPassword, removeAccount, logout, success
   });
 
   const { oldPassword, newPassword, confirmPassword } = passwordData;
-
+  
+    /**
+   * Metod som används för att hantera när värdet av ett element har ändrats
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const onChange = (e) => {
     setPasswordData({ ...passwordData, [e.target.name]: e.target.value });
   };
 
+   /**
+   * Metod används för att hantera när formuläret skickas
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const onSubmit = async (e) => {
     if (newPassword !== confirmPassword) {
       setAlert("Lösenord matchar inte", "danger");

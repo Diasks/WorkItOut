@@ -10,7 +10,13 @@ import {
 } from "./types";
 import setAuthToken from "../_utils/setAuthToken";
 
-export const getFitnessSchemas = () => async (dispatch) => {
+/**
+ *  Metod som används för att göra API-anrop till vårt REST-API för att hämta alla fitnessmallar.
+ *
+ * @returns {Promise} Ett axios.get() Promise
+ *
+ */
+export const getFitnessSchemas = () => async dispatch => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -27,7 +33,14 @@ export const getFitnessSchemas = () => async (dispatch) => {
   }
 };
 
-export const getFitnessSchema = (programId) => async (dispatch) => {
+/**
+ *  Metod som används för att göra API-anrop till vårt REST-API för att hämta en specifik fitnessmall baserat på ID.
+ *
+ * @param {Number} programId Fitnessmallens ID som hämtas från URL-parametern
+ * @returns {Promise} Ett axios.get() Promise
+ *
+ */
+export const getFitnessSchema = programId => async dispatch => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -46,9 +59,18 @@ export const getFitnessSchema = (programId) => async (dispatch) => {
   }
 };
 
-export const createFitnessSchema = (exerciseObject, fitness) => async (
-  dispatch
-) => {
+/**
+ *  Metod som används för att göra API-anrop till vårt REST-API för att admin ska skapa en ny fitnessmall.
+ *
+ * @param {Object} exerciseObject Objekt som innehåller titel på övning, sets, reps och url
+ * @param {Object} fitness Objekt som innehåller titel på program, beskrivning, längd och titel
+ * @returns {Promise} Ett axios.post() Promise
+ *
+ */
+export const createFitnessSchema = (
+  exerciseObject,
+  fitness
+) => async dispatch => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -79,7 +101,8 @@ export const createFitnessSchema = (exerciseObject, fitness) => async (
   }
 };
 
-export const updateFitnessSchema = (program) => async (dispatch) => {
+//??
+export const updateFitnessSchema = program => async dispatch => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -104,7 +127,14 @@ export const updateFitnessSchema = (program) => async (dispatch) => {
   }
 };
 
-export const updateExercise = (program) => async (dispatch) => {
+/**
+ *  Metod som används för att göra API-anrop till vårt REST-API för att admin ska uppdatera ett specifikt objekt i en specifik fitnessmall.
+ *
+ * @param {Object} program Objekt som innehåller ID på övning, ID på mall, titel på övning, sets, reps och url
+ * @returns {Promise} Ett axios.patch() Promise
+ *
+ */
+export const updateExercise = program => async dispatch => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -129,7 +159,15 @@ export const updateExercise = (program) => async (dispatch) => {
   }
 };
 
-export const deleteExercise = (programId, exerciseId) => async (dispatch) => {
+/**
+ *  Metod som används för att göra API-anrop till vårt REST-API för att admin ska kunna radera ett specifikt objekt i en specifik fitnessmall.
+ *
+ * @param {Number} programId Fitnessmallens ID som skickas med från ett onClick-function-call
+ * @param {Number} exerciseId Övningsobjektets ID som skickas med från ett onClick-function-call
+ * @returns {Promise} Ett axios.delete() Promise
+ *
+ */
+export const deleteExercise = (programId, exerciseId) => async dispatch => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -153,7 +191,14 @@ export const deleteExercise = (programId, exerciseId) => async (dispatch) => {
   }
 };
 
-export const deleteFitnessSchema = (id) => async (dispatch) => {
+/**
+ *  Metod som används för att göra API-anrop till vårt REST-API för att admin ska kunna radera en specifik fitnessmall.
+ *
+ * @param {Number} id Fitnessmallens ID som skickas med från ett onClick-function-call
+ * @returns {Promise} Ett axios.delete() Promise
+ *
+ */
+export const deleteFitnessSchema = id => async dispatch => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }

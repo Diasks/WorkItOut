@@ -17,7 +17,12 @@ export const authRequest = () => ({
   type: AUTH_REQUEST,
 });
 
-export const loadUser = () => async (dispatch) => {
+/**
+ *  Metod som används för att göra API-anrop till vårt REST-API för att hämta en specifik användare baserat på ID.
+ *
+ * @returns {Promise} Ett axios.get() Promise
+ */
+export const loadUser = () => async dispatch => {
   const id = localStorage.id;
 
   if (localStorage.token) {
@@ -38,13 +43,24 @@ export const loadUser = () => async (dispatch) => {
   }
 };
 
+/**
+ *  Metod som används för att göra API-anrop till vårt REST-API för att registrera en ny användare.
+ *
+ * @param {String} firstname Förnamnet som matats in av användaren
+ * @param {String} lastname Efternamnet som matats in av användaren
+ * @param {String} email Emailen som matats in av användaren
+ * @param {*} password Lösenordet som matats in av användaren
+ * @param {Boolean} admin Default satt till false
+ * @returns {Promise} Ett axios.post() Promise
+ *
+ */
 export const registerUser = ({
   firstname,
   lastname,
   email,
   password,
   admin,
-}) => async (dispatch) => {
+}) => async dispatch => {
   dispatch(authRequest());
 
   const config = {
@@ -87,7 +103,15 @@ export const registerUser = ({
   }
 };
 
-export const loginUser = (email, password) => async (dispatch) => {
+/**
+ *  Metod som används för att göra API-anrop till vårt REST-API för att logga in en användare.
+ *
+ * @param {String} email Emailen som matats in av användaren
+ * @param {*} password Lösenordet som matats in av användaren
+ * @returns {Promise} Ett axios.post() Promise
+ *
+ */
+export const loginUser = (email, password) => async dispatch => {
   dispatch(authRequest());
 
   const config = {
@@ -124,7 +148,12 @@ export const loginUser = (email, password) => async (dispatch) => {
   }
 };
 
-export const logout = () => (dispatch) => {
+/**
+ * Metod som används för att logga ut användaren.
+ *
+ * @returns Initial state.
+ */
+export const logout = () => dispatch => {
   dispatch({ type: LOGOUT });
   history.push("/");
 };
