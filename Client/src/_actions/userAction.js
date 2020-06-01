@@ -14,7 +14,6 @@ import { setAlert } from "./alertAction";
 import setAuthToken from "../_utils/setAuthToken";
 
 //???
-
 export const userRequest = () => ({
   type: USER_REQUEST,
 });
@@ -115,6 +114,7 @@ export const createUser = ({
   email,
   password,
   admin,
+
 }) => async dispatch => {
   const config = {
     headers: {
@@ -210,6 +210,7 @@ export const updateUser = user => async dispatch => {
     console.log(error);
   }
 };
+
 
 /**
  * Metod som används för att rensa alla våra states.
@@ -316,6 +317,7 @@ export const removeAccount = () => async dispatch => {
   }
 };
 
+
 /**
  * Metod som används för att göra API-anrop till vårt REST-API när användaren vill lägga till en aktivitet.
  *
@@ -359,7 +361,7 @@ export const editActivity = user => async dispatch => {
       "Content-Type": "application/json",
     },
   };
-
+  
   const body = JSON.stringify(user);
 
   try {

@@ -49,7 +49,7 @@ const CreateUser = ({ isAdmin, createUser, successful }) => {
   const displayCreateUser = (
     <div className="login-wrapper">
       <section>
-        <h3>Skapa Användare</h3>
+        <h2 className="heading rose no-margin">Skapa ny användare</h2>
 
         <form
           className="form-container"
@@ -129,24 +129,28 @@ const CreateUser = ({ isAdmin, createUser, successful }) => {
             </span>
           )}
 
-          <span>Admin?</span>
+          <div className="form-section left">
+            <div>
+              <input
+                className="input-checkbox-switch switch"
+                type="checkbox"
+                name="admin"
+                defaultValue={defaultValues.admin}
+                onChange={(e) =>
+                  onChange({
+                    target: {
+                      name: e.target.name,
+                      value: e.target.checked,
+                    },
+                  })
+                }
+              />
+              <label className="form-label">Admin?</label>
+            </div>
+          </div>
 
-          <input
-            type="checkbox"
-            name="admin"
-            defaultValue={defaultValues.admin}
-            onChange={(e) =>
-              onChange({
-                target: {
-                  name: e.target.name,
-                  value: e.target.checked,
-                },
-              })
-            }
-          />
-
-          <button className="btn btn-sky" type="submit">
-            Skapa användare
+          <button className="btn btn-mustard" type="submit">
+            Skapa
           </button>
         </form>
       </section>

@@ -10,22 +10,13 @@ const CreateProgramTemplate = ({
   createFitnessSchema,
   successful,
 }) => {
-  const blankExerciseObject = {
-    exerciseTitle: "",
-    sets: "",
-    reps: "",
-    url: "",
-  };
-  const [exerciseObjectState, setExerciseObjectState] = useState([
-    { ...blankExerciseObject },
-  ]);
-
   const [fitnessState, setFitnessState] = useState({
     programTitle: "",
     description: "",
     length: "",
     title: "",
   });
+  
     /**
    * Metod som används för att hantera när värdet av ett element har ändrats.
    *
@@ -36,8 +27,20 @@ const CreateProgramTemplate = ({
       ...fitnessState,
       [e.target.name]: e.target.value,
     });
+
+  const blankExerciseObject = {
+    exerciseNumber: "",
+    exerciseNumberInformation: [
+      { exerciseTitle: "", sets: "", reps: "", url: "" },
+    ],
+  };
+
+  const [exerciseObjectState, setExerciseObjectState] = useState([
+    { ...blankExerciseObject },
+  ]);
+
     /**
-   * Metod (används som callback) för att hantera när värdet av ett element har ändrats.
+   * Metod som används för att hantera när värdet av ett element har ändrats
    *
    * @param {*} e Det event som gjorde att denna funktion anropades
    */
@@ -48,6 +51,7 @@ const CreateProgramTemplate = ({
       e.target.value;
     setExerciseObjectState(updatedExerciseObject);
   };
+    
    /**
    * Metod som används för att lägga till ett nytt objekt till exerciseObjectState.
    */
@@ -59,6 +63,7 @@ const CreateProgramTemplate = ({
   };
 
   const { register, handleSubmit, errors } = useForm({});
+    
    /**
    * Metod som används för att hantera när formuläret skickas.
    *
@@ -73,16 +78,16 @@ const CreateProgramTemplate = ({
   }
 
   const displayCreateProgramTemplate = (
-    <div className="login-wrapper">
-      <section>
-        <h3>SKAPA NYTT PROGRAM</h3>
+    <main className="main column no-margin">
+      <h2 className="heading rose no-margin">Skapa nytt program</h2>
 
-        <form
-          className="form-container"
-          onSubmit={handleSubmit((e) => onSubmit(e))}
-          noValidate
-        >
-          <label htmlFor="owner">Välj titel</label>
+      <form
+        className="form-container"
+        onSubmit={handleSubmit((e) => onSubmit(e))}
+        noValidate
+      >
+        <div className="form-section">
+          <label className="form-label">Välj titel</label>
           <input
             type="text"
             name="programTitle"
@@ -96,15 +101,17 @@ const CreateProgramTemplate = ({
           {errors.programTitle && errors.programTitle.type === "required" && (
             <span className="error message">Titel måste fyllas i</span>
           )}
+        </div>
 
-          <label htmlFor="description">Kort Beskrivning</label>
-          <input
+        <div className="form-section">
+          <label className="form-label">Kort Beskrivning</label>
+          <textarea
             type="text"
             name="description"
             id="description"
             placeholder="T.ex. 30-dagars yoga för nybörjare eller personer som behöver repetition."
             className={
-              "input wide" + (errors.description ? " error border" : "")
+              "input textarea" + (errors.description ? " error border" : "")
             }
             value={fitnessState.description}
             onChange={handleFitnessChange}
@@ -114,26 +121,10 @@ const CreateProgramTemplate = ({
           {errors.description && errors.description.type === "required" && (
             <span className="error message">Beskrivning måste fyllas i</span>
           )}
+        </div>
 
-          <label htmlFor="description">Antal</label>
-          <input
-            type="number"
-            name="length"
-            id="length"
-            placeholder="T.ex. 30"
-            className={"input" + (errors.length ? " error border" : "")}
-            value={fitnessState.length}
-            onChange={handleFitnessChange}
-            ref={register({
-              required: true,
-            })}
-          />
-
-          {errors.length && errors.length.type === "required" && (
-            <span className="error message">Antal måste fyllas i</span>
-          )}
-
-          <label htmlFor="description">Namn på pass</label>
+        <div className="form-section">
+          <label className="form-label">Namn på pass</label>
           <input
             type="text"
             name="title"
@@ -147,15 +138,24 @@ const CreateProgramTemplate = ({
           {errors.title && errors.title.type === "required" && (
             <span className="error message">Namn på pass måste fyllas i</span>
           )}
+        </div>
 
-          <h4>Skapa Övningar</h4>
+        <div className="form-section">
+          <label className="form-label">Skapa övningar</label>
+          <input
+            type="text"
+            name="exerciseNumber"
+            placeholder="Nummer på pass"
+            className="input"
+          />
+
           {exerciseObjectState.map((val, idx) => {
             const exerciseTitleId = `exerciseTitle-${idx}`;
             const setsId = `sets-${idx}`;
             const repsId = `reps-${idx}`;
             const urlId = `url-${idx}`;
             return (
-              <div key={`exerciseTitle-${idx}`}>
+              <div className="form-section-table" key={`exerciseTitle-${idx}`}>
                 <input
                   type="text"
                   name={exerciseTitleId}
@@ -164,7 +164,7 @@ const CreateProgramTemplate = ({
                   placeholder="Övning, t.ex. Knäböj"
                   value={exerciseObjectState[idx].exerciseTitle}
                   className={
-                    "exerciseTitle" + (errors.sets ? " error border" : "")
+                    "input exerciseTitle" + (errors.sets ? " error border" : "")
                   }
                   onChange={handleExerciseObjectChange}
                   ref={register({ required: true })}
@@ -182,7 +182,9 @@ const CreateProgramTemplate = ({
                   id={setsId}
                   placeholder="Antal gånger, t.ex. 3"
                   value={exerciseObjectState[idx].sets}
-                  className={"sets" + (errors.sets ? " error border" : "")}
+                  className={
+                    "input sets" + (errors.sets ? " error border" : "")
+                  }
                   onChange={handleExerciseObjectChange}
                   ref={register({ required: true })}
                 />{" "}
@@ -198,7 +200,9 @@ const CreateProgramTemplate = ({
                   id={repsId}
                   placeholder="Antal repetitioner, t.ex. 10"
                   value={exerciseObjectState[idx].reps}
-                  className={"reps" + (errors.reps ? " error border" : "")}
+                  className={
+                    "input reps" + (errors.reps ? " error border" : "")
+                  }
                   onChange={handleExerciseObjectChange}
                   ref={register({ required: true })}
                 />
@@ -214,23 +218,29 @@ const CreateProgramTemplate = ({
                   id={urlId}
                   placeholder="Klistra in url"
                   value={exerciseObjectState[idx].url}
-                  className={"url" + (errors.url ? " error border" : "")}
+                  className={"input url" + (errors.url ? " error border" : "")}
                   onChange={handleExerciseObjectChange}
                 />
               </div>
             );
           })}
-          <input
-            type="button"
-            value="Lägg till övning"
-            onClick={addExerciseObject}
-          />
-          <button className="btn btn-sky" type="submit">
-            Spara
-          </button>
-        </form>
-      </section>
-    </div>
+
+          <div className="link-add left">
+            <span className="icon icon-add"></span>
+            <input
+              type="button"
+              value="Lägg till övning"
+              onClick={addExerciseObject}
+              className="link-add"
+            />
+          </div>
+        </div>
+
+        <button className="btn btn-sky" type="submit">
+          Spara
+        </button>
+      </form>
+    </main>
   );
 
   const redirectUser = <Redirect to="/overview" />;
