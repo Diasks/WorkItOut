@@ -4,7 +4,6 @@ import store from "../../../store";
 import { Link, Redirect } from "react-router-dom";
 import ProgramList from "./ProgramList";
 import { getFitnessSchemas } from "../../../_actions/fitnessAction";
-import AddIcon from "@material-ui/icons/Add";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
 
@@ -16,8 +15,8 @@ const ProgramTemplates = ({ auth: { admin }, schemas, loading }) => {
   const displayProgramTemplates = (
     <div className="login-wrapper">
       <section>
-        <h3>PROGRAM</h3>
-        <ul>
+        <h2 className="heading rose">Program</h2>
+        <ul className="list">
           {schemas === undefined ? (
             <LoadingOverlay
               active={loading}
@@ -35,8 +34,9 @@ const ProgramTemplates = ({ auth: { admin }, schemas, loading }) => {
             ))
           )}
         </ul>
-        <Link to="/create-program">
-          <AddIcon className="icon icon-addicon" /> Lägg till program
+        <Link className="link-add" to="/create-program">
+          <span className="icon icon-add"></span>
+          <span>Lägg till program</span>
         </Link>
       </section>
     </div>

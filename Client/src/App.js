@@ -16,6 +16,9 @@ import Footer from "./components/layout/Footer";
 import Home from "./components/pages/Home";
 import Dashboard from "./components/pages/Admin/Dashboard";
 import Overview from "./components/pages/User/Overview";
+import Challenges from "./components/pages/User/Challenges";
+import ChallengeItem from "./components/pages/User/ChallengeItem";
+import ExercisesItem from "./components/pages/User/ExercisesItem";
 import CreateUser from "./components/pages/Admin/CreateUser";
 import Users from "./components/pages/Admin/Users";
 import UserProfile from "./components/pages/UserProfile";
@@ -53,6 +56,13 @@ const App = () => {
           <PrivateRoute path="/users/:id" exact component={UserItem} />
           <PrivateRoute path="/profile" exact component={UserProfile} />
           <PrivateRoute path="/profile/history" exact component={UserHistory} />
+          <PrivateRoute path="/challenges" exact component={Challenges} />
+          <PrivateRoute
+            path="/challenges/:id"
+            exact
+            component={ChallengeItem}
+          />
+          <PrivateRoute path="/workout/:id" exact component={ExercisesItem} />
           <PrivateRoute path="/programs" exact component={ProgramTemplates} />
           <PrivateRoute
             path="/programs/program/:id"

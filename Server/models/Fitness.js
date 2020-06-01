@@ -1,19 +1,16 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const exerciseInformationSchema = new Schema({
+const exerciseNumberInformationSchema = new Schema({
   exerciseTitle: {
     type: String,
-    required: true,
     trim: true,
   },
   sets: {
     type: Number,
-    required: true,
   },
   reps: {
     type: Number,
-    required: true,
     trim: true,
   },
   url: {
@@ -33,17 +30,17 @@ const FitnessSchema = new Schema({
     required: true,
     trim: true,
   },
-  length: {
-    type: Number,
-    required: true,
-    trim: true,
-  },
   title: {
     type: String,
     required: true,
     trim: true,
   },
-  exerciseInformation: [exerciseInformationSchema],
+  exerciseInformation: [
+    {
+      exerciseNumber: Number,
+      exerciseNumberInformation: [exerciseNumberInformationSchema],
+    },
+  ],
 });
 
 const FitnessSchedule = mongoose.model("fitness", FitnessSchema);

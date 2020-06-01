@@ -1,24 +1,23 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 
 export const UserList = ({ auth: { admin }, user }) => {
   const displayUserList = (
-    <div>
-      <Link to={`/users/${user._id}`}>
+    <Link className="link-menu" to={`/users/${user._id}`}>
+      <span>
         {user.firstname} {user.lastname}{" "}
-        <ArrowForwardIosIcon className="icon icon-arrowforwardiosicon" />
-      </Link>
-    </div>
+      </span>
+      <span className="icon icon-arrow-right"></span>
+    </Link>
   );
 
   const redirectUser = <Redirect to="/overview" />;
 
   return (
-    <main className="main column">
+    <div>
       {admin === true || admin === "true" ? displayUserList : redirectUser}
-    </main>
+    </div>
   );
 };
 

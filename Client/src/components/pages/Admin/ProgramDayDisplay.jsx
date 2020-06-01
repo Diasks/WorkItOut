@@ -19,7 +19,7 @@ export const ProgramDayDisplay = (props) => {
   const handleExpandClick = (e) => setExpanded(!expanded);
   useEffect(() => {
     store.dispatch(getFitnessSchema(programId));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   if (props.successful === true) {
