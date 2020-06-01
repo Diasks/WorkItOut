@@ -6,9 +6,9 @@ import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 export const ProgramList = ({ auth: { admin }, schema }) => {
   const displayProgramList = (
     <div>
-      <Link to={`/programs/${schema._id}`}>
-        {schema.programTitle}{" "}
-        <ArrowForwardIosIcon className="icon icon-arrowforwardiosicon" />
+      <Link className="link-menu" to={`/programs/${schema._id}`}>
+        <span>{schema.programTitle}</span>
+        <span className="icon icon-arrow-right"></span>
       </Link>
     </div>
   );
@@ -16,9 +16,9 @@ export const ProgramList = ({ auth: { admin }, schema }) => {
   const redirectUser = <Redirect to="/overview" />;
 
   return (
-    <main className="main column">
+    <div>
       {admin === true || admin === "true" ? displayProgramList : redirectUser}
-    </main>
+    </div>
   );
 };
 

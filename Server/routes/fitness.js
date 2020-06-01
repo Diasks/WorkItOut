@@ -56,11 +56,10 @@ router.post("/", verifyToken, async (req, res) => {
 // @desc Delete specific exercise-object in exercise-number in specific fitness-schedule
 // @access Private
 router.delete(
-  "/:fitnessId/:exerciseNumberId/:exerciseId",
+  "/:programId/exerciseNumber/:exerciseId",
   verifyToken,
   async (req, res) => {
-    debugger;
-    let programId = req.params.fitnessId;
+    let programId = req.params.programId;
     let exerciseId = req.params.exerciseId;
 
     try {
@@ -90,8 +89,8 @@ router.delete(
 // @route DELETE api/fitness/:fitnessId/:exercisesId
 // @desc Delete specific exercises-object in specific fitness-schedule
 // @access Private
-router.delete("/:fitnessId/:exercisesId", verifyToken, async (req, res) => {
-  let programId = req.params.fitnessId;
+router.delete("/:programId/:exercisesId", verifyToken, async (req, res) => {
+  let programId = req.params.programId;
   let exercisesId = req.params.exercisesId;
 
   try {
@@ -115,10 +114,10 @@ router.delete("/:fitnessId/:exercisesId", verifyToken, async (req, res) => {
 // @route DELETE api/fitness/:fitnessId
 // @desc Delete specific fitness-schedule
 // @access Private
-router.delete("/:fitnessId", verifyToken, async (req, res) => {
+router.delete("/:programId", verifyToken, async (req, res) => {
   try {
     const removedFitness = await FitnessSchedule.deleteOne({
-      _id: req.params.fitnessId,
+      _id: req.params.programId,
     });
 
     res.json(removedFitness);
