@@ -7,6 +7,7 @@ import UserList from "./UserList";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
 import { Redirect } from "react-router-dom";
+import GoBackButton from "../../layout/GoBackButton";
 
 const Users = ({ auth: { admin }, users, loading }) => {
   useEffect(() => {
@@ -44,6 +45,7 @@ const Users = ({ auth: { admin }, users, loading }) => {
         {users &&
           users.map((user, index) => <UserList key={index} user={user} />)}
       </ul>
+      <GoBackButton/>
     </section>
   );
 

@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { getFaq, deleteFaq } from "../../_actions/faqAction";
 import { useEffect } from "react";
 import store from "../../store";
-
+import GoBackButton from "../layout/GoBackButton";
 import Alert from "../layout/Alert";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
@@ -107,6 +107,7 @@ const Faq = ({
               </ul>
             )}
           </div>
+          <GoBackButton/>
         </main>
       </LoadingOverlay>
     </Fragment>
