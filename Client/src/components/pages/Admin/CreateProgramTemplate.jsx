@@ -52,8 +52,7 @@ const CreateProgramTemplate = ({
   const { register, handleSubmit, errors } = useForm({});
 
   const onSubmit = async (e) => {
-    console.log(exerciseObjectState);
-    //createFitnessSchema(exerciseObjectState, fitnessState);
+    createFitnessSchema(exerciseObjectState, fitnessState);
   };
 
   if (successful === true) {
