@@ -87,7 +87,7 @@ const LoginForm = ({ loginUser, isAuthenticated, admin }) => {
           <span className="error message">Lösenord måste fyllas i</span>
         )}
 
-        <Link to="/" className="link small right">
+        <Link to="/password-reset" className="link small right">
           Glömt lösenord?
         </Link>
         <button className="btn btn-sky" type="submit">

@@ -230,6 +230,7 @@ export const cleanUpUser = () => async dispatch => {
  * @returns {Promise} Ett axios.patch() Promise
  */
 export const registerNewPassword = password => async dispatch => {
+  debugger;
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -239,6 +240,7 @@ export const registerNewPassword = password => async dispatch => {
   const body = JSON.stringify(password);
 
   try {
+    debugger;
     const res = await axios.patch(
       `http://localhost:5000/api/users/password`,
       body,
