@@ -32,6 +32,7 @@ import UserItem from "./components/pages/Admin/UserItem";
 import UserHistory from "./components/layout/profile/UserHistory";
 import ProgramItem from "./components/pages/Admin/ProgramItem";
 import ProgramDayDisplay from "./components/pages/Admin/ProgramDayDisplay";
+import PasswordReset from "./components/layout/PasswordReset";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -49,6 +50,7 @@ const App = () => {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/register" component={Register} />
+          <Route path="/password-reset" component={PasswordReset} />
           <PrivateRoute path="/dashboard" exact component={Dashboard} />
           <PrivateRoute path="/overview" exact component={Overview} />
           <PrivateRoute path="/create-user" exact component={CreateUser} />
