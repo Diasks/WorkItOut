@@ -122,6 +122,7 @@ Faq.propTypes = {
   loading: PropTypes.bool,
   pager: PropTypes.object.isRequired,
   pageOfFaq: PropTypes.array.isRequired,
+  getFaq: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

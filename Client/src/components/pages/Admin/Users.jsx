@@ -14,15 +14,18 @@ const Users = ({ auth: { admin }, users, loading }) => {
     store.dispatch(getUsers());
   }, []);
 
-  const [searchTerm, setSearchTerm] = React.useState("");
-  const [searchResults, setSearchResults] = React.useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
   const searchUsers = users;
 
+
   useEffect(() => {
+    if (searchUsers !== undefined) { 
     const results = searchUsers.filter(user =>
       user.firstname.toLowerCase().includes(searchTerm)
     );
-    setSearchResults(results);
+    setSearchResults(results);}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm]);
 
   /**
@@ -83,6 +86,9 @@ const Users = ({ auth: { admin }, users, loading }) => {
 
 Users.propTypes = {
   getUsers: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  users: PropTypes.object.isRequired,
+  loading:PropTypes.bool,
 };
 
 const mapStateToProps = state => ({

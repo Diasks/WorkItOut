@@ -58,6 +58,7 @@ footer {
 
       div {
         display: flex;
+        flex-direction: row;
       }
     }
   }
@@ -65,11 +66,12 @@ footer {
   .copyright {
     display: flex;
     justify-content: center;
-    margin: 30px 0 0;
+    margin: 5px 0 0;
 
     .text {
       font-size: 12px;
       width: 460px;
+      color: $white;
 
       @media (min-width: $xlarge) {
         width: 760px;

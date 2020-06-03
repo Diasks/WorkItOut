@@ -177,6 +177,9 @@ UserItem.propTypes = {
   getUser: PropTypes.func.isRequired,
   deleteUser: PropTypes.func.isRequired,
   updateUser: PropTypes.func.isRequired,
+  successful: PropTypes.bool,
+  auth: PropTypes.object.isRequired,
+  loading: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({

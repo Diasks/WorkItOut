@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { getUserProfile } from "../../../_actions/userAction";
 import { useEffect } from "react";
+import PropTypes from "prop-types";
 import store from "../../../store";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
@@ -12,6 +13,7 @@ const Dashboard = ({ auth: { admin }, selectedUser, loading, users }) => {
     store.dispatch(getUserProfile());
   }, []);
 
+// eslint-disable-next-line
   let admins;
 
   if (users) {
@@ -20,6 +22,7 @@ const Dashboard = ({ auth: { admin }, selectedUser, loading, users }) => {
     });
 
     if (adminArray) {
+    
       admins = adminArray.filter(function (x) {
         return x === true;
       }).length;
@@ -74,6 +77,14 @@ const Dashboard = ({ auth: { admin }, selectedUser, loading, users }) => {
       {admin === "true" || admin === true ? displayDashboard : redirectUser}
     </LoadingOverlay>
   );
+};
+
+Dashboard.propTypes = {
+  getUserProfile: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  selectedUser: PropTypes.object.isRequired,
+  loading: PropTypes.bool,
+  users: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({

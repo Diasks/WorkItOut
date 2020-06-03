@@ -3,7 +3,7 @@ import React from "react";
 const Banner = () => {
   return (
     <header className="banner">
-      <span className="logo logo-full big"></span>
+      <a href="/"><span className="logo logo-full big"></span></a>
       <h2 className="label msutard">Lorem Ipsum</h2>
       <div className="description">Lorem ipsum dolor sit amet.</div>
       <div className="description">Consectetur adipisicing elit lorem. </div>
