@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { setAlert } from "../../_actions/alertAction";
 import { registerNewPassword } from "../../_actions/userAction";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import Alert from "../layout/Alert";
 import GoBackButton from "../layout/GoBackButton";
 import { Redirect } from "react-router-dom";
@@ -150,6 +151,12 @@ const PasswordReset = ({ setAlert, registerNewPassword, successful }) => {
       </main>
     </div>
   );
+};
+
+PasswordReset.propTypes = {
+  registerNewPassword: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
+  successful: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({

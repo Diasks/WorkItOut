@@ -295,6 +295,7 @@ export const deleteUser = id => async dispatch => {
  * @returns {Promise} Ett axios.patch() Promise
  */
 export const removeAccount = () => async dispatch => {
+  debugger;
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -306,15 +307,17 @@ export const removeAccount = () => async dispatch => {
   };
 
   try {
+    debugger;
     const res = await axios.patch(
       "http://localhost:5000/api/users/removeaccount",
       config
     );
     dispatch({
       type: REMOVE_ACCOUNT,
-      payload: res.data,
+      payload: res
     });
   } catch (err) {
+    debugger;
     console.error(err);
   }
 };
