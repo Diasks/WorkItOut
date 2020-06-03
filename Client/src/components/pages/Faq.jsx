@@ -5,9 +5,8 @@ import { connect } from "react-redux";
 import { getFaq, deleteFaq } from "../../_actions/faqAction";
 import { useEffect } from "react";
 import store from "../../store";
-
+import GoBackButton from "../layout/GoBackButton";
 import Alert from "../layout/Alert";
-import DeleteIcon from "@material-ui/icons/Delete";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
 
@@ -24,16 +23,29 @@ const Faq = ({
 }) => {
   const [page, setPagination] = useState(pager);
 
-  const handlePageChange = () => {
-    setPagination(!page);
-  };
-
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const page = parseInt(params.get("page"));
 
     store.dispatch(getFaq(page));
   }, [page]);
+
+  /**
+   * Metod som används för att ???
+   */
+  const handlePageChange = () => {
+    setPagination(!page);
+  };
+
+    /**
+   * Metod som används för att hantera radering av aktivitet via ett onClick-event
+   *
+   * @param {Number} id Nummer som innehåller ID på objektet som ska raderas
+   */
+  const handleDeleteFaq = (id) => {
+    deleteFaq(id);
+    window.location.reload();
+  };
 
   const questionsAndAnswers = pageOfFaq.map((questionAndAnswer) => {
     return (
@@ -42,10 +54,10 @@ const Faq = ({
           {admin === "true" && (
             <button
               className="btn btn-danger small"
-              onClick={(e) => deleteFaq(questionAndAnswer._id)}
+              onClick={(e) => handleDeleteFaq(questionAndAnswer._id)}
               type="button"
             >
-              <DeleteIcon className="icon icon-delete" />
+              <span className="icon icon-delete big"></span>
             </button>
           )}
           <div className="faq bold">{questionAndAnswer.question}</div>
@@ -95,6 +107,7 @@ const Faq = ({
               </ul>
             )}
           </div>
+          <GoBackButton/>
         </main>
       </LoadingOverlay>
     </Fragment>
@@ -109,6 +122,7 @@ Faq.propTypes = {
   loading: PropTypes.bool,
   pager: PropTypes.object.isRequired,
   pageOfFaq: PropTypes.array.isRequired,
+  getFaq: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

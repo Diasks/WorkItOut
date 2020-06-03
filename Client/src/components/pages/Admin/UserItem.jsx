@@ -6,16 +6,28 @@ import store from "../../../store";
 import { getUser } from "../../../_actions/userAction";
 import { deleteUser } from "../../../_actions/userAction";
 import { updateUser } from "../../../_actions/userAction";
-import Spinner from "../../layout/Spinner";
 import { useForm } from "react-hook-form";
+import Collapse from "@material-ui/core/Collapse";
+import LoadingOverlay from "react-loading-overlay";
+import PulseLoader from "react-spinners/PulseLoader";
+import GoBackButton from "../../layout/GoBackButton";
 
-export const UserItem = props => {
+export const UserItem = (props) => {
   let user = props.user;
   let userId = props.match.params.id;
 
   useEffect(() => {
     store.dispatch(getUser(userId));
+    // eslint-disable-next-line
   }, []);
+
+  const [expanded, setExpanded] = useState(false);
+   /**
+   * Metod som används för att hantera ett toggle-onClick-event
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
+  const handleExpandClick = (e) => setExpanded(!expanded);
 
   const { handleSubmit } = useForm();
 
@@ -27,12 +39,20 @@ export const UserItem = props => {
   });
 
   const { firstname, lastname, email, admin } = formData;
-
-  const onChange = e => {
+    /**
+   * Metod som används för att hantera när värdet av ett element har ändrats
+   *
+   * @param {*} e Det event som gjorde att denna callback anropades
+   */
+  const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-  const onSubmit = async e => {
+   /**
+   * Metod som används för att hantera när formuläret skickas
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
+  const onSubmit = async (e) => {
     props.updateUser({ userId, firstname, lastname, email, admin });
   };
 
@@ -40,21 +60,46 @@ export const UserItem = props => {
     return <Redirect to="/users" />;
   }
 
-  return (
-    <main className="main column">
-      <div className="login-wrapper">
+  const displayUserItem = (
+    <LoadingOverlay
+      active={props.loading}
+      spinner={<PulseLoader color={"#f5af61"} />}
+      styles={{
+        overlay: (base) => ({
+          ...base,
+          background: "#efeeee",
+        }),
+      }}
+    >
+      <main className="main column no-margin">
         <section>
-          {user == null ? (
-            <Spinner />
-          ) : (
-            <div>
-              <h3>
-                {user.firstname} {user.lastname}
-              </h3>
+          {user && (
+            <div className="form-container">
+              <div className="form-heading">
+                <div className="link-view-more">
+                  <h2 className="heading rose no-margin">
+                    {user.firstname} {user.lastname}
+                  </h2>
+                  <button
+                    className="btn btn-toggle"
+                    onClick={handleExpandClick}
+                  >
+                    <span className="icon icon-view-more"></span>
+                  </button>
+                </div>
+                <Collapse in={expanded}>
+                  <button
+                    className="btn btn-sky"
+                    onClick={() => store.dispatch(deleteUser(user._id))}
+                  >
+                    Radera
+                  </button>
+                </Collapse>
+              </div>
 
               <form
                 className="form-container"
-                onSubmit={handleSubmit(e => onSubmit(e))}
+                onSubmit={handleSubmit((e) => onSubmit(e))}
                 noValidate
               >
                 <input
@@ -63,7 +108,7 @@ export const UserItem = props => {
                   name="firstname"
                   placeholder="Förnamn"
                   value={firstname}
-                  onChange={e => onChange(e)}
+                  onChange={(e) => onChange(e)}
                 />
 
                 <input
@@ -72,7 +117,7 @@ export const UserItem = props => {
                   name="lastname"
                   placeholder="Efternamn"
                   value={lastname}
-                  onChange={e => onChange(e)}
+                  onChange={(e) => onChange(e)}
                 />
 
                 <input
@@ -81,41 +126,49 @@ export const UserItem = props => {
                   name="email"
                   placeholder="E-post"
                   value={email}
-                  onChange={e => onChange(e)}
+                  onChange={(e) => onChange(e)}
                 />
 
-                <div>
-                  Admin?{" "}
-                  <input
-                    type="checkbox"
-                    name="admin"
-                    value={admin}
-                    onChange={e =>
-                      onChange({
-                        target: {
-                          name: e.target.name,
-                          value: e.target.checked,
-                        },
-                      })
-                    }
-                  />
+                <div className="form-section left">
+                  <div>
+                    <input
+                      className="input-checkbox-switch switch"
+                      type="checkbox"
+                      name="admin"
+                      value={admin}
+                      defaultChecked={user.admin}
+                      onChange={(e) =>
+                        onChange({
+                          target: {
+                            name: e.target.name,
+                            value: e.target.checked,
+                          },
+                        })
+                      }
+                    />
+                    <label className="form-label">Admin?</label>
+                  </div>
                 </div>
 
-                <button className="btn btn-sky" type="submit">
+                <button className="btn btn-mustard" type="submit">
                   Spara
                 </button>
               </form>
-
-              <button
-                className="btn btn-sky"
-                onClick={() => store.dispatch(deleteUser(user._id))}
-              >
-                Radera
-              </button>
+              <GoBackButton/>
             </div>
           )}
         </section>
-      </div>
+      </main>
+    </LoadingOverlay>
+  );
+
+  const redirectUser = <Redirect to="/overview" />;
+
+  return (
+    <main className="main column">
+      {props.auth.admin === true || props.auth.admin === "true"
+        ? displayUserItem
+        : redirectUser}
     </main>
   );
 };
@@ -124,11 +177,16 @@ UserItem.propTypes = {
   getUser: PropTypes.func.isRequired,
   deleteUser: PropTypes.func.isRequired,
   updateUser: PropTypes.func.isRequired,
+  successful: PropTypes.bool,
+  auth: PropTypes.object.isRequired,
+  loading: PropTypes.bool,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: state.user.selectedUser,
   successful: state.user.successful,
+  loading: state.user.loading,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { getUser, deleteUser, updateUser })(

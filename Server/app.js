@@ -18,7 +18,12 @@ app.use(cors());
 //Connect to DB
 mongoose.connect(
   `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@workitout-p1prh.mongodb.net/test?retryWrites=true&w=majority`,
-  { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false },
+  {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  },
   () => console.log("connected to DB!")
 );
 
@@ -29,6 +34,11 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: false,
+  })
+);
 app.use(cookieParser());
 
 app.use("/api/auth", authRouter);

@@ -26,6 +26,14 @@ body {
   &.padding {
     padding: 8vw 8vw 12vw 8vw;
   }
+
+  &.less-margin {
+    margin: 57px 0;
+
+    @media (min-width: $medium) {
+      margin: 135px 0;
+    }
+  }
 }
 
 .page-container {
@@ -37,12 +45,6 @@ body {
     justify-content: center;
     align-items: center;
     width: 700px;
-  }
-}
-
-.label {
-  &.rose {
-    color: $rose;
   }
 }
 
@@ -80,4 +82,87 @@ body {
 
 .heading {
   margin-top: 40px;
+
+  &.rose {
+    color: $rose;
+  }
+
+  &.mustard {
+    color: $mustard;
+  }
+
+  &.darkgray {
+    margin: 40px 0 0 0;
+    color: $darkest;
+  }
+
+  &.no-margin {
+    margin: 0;
+  }
+}
+
+.horizontal-line {
+  border: 1px solid $mediumgray;
+  width: 350px;
+  margin: 50px 0;
+}
+
+.link-menu {
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+  text-decoration: none;
+
+  span {
+    color: $lightBlack;
+    font-weight: bold;
+    margin: 8px 0;
+  }
+}
+
+.link-add {
+  display: flex;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  color: $sky;
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+
+  span:last-child,
+  input {
+    line-height: 2.5;
+    margin-left: 5px;
+  }
+
+  &.left {
+    justify-content: flex-start;
+    width: 100%;
+  }
+}
+
+.link-view-more {
+  display: flex;
+  justify-content: space-between;
+}
+
+.label-nochallenge {
+  color: $lightBlack;
+  font-style: italic;
+  margin-top: 30px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.description-text {
+  font-size: 13px;
+  color: $darkest;
+}
+
+.faded-text {
+  color: $mediumgray;
+  margin-top: 30px;
 }

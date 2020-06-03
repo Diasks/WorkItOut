@@ -9,6 +9,7 @@ import Alert from "../layout/Alert";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
 import Banner from "../layout/Banner";
+import GoBackButton from "../layout/GoBackButton";
 
 const Register = ({ setAlert, registerUser, isAuthenticated, loading }) => {
   let defaultValues = {
@@ -30,11 +31,19 @@ const Register = ({ setAlert, registerUser, isAuthenticated, loading }) => {
   });
 
   const { firstname, lastname, email, password, confirmPassword } = formData;
-
+    /**
+   * Metod som används för att hantera när värdet av ett element har ändrats
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+   /**
+   * Metod som används för att hantera när formuläret skickas
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const onSubmit = async (e) => {
     if (password !== confirmPassword) {
       setAlert("Lösenord matchar inte", "danger");
@@ -161,6 +170,7 @@ const Register = ({ setAlert, registerUser, isAuthenticated, loading }) => {
               Registrera
             </button>
           </form>
+         <GoBackButton/>
         </div>
       </main>
     </LoadingOverlay>

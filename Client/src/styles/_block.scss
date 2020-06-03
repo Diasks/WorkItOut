@@ -1,0 +1,31 @@
+.block {
+  margin: 60px 0 0;
+}
+
+.box-wrapper {
+  display: flex;
+  display: column;
+  margin-bottom: 60px;
+
+  @media (min-width: $medium) {
+    display: row;
+    justify-content: space-between;
+    width: 400px;
+  }
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.rounded-box {
+  color: $white;
+  background-color: $sky;
+  padding: 10px;
+  width: 80px;
+  border-radius: 50px;
+  line-height: 1.5;
+}

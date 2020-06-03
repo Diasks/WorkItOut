@@ -1,36 +1,97 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { getUserProfile } from "../../../_actions/userAction";
+import { useEffect } from "react";
+import PropTypes from "prop-types";
+import store from "../../../store";
+import LoadingOverlay from "react-loading-overlay";
+import PulseLoader from "react-spinners/PulseLoader";
 
-const Dashboard = (props) => {
-  return (
-    <main className="main">
-      <section>
-        <h3>
-          Hejsan {props.user === null || undefined ? "" : props.user.firstname}
-        </h3>
+const Dashboard = ({ auth: { admin }, selectedUser, loading, users }) => {
+  useEffect(() => {
+    store.dispatch(getUserProfile());
+  }, []);
 
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam quos
-          enim voluptates accusantium suscipit neque fugit ex voluptatem illum!
-          Error ratione, aut iure laudantium vero expedita sapiente. Enim, nisi
-          rem.
-        </p>
+// eslint-disable-next-line
+  let admins;
+
+  if (users) {
+    let adminArray = users.map((user) => {
+      return user.admin;
+    });
+
+    if (adminArray) {
+    
+      admins = adminArray.filter(function (x) {
+        return x === true;
+      }).length;
+    }
+  }
+
+  const displayDashboard = (
+    <main className="main column less-margin">
+      <section className="curved-banner">
+        <div className="banner-text">
+          <h2 className="heading mustard">
+            Hejsan, {selectedUser && selectedUser.firstname}!
+          </h2>
+          <p className="label cream">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.{" "}
+          </p>
+        </div>
+
+        <div className="curved-banner-bottom"></div>
+      </section>
+
+      <section id="border" class="border-class">
         <div>
-          {" "}
-          <Link to="/programs">Skapa nytt program ></Link>
+          <Link className="link-menu" to="/create-program">
+            <span>Skapa nytt program</span>
+            <span className="icon icon-arrow-right"></span>
+          </Link>
         </div>
         <div>
-          {" "}
-          <Link to="/settings">Inställningar ></Link>
+          <Link className="link-menu" to="/settings">
+            <span>Inställningar</span>
+            <span className="icon icon-arrow-right"></span>
+          </Link>
         </div>
       </section>
     </main>
   );
+
+  const redirectUser = <Redirect to="/overview" />;
+
+  return (
+    <LoadingOverlay
+      active={loading}
+      spinner={<PulseLoader color={"#f5af61"} />}
+      styles={{
+        overlay: (base) => ({
+          ...base,
+          background: "#efeeee",
+        }),
+      }}
+    >
+      {admin === "true" || admin === true ? displayDashboard : redirectUser}
+    </LoadingOverlay>
+  );
+};
+
+Dashboard.propTypes = {
+  getUserProfile: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  selectedUser: PropTypes.object.isRequired,
+  loading: PropTypes.bool,
+  users: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  user: state.auth.user,
+  selectedUser: state.user.selectedUser,
+  auth: state.auth,
+  loading: state.user.loading,
+  users: state.user.users,
 });
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps, { getUserProfile })(Dashboard);

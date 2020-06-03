@@ -27,7 +27,7 @@ const UserSchema = new Schema({
     minlength: 6,
   },
   profilePicture: {
-    type: String,
+    type: Object,
   },
   admin: {
     type: Boolean,
@@ -38,6 +38,13 @@ const UserSchema = new Schema({
     default: Date.now,
   },
   userFitnessChallenge: [],
+  activities: [
+    {
+      date: Date,
+      title: String,
+      time: Number,
+    },
+  ],
 });
 
 const User = mongoose.model("user", UserSchema);
