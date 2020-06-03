@@ -97,8 +97,8 @@ router.get("/:userId", verifyToken, async (req, res) => {
   }
 });
 
-// @route GET api/users/:userId
-// @desc Get specific user
+// @route Delete api/users/:userId
+// @desc Delete specific user
 // @access Private
 router.delete("/:userId", verifyToken, async (req, res) => {
   try {
@@ -110,12 +110,11 @@ router.delete("/:userId", verifyToken, async (req, res) => {
   }
 });
 
-// @route POST api/users/:userId
+// @route POST api/users/activities/:userId
 // @desc Post activities on specific user
 // @access Private
 router.post("/activities/:userId", verifyToken, async (req, res) => {
   const { date, title, time } = req.body;
-
   try {
     const updatedActivity = await User.findByIdAndUpdate(
       { _id: req.params.userId },
@@ -161,7 +160,7 @@ router.delete(
   }
 );
 
-// @route DELETE api/users/removeaccount
+// @route PATCH api/users/removeaccount
 // @desc Delete account
 // @access Private
 router.patch("/removeaccount", verifyToken, async (req, res) => {
