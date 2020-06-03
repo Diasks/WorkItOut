@@ -9,7 +9,7 @@ import PulseLoader from "react-spinners/PulseLoader";
 import { Redirect } from "react-router-dom";
 import GoBackButton from "../../layout/GoBackButton";
 
-const Users = ({ auth: { admin }, users, loading }) => {
+const Users = ({ auth: { admin }, loading, users }) => {
   useEffect(() => {
     store.dispatch(getUsers());
   }, []);
