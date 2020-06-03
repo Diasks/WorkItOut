@@ -32,7 +32,6 @@ router.get("/:fitnessId", verifyToken, async (req, res) => {
 // @access Private
 router.post("/", verifyToken, async (req, res) => {
   const { exerciseInformation } = req.body;
-
   const exerciseInformationArray = exerciseInformation.map((exercise) => {
     return exercise;
   });
@@ -43,7 +42,7 @@ router.post("/", verifyToken, async (req, res) => {
     title: req.body.title,
     exerciseInformation: exerciseInformationArray,
   });
-
+  
   try {
     const savedFitness = await fitness.save();
     res.json(savedFitness);
