@@ -100,7 +100,13 @@ export const createFitnessSchema = (exerciseObject, fitness) => async (
   }
 };
 
-//??
+/**
+ *  Metod som används för att göra API-anrop till vårt REST-API för att admin ska uppdatera en specifik fitnessmall
+ *
+ * @param {Object} program Objekt som innehåller ID på program
+ * @returns {Promise} Ett axios.patch() Promise
+ *
+ */
 export const updateFitnessSchema = (program) => async (dispatch) => {
   const config = {
     headers: {

@@ -2,7 +2,10 @@ import axios from "axios";
 import { GET_FAQ, ADD_FAQ, DELETE_FAQ, FAQ_FAIL, FAQ_REQUEST } from "./types";
 import { setAlert } from "./alertAction";
 
-//??
+/**
+ *  Metod som används för att ropa på vid "pending" läge i anropet
+ */
+
 export const faqRequest = () => ({
   type: FAQ_REQUEST,
 });
