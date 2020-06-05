@@ -13,7 +13,10 @@ import {
 import { setAlert } from "./alertAction";
 import setAuthToken from "../_utils/setAuthToken";
 
-//???
+/**
+ *  Metod som används för att ropa på vid "pending" läge i anropet
+ */
+
 export const userRequest = () => ({
   type: USER_REQUEST,
 });
@@ -24,7 +27,8 @@ export const userRequest = () => ({
  * @returns {Promise} Ett axios.get() Promise
  *
  */
-export const getUsers = () => async dispatch => {
+
+export const getUsers = () => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -48,7 +52,8 @@ export const getUsers = () => async dispatch => {
  * @returns {Promise} Ett axios.get() Promise
  *
  */
-export const getUser = userId => async dispatch => {
+
+export const getUser = (userId) => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -74,7 +79,8 @@ export const getUser = userId => async dispatch => {
  * @returns {Promise} Ett axios.get() Promise
  *
  */
-export const getUserProfile = () => async dispatch => {
+
+export const getUserProfile = () => async (dispatch) => {
   const userId = localStorage.id;
 
   if (localStorage.token) {
@@ -108,14 +114,14 @@ export const getUserProfile = () => async dispatch => {
  * @returns {Promise} Ett axios.post() Promise
  *
  */
+
 export const createUser = ({
   firstname,
   lastname,
   email,
   password,
   admin,
-
-}) => async dispatch => {
+}) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -152,7 +158,8 @@ export const createUser = ({
  * @param {Object} user Objekt innehållande användarens ID och profilbild
  * @returns {Promise} Ett axios.post() Promise
  */
-export const uploadImage = user => async dispatch => {
+
+export const uploadImage = (user) => async (dispatch) => {
   const formData = new FormData();
   formData.append("profilePicture", user.profilePicture);
 
@@ -184,7 +191,8 @@ export const uploadImage = user => async dispatch => {
  * @param {Object} user Objekt innehållande användarens ID, förnamn, efternamn, email och roll(admin)
  * @returns {Promise} Ett axios.patch() Promise
  */
-export const updateUser = user => async dispatch => {
+
+export const updateUser = (user) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -211,13 +219,13 @@ export const updateUser = user => async dispatch => {
   }
 };
 
-
 /**
  * Metod som används för att rensa alla våra states.
  *
  * @returns Initial state.
  */
-export const cleanUpUser = () => async dispatch => {
+
+export const cleanUpUser = () => async (dispatch) => {
   dispatch({
     type: CLEAN_UP_USER,
   });
@@ -229,8 +237,8 @@ export const cleanUpUser = () => async dispatch => {
  * @param {Object} password Objekt innehållande användarens gamla lösenord och användarens nya lösenord.
  * @returns {Promise} Ett axios.patch() Promise
  */
-export const registerNewPassword = password => async dispatch => {
-  debugger;
+
+export const registerNewPassword = (password) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -240,7 +248,6 @@ export const registerNewPassword = password => async dispatch => {
   const body = JSON.stringify(password);
 
   try {
-    debugger;
     const res = await axios.patch(
       `/api/users/password`,
       body,
@@ -264,7 +271,8 @@ export const registerNewPassword = password => async dispatch => {
  * @param {Number} id Användarens ID som hämtas från URL-parametern
  * @returns {Promise} Ett axios.delete() Promise
  */
-export const deleteUser = id => async dispatch => {
+
+export const deleteUser = (id) => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -294,8 +302,8 @@ export const deleteUser = id => async dispatch => {
  *
  * @returns {Promise} Ett axios.patch() Promise
  */
-export const removeAccount = () => async dispatch => {
-  debugger;
+
+export const removeAccount = () => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -307,21 +315,18 @@ export const removeAccount = () => async dispatch => {
   };
 
   try {
-    debugger;
     const res = await axios.patch(
       "/api/users/removeaccount",
       config
     );
     dispatch({
       type: REMOVE_ACCOUNT,
-      payload: res
+      payload: res.data,
     });
   } catch (err) {
-    debugger;
     console.error(err);
   }
 };
-
 
 /**
  * Metod som används för att göra API-anrop till vårt REST-API när användaren vill lägga till en aktivitet.
@@ -329,7 +334,8 @@ export const removeAccount = () => async dispatch => {
  * @param {Object} user Objekt som innehåller användarens ID, titel på aktivitet och tid på aktivitet.
  * @returns {Promise} Ett axios.post() Promise
  */
-export const addActivity = user => async dispatch => {
+
+export const addActivity = (user) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -360,13 +366,14 @@ export const addActivity = user => async dispatch => {
  * @param {Object} user Objekt som innehåller användarens ID, titel på aktivitet och tid på aktivitet.
  * @returns {Promise} Ett axios.patch() Promise
  */
-export const editActivity = user => async dispatch => {
+
+export const editActivity = (user) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
-  
+
   const body = JSON.stringify(user);
 
   try {
@@ -391,7 +398,8 @@ export const editActivity = user => async dispatch => {
  * @param {Object} user Objekt som innehåller användarens ID och aktivitetens ID.
  * @returns {Promise} Ett axios.delete() Promise
  */
-export const deleteActivity = user => async dispatch => {
+
+export const deleteActivity = (user) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -410,5 +418,32 @@ export const deleteActivity = user => async dispatch => {
     });
   } catch (err) {
     console.error(err);
+  }
+};
+
+export const updateUserChallenge = (user) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const body = JSON.stringify(user);
+
+  try {
+    const res = await axios.patch(
+      `http://localhost:5000/api/users/${user.userId}/${user.programId}/${user.exerciseNumberId}`,
+      body,
+      config
+    );
+
+    dispatch({
+      type: UPDATE_USER,
+      payload: res.data,
+    });
+
+    dispatch(setAlert("Dina ändringar sparades!", "success"));
+  } catch (error) {
+    console.log(error);
   }
 };

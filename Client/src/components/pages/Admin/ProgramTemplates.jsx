@@ -14,10 +14,11 @@ const ProgramTemplates = ({ auth: { admin }, schemas, loading }) => {
   }, []);
 
   const displayProgramTemplates = (
-    <div className="login-wrapper">
+    <div>
       <section>
-        <h2 className="heading rose">Program</h2>
-        <ul className="list">
+        <h2 className="heading rose no-margin">Program</h2>
+
+        <div className="list-column">
           {schemas === undefined ? (
             <LoadingOverlay
               active={loading}
@@ -34,12 +35,13 @@ const ProgramTemplates = ({ auth: { admin }, schemas, loading }) => {
               <ProgramList key={index} schema={schema} />
             ))
           )}
-        </ul>
-        <Link className="link-add" to="/create-program">
-          <span className="icon icon-add"></span>
-          <span>Lägg till program</span>
-        </Link>
-        <GoBackButton/>
+
+          <Link className="link-add" to="/create-program">
+            <span className="icon icon-add"></span>
+            <span>Lägg till program</span>
+          </Link>
+        </div>
+        <GoBackButton />
       </section>
     </div>
   );

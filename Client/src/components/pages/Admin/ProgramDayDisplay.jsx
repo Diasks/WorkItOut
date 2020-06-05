@@ -4,61 +4,75 @@ import { getFitnessSchema } from "../../../_actions/fitnessAction";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { deleteFitnessSchema } from "../../../_actions/fitnessAction";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Collapse from "@material-ui/core/Collapse";
 import GoBackButton from "../../layout/GoBackButton";
 
-export const ProgramDayDisplay = (props) => {
-  let program = props.fitness;
-  let programId = props.match.params.id;
+export const ProgramDayDisplay = ({
+  auth: { admin },
+  selectedSchema,
+  successful,
+  match,
+  loading,
+}) => {
+  let programId = match.params.id;
 
   const [expanded, setExpanded] = useState(false);
-   /**
+
+  /**
    * Metod som används för att hantera ett toggle-onClick-event.
    *
    * @param {*} e Det event som gjorde att denna funktion anropades
    */
+
   const handleExpandClick = (e) => setExpanded(!expanded);
   useEffect(() => {
     store.dispatch(getFitnessSchema(programId));
     // eslint-disable-next-line
   }, []);
 
-  if (props.successful === true) {
+  if (successful === true) {
     return <Redirect to="/programs" />;
   }
-    /**
+
+  /**
    * Metod som används för att hämta träningsmallarna och dess innehåll
    *
-   * @param {*} program ???
+   * @param {*} program
    */
-  const getProgramContent = (program) => {
-    let content = [];
 
-    for (let i = 1; i <= program.length; i++) {
-      const item = program;
+  const getProgramContent = (fitness) => {
+    let programs = [];
 
-      content.push(
-        <li>
-          <Link to={`/programs/program/${item._id}`} key={item._id} item={item}>
-            {item.title} {i}{" "}
-            <ArrowForwardIosIcon className="icon icon-arrowforwardiosicon" />{" "}
-          </Link>
-        </li>
-      );
+    for (let i = 0; i <= fitness.length; i++) {
+      if (fitness[i]) {
+        programs.push(
+          <li className="list-style-none" key={fitness[i]._id}>
+            <Link
+              to={`/programs/program/${fitness[i]._id}`}
+              key={fitness[i]._id}
+              item={fitness}
+              className="link-menu"
+            >
+              <span>
+                {selectedSchema.title} {i + 1}
+              </span>
+              <span className="icon icon-arrow-right"></span>
+            </Link>
+          </li>
+        );
+      }
     }
-    return content;
+    return programs;
   };
 
   const displayProgramDayDisplay = (
-    <div className="login-wrapper">
+    <div>
       <section>
-        {program == null ? (
+        {selectedSchema == null ? (
           <LoadingOverlay
-            active={props.loading}
+            active={loading}
             spinner={<PulseLoader color={"#f5af61"} />}
             styles={{
               overlay: (base) => ({
@@ -68,28 +82,34 @@ export const ProgramDayDisplay = (props) => {
             }}
           />
         ) : (
-          <div>
-            <div>
-              {" "}
-              <h3>{program.programTitle} </h3>{" "}
-              <button className="btn btn-toggle" onClick={handleExpandClick}>
-                <MoreVertIcon className="icon icon-moreverticon" />
-              </button>{" "}
+          <div className="form-container">
+            <div className="form-heading">
+              <div className="link-view-more">
+                <h2 className="heading rose no-margin">
+                  {selectedSchema.programTitle}
+                </h2>
+                <button className="btn btn-toggle" onClick={handleExpandClick}>
+                  <span className="icon icon-view-more"></span>
+                </button>
+              </div>
             </div>
             <Collapse in={expanded}>
               <button
                 className="btn btn-sky"
                 onClick={() => store.dispatch(deleteFitnessSchema(programId))}
               >
-                Ta bort program
+                Ta bort
               </button>
             </Collapse>
 
-            <ul>{getProgramContent(program)}</ul>
+            <ul className="list-column-item">
+              {getProgramContent(selectedSchema.exerciseInformation)}
+            </ul>
           </div>
         )}
       </section>
-<GoBackButton/>
+
+      <GoBackButton />
     </div>
   );
 
@@ -97,7 +117,7 @@ export const ProgramDayDisplay = (props) => {
 
   return (
     <main className="main column">
-      {props.auth.admin === true || props.auth.admin === "true"
+      {admin === true || admin === "true"
         ? displayProgramDayDisplay
         : redirectUser}
     </main>
@@ -105,7 +125,7 @@ export const ProgramDayDisplay = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  fitness: state.fitness.selectedSchema,
+  selectedSchema: state.fitness.selectedSchema,
   loading: state.fitness.loading,
   successful: state.fitness.successful,
   auth: state.auth,

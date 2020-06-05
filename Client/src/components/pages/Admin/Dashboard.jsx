@@ -13,7 +13,7 @@ const Dashboard = ({ auth: { admin }, selectedUser, loading, users }) => {
     store.dispatch(getUserProfile());
   }, []);
 
-// eslint-disable-next-line
+  // eslint-disable-next-line
   let admins;
 
   if (users) {
@@ -22,7 +22,6 @@ const Dashboard = ({ auth: { admin }, selectedUser, loading, users }) => {
     });
 
     if (adminArray) {
-    
       admins = adminArray.filter(function (x) {
         return x === true;
       }).length;
@@ -44,7 +43,7 @@ const Dashboard = ({ auth: { admin }, selectedUser, loading, users }) => {
         <div className="curved-banner-bottom"></div>
       </section>
 
-      <section id="border" class="border-class">
+      <section id="border" className="border-class">
         <div>
           <Link className="link-menu" to="/create-program">
             <span>Skapa nytt program</span>

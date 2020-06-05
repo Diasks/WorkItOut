@@ -2,27 +2,21 @@ import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { createFitnessSchema } from "../../../_actions/fitnessAction";
 import { useForm } from "react-hook-form";
-import GoBackButton from "../../layout/GoBackButton";
 
-const CreateProgramTemplate = ({
-  auth: { admin },
-  createFitnessSchema,
-  successful,
-}) => {
+const CreateProgramTemplate = ({ auth: { admin }, successful }) => {
   const [fitnessState, setFitnessState] = useState({
     programTitle: "",
     description: "",
-    length: "",
     title: "",
   });
-  
-    /**
+
+  /**
    * Metod som används för att hantera när värdet av ett element har ändrats.
    *
    * @param {*} e Det event som gjorde att denna funktion anropades
    */
+
   const handleFitnessChange = (e) =>
     setFitnessState({
       ...fitnessState,
@@ -30,21 +24,42 @@ const CreateProgramTemplate = ({
     });
 
   const blankExerciseObject = {
-    exerciseNumber: "",
-    exerciseNumberInformation: [
-      { exerciseTitle: "", sets: "", reps: "", url: "" },
-    ],
+    exerciseTitle: "",
+    sets: "",
+    reps: "",
+    url: "",
   };
+
+  const blankWorkoutObject = {
+    workoutNumber: "",
+    workoutNumberInformation: [blankExerciseObject],
+  };
+
+  const [workoutObjectState, setWorkoutObjectState] = useState([
+    { ...blankWorkoutObject },
+  ]);
 
   const [exerciseObjectState, setExerciseObjectState] = useState([
     { ...blankExerciseObject },
   ]);
 
-    /**
+  const handleWorkoutObjectChange = (e) => {
+    const updatedWorkoutObject = [...workoutObjectState];
+    updatedWorkoutObject[e.target.dataset.idx][e.target.className] =
+      e.target.value;
+    setWorkoutObjectState(updatedWorkoutObject);
+  };
+
+  const onAddWorkout = () => {
+    setWorkoutObjectState([...workoutObjectState, { ...blankWorkoutObject }]);
+  };
+
+  /**
    * Metod som används för att hantera när värdet av ett element har ändrats
    *
    * @param {*} e Det event som gjorde att denna funktion anropades
    */
+
   const handleExerciseObjectChange = (e) => {
     const updatedExerciseObject = [...exerciseObjectState];
 
@@ -52,10 +67,11 @@ const CreateProgramTemplate = ({
       e.target.value;
     setExerciseObjectState(updatedExerciseObject);
   };
-    
-   /**
+
+  /**
    * Metod som används för att lägga till ett nytt objekt till exerciseObjectState.
    */
+
   const addExerciseObject = () => {
     setExerciseObjectState([
       ...exerciseObjectState,
@@ -64,14 +80,15 @@ const CreateProgramTemplate = ({
   };
 
   const { register, handleSubmit, errors } = useForm({});
-    
-   /**
+
+  /**
    * Metod som används för att hantera när formuläret skickas.
    *
    * @param {*} e Det event som gjorde att denna funktion anropades
    */
+
   const onSubmit = async (e) => {
-    createFitnessSchema(exerciseObjectState, fitnessState);
+    //
   };
 
   if (successful === true) {
@@ -141,107 +158,102 @@ const CreateProgramTemplate = ({
           )}
         </div>
 
-        <div className="form-section">
-          <label className="form-label">Skapa övningar</label>
-          <input
-            type="text"
-            name="exerciseNumber"
-            placeholder="Nummer på pass"
-            className="input"
-          />
+        <section>
+          <h3>Skapa pass</h3>
 
-          {exerciseObjectState.map((val, idx) => {
-            const exerciseTitleId = `exerciseTitle-${idx}`;
-            const setsId = `sets-${idx}`;
-            const repsId = `reps-${idx}`;
-            const urlId = `url-${idx}`;
+          {workoutObjectState.map((val, i) => {
+            const workoutNumberId = `workoutNumber-${i}`;
             return (
-              <div className="form-section-table" key={`exerciseTitle-${idx}`}>
+              <section key={i}>
                 <input
-                  type="text"
-                  name={exerciseTitleId}
-                  data-idx={idx}
-                  id={exerciseTitleId}
-                  placeholder="Övning, t.ex. Knäböj"
-                  value={exerciseObjectState[idx].exerciseTitle}
-                  className={
-                    "input exerciseTitle" + (errors.sets ? " error border" : "")
-                  }
-                  onChange={handleExerciseObjectChange}
-                  ref={register({ required: true })}
-                />{" "}
-                {errors.exerciseTitle &&
-                  errors.exerciseTitle.type === "required" && (
-                    <span className="error message">
-                      Namn på övning måste fyllas i
-                    </span>
-                  )}
-                <input
-                  type="number"
-                  name={setsId}
-                  data-idx={idx}
-                  id={setsId}
-                  placeholder="Antal gånger, t.ex. 3"
-                  value={exerciseObjectState[idx].sets}
-                  className={
-                    "input sets" + (errors.sets ? " error border" : "")
-                  }
-                  onChange={handleExerciseObjectChange}
-                  ref={register({ required: true })}
-                />{" "}
-                {errors.sets && errors.sets.type === "required" && (
-                  <span className="error message">
-                    Antal gånger måste måste fyllas i
-                  </span>
-                )}
-                <input
-                  type="number"
-                  name={repsId}
-                  data-idx={idx}
-                  id={repsId}
-                  placeholder="Antal repetitioner, t.ex. 10"
-                  value={exerciseObjectState[idx].reps}
-                  className={
-                    "input reps" + (errors.reps ? " error border" : "")
-                  }
-                  onChange={handleExerciseObjectChange}
-                  ref={register({ required: true })}
+                  id={workoutNumberId}
+                  name={workoutNumberId}
+                  data-idx={i}
+                  className="input"
+                  placeholder="Nummer på pass"
+                  onChange={handleWorkoutObjectChange}
+                  defaultValue={workoutObjectState[i].workoutNumber}
                 />
-                {errors.reps && errors.reps.type === "required" && (
-                  <span className="error message">
-                    Antal repetitioner måste måste fyllas i
-                  </span>
-                )}
-                <input
-                  type="text"
-                  name={urlId}
-                  data-idx={idx}
-                  id={urlId}
-                  placeholder="Klistra in url"
-                  value={exerciseObjectState[idx].url}
-                  className={"input url" + (errors.url ? " error border" : "")}
-                  onChange={handleExerciseObjectChange}
-                />
-              </div>
+
+                <div className="form-section">
+                  {exerciseObjectState.map((val, idx) => {
+                    const exerciseTitleId = `exerciseTitle-${idx}`;
+                    const setsId = `sets-${idx}`;
+                    const repsId = `reps-${idx}`;
+                    const urlId = `url-${idx}`;
+                    return (
+                      <div
+                        className="form-section-table"
+                        key={`exerciseTitle-${idx}`}
+                      >
+                        <input
+                          type="text"
+                          name={exerciseTitleId}
+                          data-idx={idx}
+                          id={exerciseTitleId}
+                          placeholder="Övning, t.ex. Knäböj"
+                          defaultValue={exerciseObjectState[idx].exerciseTitle}
+                          className="input"
+                          onChange={handleExerciseObjectChange}
+                        />
+
+                        <input
+                          type="number"
+                          name={setsId}
+                          data-idx={idx}
+                          id={setsId}
+                          placeholder="Antal gånger, t.ex. 3"
+                          defaultValue={exerciseObjectState[idx].sets}
+                          className="input"
+                          onChange={handleExerciseObjectChange}
+                        />
+
+                        <input
+                          type="number"
+                          name={repsId}
+                          data-idx={idx}
+                          id={repsId}
+                          placeholder="Antal repetitioner, t.ex. 10"
+                          defaultValue={exerciseObjectState[idx].reps}
+                          className="input"
+                          onChange={handleExerciseObjectChange}
+                        />
+
+                        <input
+                          type="text"
+                          name={urlId}
+                          data-idx={idx}
+                          id={urlId}
+                          placeholder="Klistra in url"
+                          defaultValue={exerciseObjectState[idx].url}
+                          className="input"
+                          onChange={handleExerciseObjectChange}
+                        />
+                      </div>
+                    );
+                  })}
+
+                  <div className="link-add left">
+                    <span className="icon icon-add"></span>
+                    <input
+                      type="button"
+                      value="Lägg till övning"
+                      onClick={addExerciseObject}
+                      className="link-add"
+                    />
+                  </div>
+                </div>
+              </section>
             );
           })}
 
-          <div className="link-add left">
-            <span className="icon icon-add"></span>
-            <input
-              type="button"
-              value="Lägg till övning"
-              onClick={addExerciseObject}
-              className="link-add"
-            />
-          </div>
-        </div>
+          <input type="button" value="Lägg till pass" onClick={onAddWorkout} />
+        </section>
 
         <button className="btn btn-sky" type="submit">
           Spara
         </button>
       </form>
-      <GoBackButton/>
     </main>
   );
 
@@ -266,6 +278,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { createFitnessSchema })(
-  CreateProgramTemplate
-);
+export default connect(mapStateToProps, {})(CreateProgramTemplate);

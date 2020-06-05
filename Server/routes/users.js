@@ -278,4 +278,42 @@ router.patch(
   }
 );
 
+// @route PATCH api/users/:fitnessId/:exerciseNumberId
+// @desc Update specific fitness-schedule
+// @access Private
+router.patch(
+  "/:userId/:programId/:exerciseNumberId",
+  verifyToken,
+  async (req, res) => {
+    let userId = req.params.userId;
+    let exerciseNumberId = req.params.exerciseNumberId;
+
+    const { exercisePassed } = req.body;
+
+    try {
+      const updatedFitness = await User.findOneAndUpdate(
+        {
+          _id: userId,
+          "userFitnessChallenge.exerciseInformation._id": exerciseNumberId,
+        },
+        {
+          $set: {
+            "userFitnessChallenge.$.exerciseInformation.$[i].exercisePassed": exercisePassed,
+          },
+        },
+        {
+          multi: true,
+          upsert: true,
+          arrayFilters: [{ "i._id": exerciseNumberId }],
+        }
+      );
+
+      return res.json(updatedFitness);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
+
 module.exports = router;

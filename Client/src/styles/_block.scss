@@ -29,3 +29,15 @@
   border-radius: 50px;
   line-height: 1.5;
 }
+
+.exercises-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.exercises-box-text {
+  margin-bottom: 15px;
+  color: $grafit;
+}

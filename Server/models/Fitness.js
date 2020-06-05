@@ -38,6 +38,7 @@ const FitnessSchema = new Schema({
   exerciseInformation: [
     {
       exerciseNumber: Number,
+      exercisePassed: Boolean,
       exerciseNumberInformation: [exerciseNumberInformationSchema],
     },
   ],

@@ -145,7 +145,7 @@ export const updateExercise = program => async dispatch => {
 
   try {
     const res = await axios.patch(
-      `/api/fitness/${program.programId}`,
+      `/api/fitness/${program.fitnessId}/exerciseNumber/${program.exerciseId}`,
       body,
       config
     );
@@ -171,6 +171,7 @@ export const deleteExercise = (programId, exerciseId) => async dispatch => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
+
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -179,7 +180,7 @@ export const deleteExercise = (programId, exerciseId) => async dispatch => {
 
   try {
     const res = await axios.delete(
-      `/api/fitness/${programId}/${exerciseId}`,
+      `/api/fitness/${programId}/exerciseNumber/${exerciseId}`,
       config
     );
     dispatch({
