@@ -8,7 +8,7 @@ const ActiveChallenges = ({ selectedUser }) => {
   );
 
   const challengesActive = (
-    <div>
+    <div className="centered-wrap">
       {selectedUser.userFitnessChallenge &&
         selectedUser.userFitnessChallenge.map((key, value) => {
           return (

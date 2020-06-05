@@ -8,8 +8,15 @@ import { removeAccount } from "../../_actions/userAction";
 import PropTypes from "prop-types";
 import { logout } from "../../_actions/authAction";
 import GoBackButton from "../layout/GoBackButton";
+import HorizontalLine from "../layout/HorizontalLine";
 
-const Settings = ({setAlert, registerNewPassword, removeAccount, logout, successful}) => {
+const Settings = ({
+  setAlert,
+  registerNewPassword,
+  removeAccount,
+  logout,
+  successful,
+}) => {
   let defaultValues = {
     oldPassword: "",
     newPassword: "",
@@ -18,7 +25,6 @@ const Settings = ({setAlert, registerNewPassword, removeAccount, logout, success
 
   const { register, handleSubmit, errors } = useForm({ defaultValues });
 
-
   const [passwordData, setPasswordData] = useState({
     oldPassword: "",
     newPassword: "",
@@ -26,8 +32,8 @@ const Settings = ({setAlert, registerNewPassword, removeAccount, logout, success
   });
 
   const { oldPassword, newPassword, confirmPassword } = passwordData;
-  
-    /**
+
+  /**
    * Metod som används för att hantera när värdet av ett element har ändrats
    *
    * @param {*} e Det event som gjorde att denna funktion anropades
@@ -36,7 +42,7 @@ const Settings = ({setAlert, registerNewPassword, removeAccount, logout, success
     setPasswordData({ ...passwordData, [e.target.name]: e.target.value });
   };
 
-   /**
+  /**
    * Metod används för att hantera när formuläret skickas
    *
    * @param {*} e Det event som gjorde att denna funktion anropades
@@ -49,86 +55,91 @@ const Settings = ({setAlert, registerNewPassword, removeAccount, logout, success
     }
   };
 
-if (successful === true) {
-logout();
-}
-
+  if (successful === true) {
+    logout();
+  }
 
   return (
-
-
     <main className="main column">
-      <h1>Inställningar</h1>
+      <h2 className="heading rose no-margin">Inställningar</h2>
 
+      <div className="block">
+        <h4>Ändra lösenord</h4>
+        <Alert />
+        <form
+          className="form-container"
+          onSubmit={handleSubmit((e) => onSubmit(e))}
+          noValidate
+        >
+          <input
+            className={"input" + (errors.oldPassword ? " error border" : "")}
+            type="password"
+            name="oldPassword"
+            placeholder="Gammalt lösenord"
+            defaultValue={defaultValues.oldPassword}
+            onChange={(e) => onChange(e)}
+            ref={register({ required: true, minLength: 6 })}
+          />
 
-      <h3>Ändra lösenord</h3>
-      <Alert />
-      <form className="form-container" onSubmit={handleSubmit((e) => onSubmit(e))}
-            noValidate>
-         <input
-              className={"input" + (errors.oldPassword ? " error border" : "")}
-              type="password"
-              name="oldPassword"
-              placeholder="Gammalt lösenord"
-              defaultValue={defaultValues.oldPassword}
-              onChange={(e) => onChange(e)}
-              ref={register({ required: true, minLength: 6 })}
-            />
+          {errors.oldPassword && errors.oldPassword.type === "required" && (
+            <span className="error message">
+              Gammalt lösenord måste fyllas i
+            </span>
+          )}
 
-            {errors.oldPassword && errors.oldPassword.type === "required" && (
-              <span className="error message">Gammalt lösenord måste fyllas i</span>
+          <input
+            className={"input" + (errors.newPassword ? " error border" : "")}
+            type="password"
+            name="newPassword"
+            placeholder="Nytt lösenord"
+            defaultValue={defaultValues.newPassword}
+            onChange={(e) => onChange(e)}
+            ref={register({ required: true, minLength: 6 })}
+          />
+
+          {errors.newPassword && errors.newPassword.type === "required" && (
+            <span className="error message">Nytt lösenord måste fyllas i</span>
+          )}
+
+          {errors.newPassword && errors.newPassword.type === "minLength" && (
+            <span className="error message">
+              Lösenord måste innehålla minst 6 tecken
+            </span>
+          )}
+
+          <input
+            className={
+              "input" + (errors.confirmPassword ? " error border" : "")
+            }
+            type="password"
+            name="confirmPassword"
+            placeholder="Repetera lösenord"
+            defaultValue={defaultValues.confirmPassword}
+            onChange={(e) => onChange(e)}
+            ref={register({ required: true })}
+          />
+
+          {errors.confirmPassword &&
+            errors.confirmPassword.type === "required" && (
+              <span className="error message">Lösenord måste fyllas i</span>
             )}
+          <button className="btn btn-mustard">Ändra</button>
+        </form>
+      </div>
 
+      <div className="block">
+        <h4>Radera konto</h4>
+        <p className="label">Om du raderar ditt konto kan du inte ångra dig</p>
+        <button className="btn btn-danger" onClick={() => removeAccount()}>
+          Radera
+        </button>
+      </div>
 
+      <div className="centered-wrap">
+        <HorizontalLine />
+      </div>
 
-
-
-
-        <input
-              className={"input" + (errors.newPassword ? " error border" : "")}
-              type="password"
-              name="newPassword"
-              placeholder="Nytt lösenord"
-              defaultValue={defaultValues.newPassword}
-              onChange={(e) => onChange(e)}
-              ref={register({ required: true, minLength: 6 })}
-            />
-
-            {errors.newPassword && errors.newPassword.type === "required" && (
-              <span className="error message">Nytt lösenord måste fyllas i</span>
-            )}
-
-            {errors.newPassword && errors.newPassword.type === "minLength" && (
-              <span className="error message">
-                Lösenord måste innehålla minst 6 tecken
-              </span>
-            )}
-
-            <input
-              className={
-                "input" + (errors.confirmPassword ? " error border" : "")
-              }
-              type="password"
-              name="confirmPassword"
-              placeholder="Repetera lösenord"
-              defaultValue={defaultValues.confirmPassword}
-              onChange={(e) => onChange(e)}
-              ref={register({ required: true })}
-            />
-
-            {errors.confirmPassword &&
-              errors.confirmPassword.type === "required" && (
-                <span className="error message">Lösenord måste fyllas i</span>
-              )}
-        <button className="btn btn-sky">Ändra</button>
-      </form>
-
-      <h3>Radera konto</h3>
-      <p>Om du raderar ditt konto kan du inte ångra dig</p>
-      <button className="btn btn-sky" onClick={() => removeAccount()}>Radera</button>
-
-                    
-      <GoBackButton/>
+      <GoBackButton />
     </main>
   );
 };
@@ -141,9 +152,14 @@ Settings.propTypes = {
   successful: PropTypes.bool,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: state.user,
   successful: state.user.successful,
 });
 
-export default connect(mapStateToProps, { setAlert, registerNewPassword, removeAccount, logout })(Settings);
+export default connect(mapStateToProps, {
+  setAlert,
+  registerNewPassword,
+  removeAccount,
+  logout,
+})(Settings);

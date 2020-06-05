@@ -24,7 +24,7 @@ body {
   }
 
   &.padding {
-    padding: 8vw 8vw 12vw 8vw;
+    padding: 50px 0;
   }
 
   &.less-margin {
@@ -101,17 +101,40 @@ body {
   }
 }
 
+.centered-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 20px;
+  padding: 0;
+
+  @media (min-width: $xsmall) {
+    margin: 0;
+  }
+}
+
 .horizontal-line {
+  display: flex;
+  justify-content: center;
   border: 1px solid $mediumgray;
-  width: 350px;
+  width: 200px;
   margin: 50px 0;
+
+  @media (min-width: $xsmall) {
+    width: 350px;
+  }
 }
 
 .link-menu {
   display: flex;
   justify-content: space-between;
-  width: 400px;
+  width: 280px;
   text-decoration: none;
+
+  @media (min-width: $xsmall) {
+    width: 400px;
+  }
 
   span {
     color: $lightBlack;
@@ -140,11 +163,17 @@ body {
     justify-content: flex-start;
     width: 100%;
   }
+
+  &.plum {
+    margin-left: 10px;
+    color: $plum;
+  }
 }
 
 .link-view-more {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  line-height: 0.8;
 }
 
 .label-nochallenge {

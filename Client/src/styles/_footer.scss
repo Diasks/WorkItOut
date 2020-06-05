@@ -3,11 +3,11 @@ footer {
   flex-direction: column;
   color: $white;
   background-color: $grafit;
-  height: 320px;
+  height: 500px;
   padding: 30px 40px 20px;
 
   @media (min-width: $xsmall) {
-    height: 300px;
+    height: 450px;
     padding: 40px 60px;
   }
 

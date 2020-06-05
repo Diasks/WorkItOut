@@ -23,7 +23,10 @@ const UserProfile = ({ loading }) => {
       <main className="main column">
         <UserProfileForm />
         <ActiveChallenges />
+        <div className="centered-wrap">
         <HorizontalLine />
+        </div>
+        <div className="centered-wrap">
         <Link className="link-menu" to="/profile/history">
           <span>Historik</span>
           <span className="icon icon-arrow-right"></span>
@@ -32,6 +35,7 @@ const UserProfile = ({ loading }) => {
           <span>Inställningar</span>
           <span className="icon icon-arrow-right"></span>
         </Link>
+        </div>
         <GoBackButton/>
       </main>
     </LoadingOverlay>

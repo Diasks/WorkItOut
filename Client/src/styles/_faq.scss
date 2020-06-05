@@ -5,6 +5,10 @@
   text-align: left;
 
   padding: 3vw;
+
+  @media (min-width: $medium) {
+    width: 600px;
+  }
 }
 
 .faq {

@@ -20,7 +20,7 @@ const LoginForm = ({ loginUser, isAuthenticated, admin }) => {
   });
 
   const { email, password } = formData;
-    /**
+  /**
    * Metod som används för att hantera när värdet av ett element har ändrats.
    *
    * @param {*} e Det event som gjorde att denna funktion anropades
@@ -28,7 +28,7 @@ const LoginForm = ({ loginUser, isAuthenticated, admin }) => {
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-   /**
+  /**
    * Metod som används för att hantera när formuläret skickas.
    *
    * @param {*} e Det event som gjorde att denna callback anropades
@@ -45,7 +45,7 @@ const LoginForm = ({ loginUser, isAuthenticated, admin }) => {
 
   return (
     <div className="login-wrapper">
-      <h4 className="label rose">Välkommen! Logga in här</h4>
+      <h3 className="label rose">Välkommen! Logga in här</h3>
       <Alert />
       <form
         className="form-container"

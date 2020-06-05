@@ -8,6 +8,7 @@ import store from "../../../store";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
 import { updateUser } from "../../../_actions/userAction";
+import GoBackButton from "../../layout/GoBackButton";
 
 const ChallengesDayDisplay = ({
   loading,
@@ -69,13 +70,14 @@ const ChallengesDayDisplay = ({
         <h3 className="heading rose">
           {selectedSchema && selectedSchema.programTitle}
         </h3>
-        <ul>
+        <ul className="centered-wrap">
           {selectedSchema &&
             getChallengeContent(selectedSchema.exerciseInformation)}
         </ul>
         <button onClick={onAddChallengeToUser} className="btn btn-mustard">
           Anta utmaning
         </button>
+        <GoBackButton />
       </main>
     </LoadingOverlay>
   );
