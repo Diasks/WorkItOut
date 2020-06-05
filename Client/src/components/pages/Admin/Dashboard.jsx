@@ -44,6 +44,7 @@ const Dashboard = ({ auth: { admin }, selectedUser, loading, users }) => {
       </section>
 
       <section id="border" className="border-class">
+      <div className="centered-wrap">
         <div>
           <Link className="link-menu" to="/create-program">
             <span>Skapa nytt program</span>
@@ -55,6 +56,7 @@ const Dashboard = ({ auth: { admin }, selectedUser, loading, users }) => {
             <span>Inställningar</span>
             <span className="icon icon-arrow-right"></span>
           </Link>
+        </div>
         </div>
       </section>
     </main>

@@ -4,10 +4,12 @@ import { Link, Redirect } from "react-router-dom";
 
 export const ProgramList = ({ auth: { admin }, schema }) => {
   const displayProgramList = (
-    <Link className="link-menu" to={`/programs/${schema._id}`}>
-      <span>{schema.programTitle}</span>
-      <span className="icon icon-arrow-right"></span>
-    </Link>
+    <div className="centered-wrap">
+      <Link className="link-menu" to={`/programs/${schema._id}`}>
+        <span>{schema.programTitle}</span>
+        <span className="icon icon-arrow-right"></span>
+      </Link>
+    </div>
   );
 
   const redirectUser = <Redirect to="/overview" />;

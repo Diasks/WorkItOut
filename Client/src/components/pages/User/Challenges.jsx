@@ -37,8 +37,8 @@ const Challenges = ({ auth: { admin }, loading, schemas }) => {
       }}
     >
       <main className="main column">
-        <div>Anta utmaning</div>
-        <ul>
+        <h2 className="heading rose">Anta utmaning</h2>
+        <ul className="centered-wrap">
           {admin === false || admin === "false"
             ? displayChallengesList && displayChallengesList
             : redirectUser}

@@ -5,6 +5,7 @@ import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
 import { Redirect } from "react-router-dom";
 import ReactPlayer from "react-player";
+import GoBackButton from "../../layout/GoBackButton";
 
 export const ExerciseItem = ({
   auth: { admin },
@@ -15,7 +16,7 @@ export const ExerciseItem = ({
   let programId = match.params.id;
 
   const displayExerciseItem = (
-    <div>
+    <section className="workout-wrap">
       {selectedSchema && // eslint-disable-next-line
         selectedSchema.exerciseInformation.map((workout, index) => {
           if (workout._id === programId) {
@@ -27,6 +28,7 @@ export const ExerciseItem = ({
           }
         })}
 
+<div className="workout-exercises-wrap">
       {selectedSchema &&
         selectedSchema.exerciseInformation.map((workout, index) =>
           // eslint-disable-next-line
@@ -42,8 +44,8 @@ export const ExerciseItem = ({
                     {exercise.reps} repetitioner
                   </div>
                   {exercise.url && (
-                    <div className="exercises-box-text">
-                      <ReactPlayer url={exercise.url} />{" "}
+                    <div className="player-wrap">
+                      <ReactPlayer url={exercise.url} className="player" />
                     </div>
                   )}
                 </div>
@@ -51,7 +53,10 @@ export const ExerciseItem = ({
             }
           })
         )}
-    </div>
+        </div>
+
+        <GoBackButton />
+    </section>
   );
 
   const redirectUser = <Redirect to="/dashboard" />;
@@ -74,10 +79,6 @@ export const ExerciseItem = ({
       </main>
     </LoadingOverlay>
   );
-};
-
-ExerciseItem.propTypes = {
-  deleteFitnessSchema: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

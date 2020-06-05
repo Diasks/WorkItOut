@@ -36,10 +36,12 @@ const ProgramTemplates = ({ auth: { admin }, schemas, loading }) => {
             ))
           )}
 
-          <Link className="link-add" to="/create-program">
-            <span className="icon icon-add"></span>
-            <span>Lägg till program</span>
-          </Link>
+          <div className="centered-wrap">
+            <Link className="link-add" to="/create-program">
+              <span className="icon icon-add"></span>
+              <span>Lägg till program</span>
+            </Link>
+          </div>
         </div>
         <GoBackButton />
       </section>
