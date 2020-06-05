@@ -14,39 +14,36 @@ const ProgramTemplates = ({ auth: { admin }, schemas, loading }) => {
   }, []);
 
   const displayProgramTemplates = (
-    <section>
-      <h2 className="heading rose no-margin">Program</h2>
+    <div>
+      <section>
+        <h2 className="heading rose no-margin">Program</h2>
 
-      <div className="list-column">
-        {schemas === undefined ? (
-          <LoadingOverlay
-            active={loading}
-            spinner={<PulseLoader color={"#f5af61"} />}
-            styles={{
-              overlay: (base) => ({
-                ...base,
-                background: "#efeeee",
-              }),
-            }}
-          />
-        ) : (
-          schemas.map((schema, index) => (
-            <ProgramList key={index} schema={schema} />
-          ))
-        )}
+        <div className="list-column">
+          {schemas === undefined ? (
+            <LoadingOverlay
+              active={loading}
+              spinner={<PulseLoader color={"#f5af61"} />}
+              styles={{
+                overlay: (base) => ({
+                  ...base,
+                  background: "#efeeee",
+                }),
+              }}
+            />
+          ) : (
+            schemas.map((schema, index) => (
+              <ProgramList key={index} schema={schema} />
+            ))
+          )}
 
-        <Link className="link-add" to="/create-program">
-          <span className="icon icon-add"></span>
-          <span>Lägg till program</span>
-        </Link>
-<<<<<<< HEAD
-      </div>
-    </section>
-=======
-        <GoBackButton/>
+          <Link className="link-add" to="/create-program">
+            <span className="icon icon-add"></span>
+            <span>Lägg till program</span>
+          </Link>
+        </div>
+        <GoBackButton />
       </section>
     </div>
->>>>>>> 78f3ffcc1a250c808a4c2d8faf87608c5fc56e2d
   );
 
   const redirectUser = <Redirect to="/overview" />;
