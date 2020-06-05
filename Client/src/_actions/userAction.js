@@ -34,7 +34,7 @@ export const getUsers = () => async (dispatch) => {
   }
 
   try {
-    const res = await axios.get("/api/users");
+    const res = await axios.get("http://localhost:5000/api/users");
 
     dispatch({
       type: GET_USERS,
@@ -59,7 +59,7 @@ export const getUser = (userId) => async (dispatch) => {
   }
 
   try {
-    const res = await axios.get(`/api/users/${userId}`);
+    const res = await axios.get(`http://localhost:5000/api/users/${userId}`);
 
     dispatch({
       type: GET_USER,
@@ -89,7 +89,7 @@ export const getUserProfile = () => async (dispatch) => {
 
   try {
     dispatch(userRequest());
-    const res = await axios.get(`/api/users/${userId}`);
+    const res = await axios.get(`http://localhost:5000/api/users/${userId}`);
 
     dispatch({
       type: GET_USER,
@@ -138,7 +138,7 @@ export const createUser = ({
 
   try {
     const res = await axios.post(
-      "/api/users",
+      "http://localhost:5000/api/users",
       body,
       config
     );
@@ -171,7 +171,7 @@ export const uploadImage = (user) => async (dispatch) => {
 
   try {
     const res = await axios.patch(
-      `/api/users/${user.userId}`,
+      `http://localhost:5000/api/users/${user.userId}`,
       formData,
       config
     );
@@ -203,7 +203,7 @@ export const updateUser = (user) => async (dispatch) => {
 
   try {
     const res = await axios.patch(
-      `/api/users/${user.userId}`,
+      `http://localhost:5000/api/users/${user.userId}`,
       body,
       config
     );
@@ -249,7 +249,7 @@ export const registerNewPassword = (password) => async (dispatch) => {
 
   try {
     const res = await axios.patch(
-      `/api/users/password`,
+      `http://localhost:5000/api/users/password`,
       body,
       config
     );
@@ -285,7 +285,7 @@ export const deleteUser = (id) => async (dispatch) => {
 
   try {
     const res = await axios.delete(
-      `/api/users/${id}`,
+      `http://localhost:5000/api/users/${id}`,
       config
     );
     dispatch({
@@ -316,7 +316,7 @@ export const removeAccount = () => async (dispatch) => {
 
   try {
     const res = await axios.patch(
-      "/api/users/removeaccount",
+      "http://localhost:5000/api/users/removeaccount",
       config
     );
     dispatch({
@@ -346,7 +346,7 @@ export const addActivity = (user) => async (dispatch) => {
 
   try {
     const res = await axios.post(
-      `/api/users/activities/${user.userId}`,
+      `http://localhost:5000/api/users/activities/${user.userId}`,
       body,
       config
     );
@@ -378,7 +378,7 @@ export const editActivity = (user) => async (dispatch) => {
 
   try {
     const res = await axios.patch(
-      `/api/users/activities/${user.userId}`,
+      `http://localhost:5000/api/users/activities/${user.userId}`,
       config,
       body
     );
@@ -408,7 +408,7 @@ export const deleteActivity = (user) => async (dispatch) => {
 
   try {
     const res = await axios.delete(
-      `/api/users/activities/${user.userId}/${user.activityId}`,
+      `http://localhost:5000/api/users/activities/${user.userId}/${user.activityId}`,
       config
     );
 

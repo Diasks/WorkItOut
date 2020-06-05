@@ -87,7 +87,7 @@ export const ProgramItem = ({
   const { handleSubmit } = useForm({});
 
   const displayProgramItem = (
-    <div>
+    <section className="workout-wrap">
       {selectedSchema &&
         // eslint-disable-next-line
         selectedSchema.exerciseInformation.map((workout, index) => {
@@ -100,95 +100,104 @@ export const ProgramItem = ({
           }
         })}
 
-      {selectedSchema &&
-        selectedSchema.exerciseInformation.map((workout, index) =>
-          // eslint-disable-next-line
-          workout.exerciseNumberInformation.map((exercise, index) => {
-            if (workout._id === programId) {
-              return (
-                <div className="exercises-box" key={exercise._id}>
-                  <h4 className="heading mustard"> {exercise.exerciseTitle}</h4>
-                  <div className="exercises-box-text">
-                    {exercise.sets} gånger
-                  </div>
-                  <div className="exercises-box-text">
-                    {exercise.reps} repetitioner
-                  </div>
-                  {exercise.url && (
+      <div className="workout-exercises-wrap">
+        {selectedSchema &&
+          selectedSchema.exerciseInformation.map((workout, index) =>
+            // eslint-disable-next-line
+            workout.exerciseNumberInformation.map((exercise, index) => {
+              if (workout._id === programId) {
+                return (
+                  <div className="exercises-box" key={exercise._id}>
+                    <h4 className="heading mustard">
+                      {" "}
+                      {exercise.exerciseTitle}
+                    </h4>
                     <div className="exercises-box-text">
-                      <ReactPlayer url={exercise.url} />{" "}
+                      {exercise.sets} gånger
                     </div>
-                  )}
-                  <div>
-                    <DeleteIcon
-                      className="icon icon-deleteicon"
-                      onClick={() =>
-                        store.dispatch(
-                          deleteExercise(
-                            selectedSchema._id,
-                            workout.exerciseNumber,
-                            exercise._id
+                    <div className="exercises-box-text">
+                      {exercise.reps} repetitioner
+                    </div>
+                    {exercise.url && (
+                      <div className="player-wrap">
+                        <ReactPlayer url={exercise.url} className="player" />{" "}
+                      </div>
+                    )}
+                    <div className="buttons">
+                      <DeleteIcon
+                        style={{ color: "bd2a37" }}
+                        className="icon icon-deleteicon"
+                        onClick={() =>
+                          store.dispatch(
+                            deleteExercise(
+                              selectedSchema._id,
+                              workout.exerciseNumber,
+                              exercise._id
+                            )
                           )
-                        )
-                      }
-                    />
-                    <button
-                      className="btn btn-toggle"
-                      onClick={handleExpandClick}
-                    >
-                      <EditIcon className="icon icon-editicon" />{" "}
-                    </button>
-                  </div>
-                  <Collapse in={expanded}>
-                    <form
-                      id={exercise._id}
-                      className="form-container"
-                      onSubmit={handleSubmit((e) => onSubmit(e))}
-                      noValidate
-                    >
-                      <input
-                        type="text"
-                        name="exerciseTitle"
-                        placeholder="titel"
-                        className="input"
-                        value={exerciseTitle}
-                        onChange={(e) => onChange(e)}
+                        }
                       />
-                      <input
-                        type="number"
-                        name="sets"
-                        className="input"
-                        value={sets}
-                        placeholder="sets"
-                        onChange={(e) => onChange(e)}
-                      />
-                      <input
-                        type="number"
-                        name="reps"
-                        className="input"
-                        placeholder="reps"
-                        value={reps}
-                        onChange={(e) => onChange(e)}
-                      />
-                      <input
-                        type="text"
-                        name="url"
-                        className="input"
-                        placeholder="url"
-                        value={url}
-                        onChange={(e) => onChange(e)}
-                      />
-                      <button className="btn btn-sky" type="submit">
-                        Spara
+                      <button
+                        className="btn btn-toggle"
+                        onClick={handleExpandClick}
+                      >
+                        <EditIcon
+                          className="icon icon-editicon"
+                          style={{ color: "69b6b9" }}
+                        />{" "}
                       </button>
-                    </form>
-                  </Collapse>
-                </div>
-              );
-            }
-          })
-        )}
-    </div>
+                    </div>
+                    <Collapse in={expanded}>
+                      <form
+                        id={exercise._id}
+                        className="form-container"
+                        onSubmit={handleSubmit((e) => onSubmit(e))}
+                        noValidate
+                      >
+                        <input
+                          type="text"
+                          name="exerciseTitle"
+                          placeholder="titel"
+                          className="input"
+                          value={exerciseTitle}
+                          onChange={(e) => onChange(e)}
+                        />
+                        <input
+                          type="number"
+                          name="sets"
+                          className="input"
+                          value={sets}
+                          placeholder="sets"
+                          onChange={(e) => onChange(e)}
+                        />
+                        <input
+                          type="number"
+                          name="reps"
+                          className="input"
+                          placeholder="reps"
+                          value={reps}
+                          onChange={(e) => onChange(e)}
+                        />
+                        <input
+                          type="text"
+                          name="url"
+                          className="input"
+                          placeholder="url"
+                          value={url}
+                          onChange={(e) => onChange(e)}
+                        />
+                        <button className="btn btn-sky" type="submit">
+                          Spara
+                        </button>
+                      </form>
+                    </Collapse>
+                  </div>
+                );
+              }
+            })
+          )}
+      </div>
+    </section>
   );
 
   const redirectUser = <Redirect to="/overview" />;

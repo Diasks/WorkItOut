@@ -18,13 +18,13 @@ const Users = ({ auth: { admin }, loading, users }) => {
   const [searchResults, setSearchResults] = useState([]);
   const searchUsers = users;
 
-
   useEffect(() => {
-    if (searchUsers !== undefined) { 
-    const results = searchUsers.filter(user =>
-      user.firstname.toLowerCase().includes(searchTerm)
-    );
-    setSearchResults(results);}
+    if (searchUsers !== undefined) {
+      const results = searchUsers.filter((user) =>
+        user.firstname.toLowerCase().includes(searchTerm)
+      );
+      setSearchResults(results);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm]);
 
@@ -33,7 +33,7 @@ const Users = ({ auth: { admin }, loading, users }) => {
    *
    * @param {*} e Det event som gjorde att denna funktion anropades
    */
-  const handleChange = e => {
+  const handleChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
@@ -50,7 +50,7 @@ const Users = ({ auth: { admin }, loading, users }) => {
           onChange={handleChange}
         />
       </div>
-      <ul>
+      <ul className="centered-wrap">
         {users &&
           searchResults.length < 1 &&
           users.map((user, index) => <UserList key={index} user={user} />)}
@@ -71,7 +71,7 @@ const Users = ({ auth: { admin }, loading, users }) => {
       active={loading}
       spinner={<PulseLoader color={"#f5af61"} />}
       styles={{
-        overlay: base => ({
+        overlay: (base) => ({
           ...base,
           background: "#efeeee",
         }),
@@ -87,11 +87,10 @@ const Users = ({ auth: { admin }, loading, users }) => {
 Users.propTypes = {
   getUsers: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  users: PropTypes.object.isRequired,
-  loading:PropTypes.bool,
+  loading: PropTypes.bool,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   users: state.user.users,
   loading: state.user.loading,
   auth: state.auth,

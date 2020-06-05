@@ -75,7 +75,7 @@ export const UserItem = (props) => {
         <section>
           {user && (
             <div className="form-container">
-              <div className="form-heading">
+              <div className="heading no-margin">
                 <div className="link-view-more">
                   <h2 className="heading rose no-margin">
                     {user.firstname} {user.lastname}

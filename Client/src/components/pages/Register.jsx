@@ -10,6 +10,7 @@ import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
 import Banner from "../layout/Banner";
 import GoBackButton from "../layout/GoBackButton";
+import HorizontalLine from "../layout/HorizontalLine";
 
 const Register = ({ setAlert, registerUser, isAuthenticated, loading }) => {
   let defaultValues = {
@@ -31,7 +32,7 @@ const Register = ({ setAlert, registerUser, isAuthenticated, loading }) => {
   });
 
   const { firstname, lastname, email, password, confirmPassword } = formData;
-    /**
+  /**
    * Metod som används för att hantera när värdet av ett element har ändrats
    *
    * @param {*} e Det event som gjorde att denna funktion anropades
@@ -39,7 +40,7 @@ const Register = ({ setAlert, registerUser, isAuthenticated, loading }) => {
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-   /**
+  /**
    * Metod som används för att hantera när formuläret skickas
    *
    * @param {*} e Det event som gjorde att denna funktion anropades
@@ -69,6 +70,7 @@ const Register = ({ setAlert, registerUser, isAuthenticated, loading }) => {
     >
       <Banner />
       <main className="main column no-margin padding">
+        <h2 className="heading rose no-margin">Registrering</h2>
         <div className="login-wrapper">
           <Alert />
           <form
@@ -166,11 +168,16 @@ const Register = ({ setAlert, registerUser, isAuthenticated, loading }) => {
                 <span className="error message">Lösenord måste fyllas i</span>
               )}
 
-            <button className="btn btn-sky" type="submit">
-              Registrera
+            <button className="btn btn-mustard" type="submit">
+              Registrera dig
             </button>
           </form>
-         <GoBackButton/>
+
+          <div className="centered-wrap">
+            <HorizontalLine />
+          </div>
+
+          <GoBackButton />
         </div>
       </main>
     </LoadingOverlay>

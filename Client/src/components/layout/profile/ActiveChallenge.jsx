@@ -6,6 +6,7 @@ import { getFitnessSchema } from "../../../_actions/fitnessAction";
 import { useEffect } from "react";
 import store from "../../../store";
 import LoadingOverlay from "react-loading-overlay";
+import GoBackButton from "../../layout/GoBackButton";
 import PulseLoader from "react-spinners/PulseLoader";
 import { updateUser } from "../../../_actions/userAction";
 
@@ -61,6 +62,8 @@ const ActiveChallenge = ({ loading, selectedSchema, match }) => {
           {selectedSchema &&
             getChallengeContent(selectedSchema.exerciseInformation)}
         </ul>
+
+        <GoBackButton />
       </main>
     </LoadingOverlay>
   );

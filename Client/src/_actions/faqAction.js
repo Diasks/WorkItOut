@@ -2,7 +2,10 @@ import axios from "axios";
 import { GET_FAQ, ADD_FAQ, DELETE_FAQ, FAQ_FAIL, FAQ_REQUEST } from "./types";
 import { setAlert } from "./alertAction";
 
-//??
+/**
+ *  Metod som används för att ropa på vid "pending" läge i anropet
+ */
+
 export const faqRequest = () => ({
   type: FAQ_REQUEST,
 });
@@ -13,10 +16,10 @@ export const faqRequest = () => ({
  * @param {Number} page Numret som kommer från URL-parametern.
  * @returns {Promise} Ett axios.get() Promise
  */
-export const getFaq = page => async dispatch => {
+export const getFaq = (page) => async (dispatch) => {
   try {
     dispatch(faqRequest());
-    const res = await axios.get(`/api/faq?page=${page}`);
+    const res = await axios.get(`http://localhost:5000/api/faq?page=${page}`);
 
     dispatch({
       type: GET_FAQ,
@@ -35,7 +38,7 @@ export const getFaq = page => async dispatch => {
  * @param {Object} data Objekt innehållande fråga och svar.
  * @returns {Promise} Ett axios.post() Promise
  */
-export const addFaq = data => async dispatch => {
+export const addFaq = (data) => async (dispatch) => {
   try {
     dispatch(faqRequest());
     const config = {
@@ -44,7 +47,7 @@ export const addFaq = data => async dispatch => {
       },
     };
 
-    const res = await axios.post(`/api/faq`, data, config);
+    const res = await axios.post(`http://localhost:5000/api/faq`, data, config);
 
     dispatch({
       type: ADD_FAQ,
@@ -64,10 +67,10 @@ export const addFaq = data => async dispatch => {
  * @param {Number} id Objektets ID som skickas med från en onClick-function-call.
  * @returns {Promise} Ett axios.delete() Promise
  */
-export const deleteFaq = id => async dispatch => {
+export const deleteFaq = (id) => async (dispatch) => {
   try {
     dispatch(faqRequest());
-    await axios.delete(`/api/faq/${id}`);
+    await axios.delete(`http://localhost:5000/api/faq/${id}`);
     dispatch({
       type: DELETE_FAQ,
       payload: id,

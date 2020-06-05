@@ -8,6 +8,7 @@ import Alert from "../layout/Alert";
 import GoBackButton from "../layout/GoBackButton";
 import { Redirect } from "react-router-dom";
 import Banner from "../layout/Banner";
+import HorizontalLine from "../layout/HorizontalLine";
 
 const PasswordReset = ({ setAlert, registerNewPassword, successful }) => {
   let defaultValues = {
@@ -33,7 +34,7 @@ const PasswordReset = ({ setAlert, registerNewPassword, successful }) => {
    *
    * @param {*} e Det event som gjorde att denna funktion anropades
    */
-  const onChange = e => {
+  const onChange = (e) => {
     setPasswordData({ ...passwordData, [e.target.name]: e.target.value });
   };
 
@@ -42,7 +43,7 @@ const PasswordReset = ({ setAlert, registerNewPassword, successful }) => {
    *
    * @param {*} e Det event som gjorde att denna funktion anropades
    */
-  const onSubmit = async e => {
+  const onSubmit = async (e) => {
     if (newPassword !== confirmPassword) {
       setAlert("Lösenord matchar inte", "danger");
     } else {
@@ -59,11 +60,11 @@ const PasswordReset = ({ setAlert, registerNewPassword, successful }) => {
       <Banner />
       <main className="main column no-margin padding">
         <div className="login-wrapper">
-          <h4 className="label rose">Glömt ditt lösenord? Återställ det här</h4>
+          <h4 className="label rose">Glömt ditt lösenord? Återställ här</h4>
           <Alert />
           <form
             className="form-container"
-            onSubmit={handleSubmit(e => onSubmit(e))}
+            onSubmit={handleSubmit((e) => onSubmit(e))}
             noValidate
           >
             <input
@@ -72,7 +73,7 @@ const PasswordReset = ({ setAlert, registerNewPassword, successful }) => {
               name="email"
               placeholder="E-post"
               defaultValue={defaultValues.email}
-              onChange={e => onChange(e)}
+              onChange={(e) => onChange(e)}
               ref={register({
                 required: true,
                 pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
@@ -95,7 +96,7 @@ const PasswordReset = ({ setAlert, registerNewPassword, successful }) => {
               name="oldPassword"
               placeholder="Gammalt lösenord"
               defaultValue={defaultValues.oldPassword}
-              onChange={e => onChange(e)}
+              onChange={(e) => onChange(e)}
               ref={register({ required: true, minLength: 6 })}
             />
 
@@ -111,7 +112,7 @@ const PasswordReset = ({ setAlert, registerNewPassword, successful }) => {
               name="newPassword"
               placeholder="Nytt lösenord"
               defaultValue={defaultValues.newPassword}
-              onChange={e => onChange(e)}
+              onChange={(e) => onChange(e)}
               ref={register({ required: true, minLength: 6 })}
             />
 
@@ -135,7 +136,7 @@ const PasswordReset = ({ setAlert, registerNewPassword, successful }) => {
               name="confirmPassword"
               placeholder="Repetera lösenord"
               defaultValue={defaultValues.confirmPassword}
-              onChange={e => onChange(e)}
+              onChange={(e) => onChange(e)}
               ref={register({ required: true })}
             />
 
@@ -143,8 +144,12 @@ const PasswordReset = ({ setAlert, registerNewPassword, successful }) => {
               errors.confirmPassword.type === "required" && (
                 <span className="error message">Lösenord måste fyllas i</span>
               )}
-            <button className="btn btn-sky">Spara</button>
+            <button className="btn btn-mustard">Spara</button>
           </form>
+
+          <div className="centered-wrap">
+            <HorizontalLine />
+          </div>
 
           <GoBackButton />
         </div>
@@ -159,7 +164,7 @@ PasswordReset.propTypes = {
   successful: PropTypes.bool,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: state.user,
   successful: state.user.successful,
 });

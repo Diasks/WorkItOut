@@ -95,14 +95,14 @@ export const ProgramDayDisplay = ({
             </div>
             <Collapse in={expanded}>
               <button
-                className="btn btn-sky"
+                className="btn btn-danger"
                 onClick={() => store.dispatch(deleteFitnessSchema(programId))}
               >
                 Ta bort
               </button>
             </Collapse>
 
-            <ul className="list-column-item">
+            <ul className="centered-wrap">
               {getProgramContent(selectedSchema.exerciseInformation)}
             </ul>
           </div>

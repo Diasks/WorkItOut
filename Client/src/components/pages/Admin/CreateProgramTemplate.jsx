@@ -97,7 +97,10 @@ const CreateProgramTemplate = ({ auth: { admin }, successful }) => {
 
   const displayCreateProgramTemplate = (
     <main className="main column no-margin">
-      <h2 className="heading rose no-margin">Skapa nytt program</h2>
+      <h2 className="heading rose">Skapa nytt program</h2>
+      <p className="label">
+        Denna funktion är en framtida funktion som inte fungerar för tillfället.
+      </p>
 
       <form
         className="form-container"
@@ -159,7 +162,7 @@ const CreateProgramTemplate = ({ auth: { admin }, successful }) => {
         </div>
 
         <section>
-          <h3>Skapa pass</h3>
+          <h4 className="form-label">Skapa pass</h4>
 
           {workoutObjectState.map((val, i) => {
             const workoutNumberId = `workoutNumber-${i}`;
@@ -247,10 +250,18 @@ const CreateProgramTemplate = ({ auth: { admin }, successful }) => {
             );
           })}
 
-          <input type="button" value="Lägg till pass" onClick={onAddWorkout} />
+          <div className="link-add left plum">
+            <span className="icon icon-add"></span>
+            <input
+              type="button"
+              value="Lägg till pass"
+              className="link-add"
+              onClick={onAddWorkout}
+            />
+          </div>
         </section>
 
-        <button className="btn btn-sky" type="submit">
+        <button className="btn btn-sky" type="submit" disabled>
           Spara
         </button>
       </form>

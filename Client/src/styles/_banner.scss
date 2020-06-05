@@ -34,6 +34,12 @@
 }
 
 .label {
+  margin: 0 35px;
+
+  @media (min-width: $xsmall) {
+    margin: 10px 0;
+  }
+
   &.mustard {
     color: $mustard;
   }
