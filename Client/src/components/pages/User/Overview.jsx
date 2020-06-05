@@ -23,7 +23,7 @@ const Overview = ({ auth: { admin }, selectedUser, loading, addActivity }) => {
   const [formData, setFormData] = useState("");
   const { title, time } = formData;
   const userId = selectedUser._id;
-    /**
+  /**
    * Metod som används för att hantera när värdet av ett element har ändrats
    *
    * @param {*} e Det event som gjorde att denna funktion anropades
@@ -31,7 +31,7 @@ const Overview = ({ auth: { admin }, selectedUser, loading, addActivity }) => {
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-   /**
+  /**
    * Metod som används för att hantera när formuläret skickas
    *
    * @param {*} e Det event som gjorde att denna funktion anropades
@@ -53,6 +53,7 @@ const Overview = ({ auth: { admin }, selectedUser, loading, addActivity }) => {
       <div>
         {Object.keys(selectedUser).length !== 0 &&
           selectedUser &&
+          // eslint-disable-next-line
           selectedUser.userFitnessChallenge.map((workout, index) => {
             workout.exerciseInformation.map((exercises, i) => {
               return (

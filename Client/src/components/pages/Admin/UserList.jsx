@@ -22,10 +22,8 @@ export const UserList = ({ auth: { admin }, user }) => {
   );
 };
 
-
 UserList.propTypes = {
   auth: PropTypes.object.isRequired,
-  user: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({

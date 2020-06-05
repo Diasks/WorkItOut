@@ -22,7 +22,7 @@ export const authRequest = () => ({
  *
  * @returns {Promise} Ett axios.get() Promise
  */
-export const loadUser = () => async dispatch => {
+export const loadUser = () => async (dispatch) => {
   const id = localStorage.id;
 
   if (localStorage.token) {
@@ -30,7 +30,7 @@ export const loadUser = () => async dispatch => {
   }
 
   try {
-    const res = await axios.get(`/api/users/${id}`);
+    const res = await axios.get(`http://localhost:5000/api/users/${id}`);
 
     dispatch({
       type: USER_LOADED,
@@ -60,7 +60,7 @@ export const registerUser = ({
   email,
   password,
   admin,
-}) => async dispatch => {
+}) => async (dispatch) => {
   dispatch(authRequest());
 
   const config = {
@@ -79,7 +79,7 @@ export const registerUser = ({
 
   try {
     const res = await axios.post(
-      "/api/auth/register",
+      "http://localhost:5000/api/auth/register",
       body,
       config
     );
@@ -111,7 +111,7 @@ export const registerUser = ({
  * @returns {Promise} Ett axios.post() Promise
  *
  */
-export const loginUser = (email, password) => async dispatch => {
+export const loginUser = (email, password) => async (dispatch) => {
   dispatch(authRequest());
 
   const config = {
@@ -124,7 +124,7 @@ export const loginUser = (email, password) => async dispatch => {
 
   try {
     const res = await axios.post(
-      "/api/auth/login",
+      "http://localhost:5000/api/auth/login",
       body,
       config
     );
@@ -153,7 +153,7 @@ export const loginUser = (email, password) => async dispatch => {
  *
  * @returns Initial state.
  */
-export const logout = () => dispatch => {
+export const logout = () => (dispatch) => {
   dispatch({ type: LOGOUT });
   history.push("/");
 };

@@ -87,7 +87,6 @@ const Users = ({ auth: { admin }, loading, users }) => {
 Users.propTypes = {
   getUsers: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  users: PropTypes.object.isRequired,
   loading: PropTypes.bool,
 };
 

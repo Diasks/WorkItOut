@@ -17,7 +17,11 @@ const Challenges = ({ auth: { admin }, loading, schemas }) => {
   const displayChallengesList =
     schemas &&
     schemas.map((schema, index) => (
-      <Link className="link-menu" to={`/challenge/${schema._id}`}>
+      <Link
+        key={schema._id}
+        className="link-menu"
+        to={`/challenge/${schema._id}`}
+      >
         <span>{schema.programTitle}</span>
         <span className="icon icon-arrow-right"></span>
       </Link>
@@ -43,7 +47,7 @@ const Challenges = ({ auth: { admin }, loading, schemas }) => {
             ? displayChallengesList && displayChallengesList
             : redirectUser}
         </ul>
-        <GoBackButton/>
+        <GoBackButton />
       </main>
     </LoadingOverlay>
   );

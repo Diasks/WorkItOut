@@ -9,6 +9,7 @@ import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
 import { updateUser } from "../../../_actions/userAction";
 import GoBackButton from "../../layout/GoBackButton";
+import history from "../../../_utils/history";
 
 const ChallengesDayDisplay = ({
   loading,
@@ -24,10 +25,11 @@ const ChallengesDayDisplay = ({
   }, []);
 
   const onAddChallengeToUser = () => {
-    debugger;
     const userId = localStorage.getItem("id");
     const userFitnessChallenge = selectedSchema;
     updateUser({ userId, userFitnessChallenge });
+
+    history.push("/profile");
   };
 
   const getChallengeContent = (fitness) => {
