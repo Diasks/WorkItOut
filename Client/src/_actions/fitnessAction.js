@@ -22,7 +22,7 @@ export const getFitnessSchemas = () => async (dispatch) => {
   }
 
   try {
-    const res = await axios.get("http://localhost:5000/api/fitness");
+    const res = await axios.get("/api/fitness");
 
     dispatch({
       type: GET_FITNESSSCHEMAS,
@@ -46,9 +46,7 @@ export const getFitnessSchema = (programId) => async (dispatch) => {
   }
 
   try {
-    const res = await axios.get(
-      `http://localhost:5000/api/fitness/${programId}`
-    );
+    const res = await axios.get(`/api/fitness/${programId}`);
 
     dispatch({
       type: GET_FITNESSSCHEMA,
@@ -85,11 +83,7 @@ export const createFitnessSchema = (exerciseObject, fitness) => async (
   });
 
   try {
-    const res = await axios.post(
-      "http://localhost:5000/api/fitness",
-      body,
-      config
-    );
+    const res = await axios.post("/api/fitness", body, config);
 
     dispatch({
       type: ADD_FITNESSSCHEMA,
@@ -118,7 +112,7 @@ export const updateFitnessSchema = (program) => async (dispatch) => {
 
   try {
     const res = await axios.patch(
-      `http://localhost:5000/api/fitness/${program.programId}`,
+      `/api/fitness/${program.programId}`,
       body,
       config
     );
@@ -150,7 +144,7 @@ export const updateExercise = (program) => async (dispatch) => {
 
   try {
     const res = await axios.patch(
-      `http://localhost:5000/api/fitness/${program.fitnessId}/exerciseNumber/${program.exerciseId}`,
+      `/api/fitness/${program.fitnessId}/exerciseNumber/${program.exerciseId}`,
       body,
       config
     );
@@ -185,7 +179,7 @@ export const deleteExercise = (programId, exerciseId) => async (dispatch) => {
 
   try {
     const res = await axios.delete(
-      `http://localhost:5000/api/fitness/${programId}/exerciseNumber/${exerciseId}`,
+      `/api/fitness/${programId}/exerciseNumber/${exerciseId}`,
       config
     );
     dispatch({
@@ -216,10 +210,7 @@ export const deleteFitnessSchema = (id) => async (dispatch) => {
   };
 
   try {
-    const res = await axios.delete(
-      `http://localhost:5000/api/fitness/${id}`,
-      config
-    );
+    const res = await axios.delete(`/api/fitness/${id}`, config);
     dispatch({
       type: REMOVE_FITNESSSCHEMA,
       payload: res,
