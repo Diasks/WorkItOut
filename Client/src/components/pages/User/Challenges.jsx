@@ -13,17 +13,16 @@ const Challenges = ({ auth: { admin }, loading, schemas }) => {
     store.dispatch(getFitnessSchemas());
   }, []);
 
-  const redirectUser = <Redirect to="/dashboard" />;
+  const displayChallengesList =
+    schemas &&
+    schemas.map((schema, index) => (
+      <Link className="link-menu" to={`/challenge/${schema._id}`}>
+        <span>{schema.programTitle}</span>
+        <span className="icon icon-arrow-right"></span>
+      </Link>
+    ));
 
-  const displaySchemas = schemas.map((key, value) => {
-    return (
-      <li key={key._id}>
-        <Link to={`/challenges/${key._id}`}>
-          <div>{key.programTitle}</div>
-        </Link>
-      </li>
-    );
-  });
+  const redirectUser = <Redirect to="/overview" />;
 
   return (
     <LoadingOverlay
@@ -37,10 +36,10 @@ const Challenges = ({ auth: { admin }, loading, schemas }) => {
       }}
     >
       <main className="main column">
-        <div>Hej challenges</div>
+        <div>Anta utmaning</div>
         <ul>
           {admin === false || admin === "false"
-            ? displaySchemas && displaySchemas
+            ? displayChallengesList && displayChallengesList
             : redirectUser}
         </ul>
       </main>

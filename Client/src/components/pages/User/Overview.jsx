@@ -36,10 +36,28 @@ const Overview = ({ auth: { admin }, selectedUser, loading, addActivity }) => {
   const activeChallengeLog = (
     <div>
       <h4>Avklarade pass</h4>
+
       <p>
         Här kan du se hur många pass som är avklarade i nuvarande och senaste
         utmaning.
       </p>
+
+      <div>
+        {Object.keys(selectedUser).length !== 0 &&
+          selectedUser &&
+          selectedUser.userFitnessChallenge.map((workout, index) => {
+            workout.exerciseInformation.map((exercises, i) => {
+              return (
+                <input
+                  className="option-input checkbox"
+                  type="checkbox"
+                  name="passed"
+                  checked={exercises.exercisePassed}
+                />
+              );
+            });
+          })}
+      </div>
     </div>
   );
 
@@ -106,8 +124,7 @@ const Overview = ({ auth: { admin }, selectedUser, loading, addActivity }) => {
         </form>
       </section>
       <section>
-        {selectedUser.userFitnessChallenge === undefined ||
-        selectedUser.userFitnessChallenge === null
+        {selectedUser && selectedUser.userFitnessChallenge
           ? activeChallengeLog
           : noChallengesActive}
       </section>

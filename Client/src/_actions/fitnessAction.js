@@ -115,7 +115,7 @@ export const updateExercise = (program) => async (dispatch) => {
 
   try {
     const res = await axios.patch(
-      `http://localhost:5000/api/fitness/${program.programId}`,
+      `http://localhost:5000/api/fitness/${program.fitnessId}/exerciseNumber/${program.exerciseId}`,
       body,
       config
     );
@@ -133,6 +133,7 @@ export const deleteExercise = (programId, exerciseId) => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
+
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -141,7 +142,7 @@ export const deleteExercise = (programId, exerciseId) => async (dispatch) => {
 
   try {
     const res = await axios.delete(
-      `http://localhost:5000/api/fitness/${programId}/${exerciseId}`,
+      `http://localhost:5000/api/fitness/${programId}/exerciseNumber/${exerciseId}`,
       config
     );
     dispatch({

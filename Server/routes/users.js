@@ -164,25 +164,15 @@ router.delete(
 // @route DELETE api/users/deleteaccount
 // @desc Delete account
 // @access Private
-router.patch(
-  "/removeaccount",
-  verifyToken,
-  async (req, res) => {
-    debugger;
-
-    try {
-      const deleteAccount = await User.findByIdAndDelete(
-        { _id: req.user.id }
-      );
-      debugger;
-      return res.json(deleteAccount);
-    } catch (err) {
-      debugger;
-      console.error(err.message);
-      res.status(500).send("Server Error");
-    }
+router.patch("/removeaccount", verifyToken, async (req, res) => {
+  try {
+    const deleteAccount = await User.findByIdAndDelete({ _id: req.user.id });
+    return res.json(deleteAccount);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
   }
-);
+});
 
 router.patch("/password", verifyToken, async (req, res) => {
   const userExist = await User.findOne({ _id: req.user.id });
@@ -256,6 +246,44 @@ router.patch(
         { new: true }
       );
       return res.json(updatedUser);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
+
+// @route PATCH api/users/:fitnessId/:exerciseNumberId
+// @desc Update specific fitness-schedule
+// @access Private
+router.patch(
+  "/:userId/:programId/:exerciseNumberId",
+  verifyToken,
+  async (req, res) => {
+    let userId = req.params.userId;
+    let exerciseNumberId = req.params.exerciseNumberId;
+
+    const { exercisePassed } = req.body;
+
+    try {
+      const updatedFitness = await User.findOneAndUpdate(
+        {
+          _id: userId,
+          "userFitnessChallenge.exerciseInformation._id": exerciseNumberId,
+        },
+        {
+          $set: {
+            "userFitnessChallenge.$.exerciseInformation.$[i].exercisePassed": exercisePassed,
+          },
+        },
+        {
+          multi: true,
+          upsert: true,
+          arrayFilters: [{ "i._id": exerciseNumberId }],
+        }
+      );
+
+      return res.json(updatedFitness);
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error");

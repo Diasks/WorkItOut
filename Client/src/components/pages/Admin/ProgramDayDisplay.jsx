@@ -4,15 +4,18 @@ import { getFitnessSchema } from "../../../_actions/fitnessAction";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { deleteFitnessSchema } from "../../../_actions/fitnessAction";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Collapse from "@material-ui/core/Collapse";
 
-export const ProgramDayDisplay = (props) => {
-  let program = props.fitness;
-  let programId = props.match.params.id;
+export const ProgramDayDisplay = ({
+  auth: { admin },
+  selectedSchema,
+  successful,
+  match,
+  loading,
+}) => {
+  let programId = match.params.id;
 
   const [expanded, setExpanded] = useState(false);
 
@@ -22,72 +25,82 @@ export const ProgramDayDisplay = (props) => {
     // eslint-disable-next-line
   }, []);
 
-  if (props.successful === true) {
+  if (successful === true) {
     return <Redirect to="/programs" />;
   }
 
-  const getProgramContent = (program) => {
-    let content = [];
+  const getProgramContent = (fitness) => {
+    let programs = [];
 
-    for (let i = 1; i <= program.length; i++) {
-      const item = program;
-
-      content.push(
-        <li>
-          <Link to={`/programs/program/${item._id}`} key={item._id} item={item}>
-            {item.title} {i}{" "}
-            <ArrowForwardIosIcon className="icon icon-arrowforwardiosicon" />{" "}
-          </Link>
-        </li>
-      );
+    for (let i = 0; i <= fitness.length; i++) {
+      if (fitness[i]) {
+        programs.push(
+          <li className="list-style-none" key={fitness[i]._id}>
+            <Link
+              to={`/programs/program/${fitness[i]._id}`}
+              key={fitness[i]._id}
+              item={fitness}
+              className="link-menu"
+            >
+              <span>
+                {selectedSchema.title} {i + 1}
+              </span>
+              <span className="icon icon-arrow-right"></span>
+            </Link>
+          </li>
+        );
+      }
     }
-    return content;
+    return programs;
   };
 
   const displayProgramDayDisplay = (
-    <div className="login-wrapper">
-      <section>
-        {program == null ? (
-          <LoadingOverlay
-            active={props.loading}
-            spinner={<PulseLoader color={"#f5af61"} />}
-            styles={{
-              overlay: (base) => ({
-                ...base,
-                background: "#efeeee",
-              }),
-            }}
-          />
-        ) : (
-          <div>
-            <div>
-              {" "}
-              <h3>{program.programTitle} </h3>{" "}
+    <section>
+      {selectedSchema == null ? (
+        <LoadingOverlay
+          active={loading}
+          spinner={<PulseLoader color={"#f5af61"} />}
+          styles={{
+            overlay: (base) => ({
+              ...base,
+              background: "#efeeee",
+            }),
+          }}
+        />
+      ) : (
+        <div className="form-container">
+          <div className="form-heading">
+            <div className="link-view-more">
+              <h2 className="heading rose no-margin">
+                {selectedSchema.programTitle}
+              </h2>
               <button className="btn btn-toggle" onClick={handleExpandClick}>
-                <MoreVertIcon className="icon icon-moreverticon" />
-              </button>{" "}
-            </div>
-            <Collapse in={expanded}>
-              <button
-                className="btn btn-sky"
-                onClick={() => store.dispatch(deleteFitnessSchema(programId))}
-              >
-                Ta bort program
+                <span className="icon icon-view-more"></span>
               </button>
-            </Collapse>
-
-            <ul>{getProgramContent(program)}</ul>
+            </div>
           </div>
-        )}
-      </section>
-    </div>
+          <Collapse in={expanded}>
+            <button
+              className="btn btn-sky"
+              onClick={() => store.dispatch(deleteFitnessSchema(programId))}
+            >
+              Ta bort
+            </button>
+          </Collapse>
+
+          <ul className="list-column-item">
+            {getProgramContent(selectedSchema.exerciseInformation)}
+          </ul>
+        </div>
+      )}
+    </section>
   );
 
   const redirectUser = <Redirect to="/overview" />;
 
   return (
     <main className="main column">
-      {props.auth.admin === true || props.auth.admin === "true"
+      {admin === true || admin === "true"
         ? displayProgramDayDisplay
         : redirectUser}
     </main>
@@ -95,7 +108,7 @@ export const ProgramDayDisplay = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  fitness: state.fitness.selectedSchema,
+  selectedSchema: state.fitness.selectedSchema,
   loading: state.fitness.loading,
   successful: state.fitness.successful,
   auth: state.auth,

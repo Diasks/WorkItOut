@@ -17,7 +17,6 @@ import Home from "./components/pages/Home";
 import Dashboard from "./components/pages/Admin/Dashboard";
 import Overview from "./components/pages/User/Overview";
 import Challenges from "./components/pages/User/Challenges";
-import ChallengeItem from "./components/pages/User/ChallengeItem";
 import ExercisesItem from "./components/pages/User/ExercisesItem";
 import CreateUser from "./components/pages/Admin/CreateUser";
 import Users from "./components/pages/Admin/Users";
@@ -32,6 +31,9 @@ import UserItem from "./components/pages/Admin/UserItem";
 import UserHistory from "./components/layout/profile/UserHistory";
 import ProgramItem from "./components/pages/Admin/ProgramItem";
 import ProgramDayDisplay from "./components/pages/Admin/ProgramDayDisplay";
+import ChallengesDayDisplay from "./components/pages/User/ChallengesDayDisplay";
+import ActiveChallenge from "./components/layout/profile/ActiveChallenge";
+import ActiveChallengeItem from "./components/layout/profile/ActiveChallengeItem";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -58,11 +60,21 @@ const App = () => {
           <PrivateRoute path="/profile/history" exact component={UserHistory} />
           <PrivateRoute path="/challenges" exact component={Challenges} />
           <PrivateRoute
-            path="/challenges/:id"
+            path="/challenge/:id"
             exact
-            component={ChallengeItem}
+            component={ChallengesDayDisplay}
           />
-          <PrivateRoute path="/workout/:id" exact component={ExercisesItem} />
+          <PrivateRoute path="/exercises/:id" exact component={ExercisesItem} />
+          <PrivateRoute
+            path="/active-challenge/:id"
+            exact
+            component={ActiveChallenge}
+          />
+          <PrivateRoute
+            path="/active-challenge/:challengeId/:id"
+            exact
+            component={ActiveChallengeItem}
+          />
           <PrivateRoute path="/programs" exact component={ProgramTemplates} />
           <PrivateRoute
             path="/programs/program/:id"
