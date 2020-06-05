@@ -1,0 +1,81 @@
+.banner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: 80px 20px;
+  z-index: 2;
+
+  @media (min-width: $small-l) {
+    padding: 130px 20px 150px 20px;
+  }
+
+  &::before {
+    content: "";
+    display: block;
+    background-color: $plum;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    border-radius: 150vw;
+    width: 300vw;
+    height: 300vw;
+    z-index: -1;
+
+    @media (min-width: $large) {
+      border-radius: 300vw;
+    }
+  }
+}
+
+.label {
+  margin: 0 35px;
+
+  @media (min-width: $xsmall) {
+    margin: 10px 0;
+  }
+
+  &.mustard {
+    color: $mustard;
+  }
+
+  &.cream {
+    color: $cream;
+  }
+
+  &.rose {
+    color: $rose;
+  }
+}
+
+.description {
+  color: $cream;
+  font-size: 14px;
+}
+
+.curved-banner {
+  background-color: $plum;
+  height: 300px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.curved-banner-bottom {
+  width: 150%;
+  height: 150%;
+  background-color: $lightCream;
+  border-radius: 100%;
+  top: 15%;
+  left: -25%;
+  right: 0;
+  position: relative;
+}
+
+.banner-text {
+  margin-top: 60px;
+}

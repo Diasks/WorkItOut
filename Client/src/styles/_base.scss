@@ -1,0 +1,197 @@
+body {
+  font-family: "Roboto Regular";
+  background-color: $lightCream;
+}
+
+.main {
+  margin: 80px 0;
+  text-align: center;
+
+  @media (min-width: $medium) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 180px 0;
+  }
+
+  &.column {
+    flex-direction: column;
+  }
+
+  &.no-margin {
+    margin: 0;
+  }
+
+  &.padding {
+    padding: 50px 0;
+  }
+
+  &.less-margin {
+    margin: 57px 0;
+
+    @media (min-width: $medium) {
+      margin: 135px 0;
+    }
+  }
+}
+
+.page-container {
+  width: 100%;
+
+  @media (min-width: $medium-l) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+  }
+}
+
+.link {
+  text-underline-position: under;
+  color: $grafit;
+  padding: 5px;
+
+  &.small {
+    font-size: 12px;
+  }
+
+  &.right {
+    text-align: right;
+    width: 250px;
+    padding-right: 5px;
+  }
+}
+
+.margin {
+  margin: 10px;
+}
+
+.text {
+  color: $grafit;
+
+  &.small {
+    font-size: 12px;
+  }
+
+  &.bold {
+    font-weight: bold;
+  }
+}
+
+.heading {
+  margin-top: 40px;
+
+  &.rose {
+    color: $rose;
+  }
+
+  &.mustard {
+    color: $mustard;
+  }
+
+  &.darkgray {
+    margin: 40px 0 0 0;
+    color: $darkest;
+  }
+
+  &.no-margin {
+    margin: 0;
+  }
+}
+
+.centered-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 20px;
+  padding: 0;
+
+  @media (min-width: $xsmall) {
+    margin: 0;
+  }
+}
+
+.horizontal-line {
+  display: flex;
+  justify-content: center;
+  border: 1px solid $mediumgray;
+  width: 200px;
+  margin: 50px 0;
+
+  @media (min-width: $xsmall) {
+    width: 350px;
+  }
+}
+
+.link-menu {
+  display: flex;
+  justify-content: space-between;
+  width: 280px;
+  text-decoration: none;
+
+  @media (min-width: $xsmall) {
+    width: 400px;
+  }
+
+  span {
+    color: $lightBlack;
+    font-weight: bold;
+    margin: 8px 0;
+  }
+}
+
+.link-add {
+  display: flex;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  color: $sky;
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+
+  span:last-child,
+  input {
+    line-height: 2.5;
+    margin-left: 5px;
+  }
+
+  &.left {
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  &.plum {
+    margin-left: 10px;
+    color: $plum;
+  }
+}
+
+.link-view-more {
+  display: flex;
+  justify-content: center;
+  line-height: 0.8;
+}
+
+.label-nochallenge {
+  color: $lightBlack;
+  font-style: italic;
+  margin-top: 30px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.description-text {
+  font-size: 13px;
+  color: $darkest;
+}
+
+.faded-text {
+  color: $mediumgray;
+  margin-top: 30px;
+}
