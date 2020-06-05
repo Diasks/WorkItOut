@@ -31,13 +31,13 @@ const Faq = ({
   }, [page]);
 
   /**
-   * Metod som används för att ???
+   * Metod som används för att dela upp FAQs så alla inte laddas på samma sida
    */
   const handlePageChange = () => {
     setPagination(!page);
   };
 
-    /**
+  /**
    * Metod som används för att hantera radering av aktivitet via ett onClick-event
    *
    * @param {Number} id Nummer som innehåller ID på objektet som ska raderas
@@ -107,7 +107,7 @@ const Faq = ({
               </ul>
             )}
           </div>
-          <GoBackButton/>
+          <GoBackButton />
         </main>
       </LoadingOverlay>
     </Fragment>
@@ -118,7 +118,6 @@ Faq.propTypes = {
   faq: PropTypes.array.isRequired,
   deleteFaq: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
-  admin: PropTypes.string,
   loading: PropTypes.bool,
   pager: PropTypes.object.isRequired,
   pageOfFaq: PropTypes.array.isRequired,

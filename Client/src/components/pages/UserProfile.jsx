@@ -8,7 +8,7 @@ import HorizontalLine from "../layout/HorizontalLine";
 import { Link } from "react-router-dom";
 import GoBackButton from "../layout/GoBackButton";
 
-const UserProfile = ({ loading }) => {
+const UserProfile = ({ auth: { admin }, loading }) => {
   return (
     <LoadingOverlay
       active={loading}
@@ -22,21 +22,24 @@ const UserProfile = ({ loading }) => {
     >
       <main className="main column">
         <UserProfileForm />
-        <ActiveChallenges />
+        {admin === "false" || admin === false ? <ActiveChallenges /> : null}
+
         <div className="centered-wrap">
-        <HorizontalLine />
+          <HorizontalLine />
         </div>
         <div className="centered-wrap">
-        <Link className="link-menu" to="/profile/history">
-          <span>Historik</span>
-          <span className="icon icon-arrow-right"></span>
-        </Link>
-        <Link className="link-menu" to="/settings">
-          <span>Inställningar</span>
-          <span className="icon icon-arrow-right"></span>
-        </Link>
+          {admin === "false" || admin === false ? (
+            <Link className="link-menu" to="/profile/history">
+              <span>Historik</span>
+              <span className="icon icon-arrow-right"></span>
+            </Link>
+          ) : null}
+          <Link className="link-menu" to="/settings">
+            <span>Inställningar</span>
+            <span className="icon icon-arrow-right"></span>
+          </Link>
         </div>
-        <GoBackButton/>
+        <GoBackButton />
       </main>
     </LoadingOverlay>
   );
@@ -44,6 +47,7 @@ const UserProfile = ({ loading }) => {
 
 const mapStateToProps = (state) => ({
   loading: state.user.loading,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps)(UserProfile);

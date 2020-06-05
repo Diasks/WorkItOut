@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
 import { Redirect } from "react-router-dom";
@@ -28,34 +27,37 @@ export const ExerciseItem = ({
           }
         })}
 
-<div className="workout-exercises-wrap">
-      {selectedSchema &&
-        selectedSchema.exerciseInformation.map((workout, index) =>
-          // eslint-disable-next-line
-          workout.exerciseNumberInformation.map((exercise, index) => {
-            if (workout._id === programId) {
-              return (
-                <div className="exercises-box" key={exercise._id}>
-                  <h4 className="heading mustard"> {exercise.exerciseTitle}</h4>
-                  <div className="exercises-box-text">
-                    {exercise.sets} gånger
-                  </div>
-                  <div className="exercises-box-text">
-                    {exercise.reps} repetitioner
-                  </div>
-                  {exercise.url && (
-                    <div className="player-wrap">
-                      <ReactPlayer url={exercise.url} className="player" />
+      <div className="workout-exercises-wrap">
+        {selectedSchema &&
+          selectedSchema.exerciseInformation.map((workout, index) =>
+            // eslint-disable-next-line
+            workout.exerciseNumberInformation.map((exercise, index) => {
+              if (workout._id === programId) {
+                return (
+                  <div className="exercises-box" key={exercise._id}>
+                    <h4 className="heading mustard">
+                      {" "}
+                      {exercise.exerciseTitle}
+                    </h4>
+                    <div className="exercises-box-text">
+                      {exercise.sets} gånger
                     </div>
-                  )}
-                </div>
-              );
-            }
-          })
-        )}
-        </div>
+                    <div className="exercises-box-text">
+                      {exercise.reps} repetitioner
+                    </div>
+                    {exercise.url && (
+                      <div className="player-wrap">
+                        <ReactPlayer url={exercise.url} className="player" />
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+            })
+          )}
+      </div>
 
-        <GoBackButton />
+      <GoBackButton />
     </section>
   );
 

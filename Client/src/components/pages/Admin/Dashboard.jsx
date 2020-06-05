@@ -44,19 +44,19 @@ const Dashboard = ({ auth: { admin }, selectedUser, loading, users }) => {
       </section>
 
       <section id="border" className="border-class">
-      <div className="centered-wrap">
-        <div>
-          <Link className="link-menu" to="/create-program">
-            <span>Skapa nytt program</span>
-            <span className="icon icon-arrow-right"></span>
-          </Link>
-        </div>
-        <div>
-          <Link className="link-menu" to="/settings">
-            <span>Inställningar</span>
-            <span className="icon icon-arrow-right"></span>
-          </Link>
-        </div>
+        <div className="centered-wrap">
+          <div>
+            <Link className="link-menu" to="/create-program">
+              <span>Skapa nytt program</span>
+              <span className="icon icon-arrow-right"></span>
+            </Link>
+          </div>
+          <div>
+            <Link className="link-menu" to="/settings">
+              <span>Inställningar</span>
+              <span className="icon icon-arrow-right"></span>
+            </Link>
+          </div>
         </div>
       </section>
     </main>
@@ -85,7 +85,7 @@ Dashboard.propTypes = {
   auth: PropTypes.object.isRequired,
   selectedUser: PropTypes.object.isRequired,
   loading: PropTypes.bool,
-  users: PropTypes.array.isRequired,
+  users: PropTypes.array,
 };
 
 const mapStateToProps = (state) => ({

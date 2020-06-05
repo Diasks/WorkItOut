@@ -31,7 +31,7 @@
 }
 
 .workout-wrap {
- margin: 20px 10vw;
+  margin: 20px 10vw;
 }
 
 .exercises-box-text {
@@ -40,18 +40,39 @@
 }
 
 .player-wrap {
-      display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .player {
   width: 100vw !important;
   height: 50vw !important;
 
-   @media (min-width: $xsmall) {
+  @media (min-width: $xsmall) {
     width: 400px !important;
     height: 250px !important;
+  }
+}
+
+.active-challenge-log {
+  margin: 50px 20px 100px 20px;
+}
+
+.challenge-log-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.challenge-log {
+  margin: 0 20px;
+
+  @media (min-width: $xsmall) {
+    width: 300px;
+  }
+
+  @media (min-width: $small) {
+    width: 350px;
   }
 }

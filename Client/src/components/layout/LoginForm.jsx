@@ -107,7 +107,6 @@ const LoginForm = ({ loginUser, isAuthenticated, admin }) => {
 LoginForm.propTypes = {
   loginUser: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
-  admin: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({

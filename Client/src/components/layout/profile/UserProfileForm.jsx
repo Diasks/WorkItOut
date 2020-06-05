@@ -25,12 +25,16 @@ const UserProfileForm = ({ selectedUser, updateUser, uploadImage }) => {
   const [profilePicture, setProfilePicture] = useState();
 
   const { firstname, lastname, email } = formData;
-  const userId = selectedUser._id;
+  let userId;
+
+  if (selectedUser) {
+    userId = selectedUser._id;
+  }
 
   useEffect(() => {
     store.dispatch(getUserProfile());
   }, []);
-    /**
+  /**
    * Metod som används för att hantera när värdet av ett element har ändrats
    *
    * @param {*} e Det event som gjorde att denna funktion anropades
@@ -38,7 +42,7 @@ const UserProfileForm = ({ selectedUser, updateUser, uploadImage }) => {
   const onFileChange = (e) => {
     setProfilePicture(e.target.files[0]);
   };
-    /** 
+  /**
    * Metod som används när man vill ladda upp en profilbild via ett onClick-event
    *
    * @param {*} e Det event som gjorde att denna funktion anropades
@@ -46,7 +50,7 @@ const UserProfileForm = ({ selectedUser, updateUser, uploadImage }) => {
   const uploadProfilePicture = (e) => {
     uploadImage({ userId, profilePicture });
   };
-    /**
+  /**
    * Metod (används som callback) för att hantera när värdet av ett element har ändrats.
    *
    * @param {*} e Det event som gjorde att denna callback anropades
@@ -54,7 +58,7 @@ const UserProfileForm = ({ selectedUser, updateUser, uploadImage }) => {
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-   /**
+  /**
    * Metod som används för att hantera när formuläret skickas.
    *
    * @param {*} e Det event som gjorde att denna funktion anropades
@@ -66,17 +70,20 @@ const UserProfileForm = ({ selectedUser, updateUser, uploadImage }) => {
   return (
     <div>
       <div>
-        <img
-          src={`data:${
-            selectedUser.profilePicture !== undefined &&
-            selectedUser.profilePicture.contentType
-          };base64,${
-            selectedUser.profilePicture !== undefined &&
-            selectedUser.profilePicture.image
-          }`}
-          className="avatar"
-          alt=""
-        />
+        {selectedUser !== null ||
+          (selectedUser !== undefined && (
+            <img
+              src={`data:${
+                selectedUser.profilePicture !== undefined &&
+                selectedUser.profilePicture.contentType
+              };base64,${
+                selectedUser.profilePicture !== undefined &&
+                selectedUser.profilePicture.image
+              }`}
+              className="avatar"
+              alt=""
+            />
+          ))}
       </div>
 
       <input
@@ -103,7 +110,7 @@ const UserProfileForm = ({ selectedUser, updateUser, uploadImage }) => {
           className="input wide"
           type="text"
           name="firstname"
-          placeholder={selectedUser.firstname}
+          placeholder={selectedUser && selectedUser.firstname}
           defaultValue={defaultValues.firstname}
           onChange={(e) => onChange(e)}
         />
@@ -112,7 +119,7 @@ const UserProfileForm = ({ selectedUser, updateUser, uploadImage }) => {
           className="input wide"
           type="text"
           name="lastname"
-          placeholder={selectedUser.lastname}
+          placeholder={selectedUser && selectedUser.lastname}
           defaultValue={defaultValues.lastname}
           onChange={(e) => onChange(e)}
         />
@@ -121,13 +128,13 @@ const UserProfileForm = ({ selectedUser, updateUser, uploadImage }) => {
           className="input wide"
           type="email"
           name="email"
-          placeholder={selectedUser.email}
+          placeholder={selectedUser && selectedUser.email}
           defaultValue={defaultValues.email}
           onChange={(e) => onChange(e)}
         />
 
         <Moment className="input input-date wide darken" format="YYYY-MM-DD">
-          {selectedUser.date}
+          {selectedUser && selectedUser.date}
         </Moment>
 
         <button

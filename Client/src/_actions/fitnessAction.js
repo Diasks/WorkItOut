@@ -16,13 +16,13 @@ import setAuthToken from "../_utils/setAuthToken";
  * @returns {Promise} Ett axios.get() Promise
  *
  */
-export const getFitnessSchemas = () => async dispatch => {
+export const getFitnessSchemas = () => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
 
   try {
-    const res = await axios.get("/api/fitness");
+    const res = await axios.get("http://localhost:5000/api/fitness");
 
     dispatch({
       type: GET_FITNESSSCHEMAS,
@@ -40,14 +40,14 @@ export const getFitnessSchemas = () => async dispatch => {
  * @returns {Promise} Ett axios.get() Promise
  *
  */
-export const getFitnessSchema = programId => async dispatch => {
+export const getFitnessSchema = (programId) => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
 
   try {
     const res = await axios.get(
-      `/api/fitness/${programId}`
+      `http://localhost:5000/api/fitness/${programId}`
     );
 
     dispatch({
@@ -67,10 +67,9 @@ export const getFitnessSchema = programId => async dispatch => {
  * @returns {Promise} Ett axios.post() Promise
  *
  */
-export const createFitnessSchema = (
-  exerciseObject,
-  fitness
-) => async dispatch => {
+export const createFitnessSchema = (exerciseObject, fitness) => async (
+  dispatch
+) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -87,7 +86,7 @@ export const createFitnessSchema = (
 
   try {
     const res = await axios.post(
-      "/api/fitness",
+      "http://localhost:5000/api/fitness",
       body,
       config
     );
@@ -101,8 +100,14 @@ export const createFitnessSchema = (
   }
 };
 
-//??
-export const updateFitnessSchema = program => async dispatch => {
+/**
+ *  Metod som används för att göra API-anrop till vårt REST-API för att admin ska uppdatera en specifik fitnessmall
+ *
+ * @param {Object} program Objekt som innehåller ID på program
+ * @returns {Promise} Ett axios.patch() Promise
+ *
+ */
+export const updateFitnessSchema = (program) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -113,7 +118,7 @@ export const updateFitnessSchema = program => async dispatch => {
 
   try {
     const res = await axios.patch(
-      `/api/fitness/${program.programId}`,
+      `http://localhost:5000/api/fitness/${program.programId}`,
       body,
       config
     );
@@ -134,7 +139,7 @@ export const updateFitnessSchema = program => async dispatch => {
  * @returns {Promise} Ett axios.patch() Promise
  *
  */
-export const updateExercise = program => async dispatch => {
+export const updateExercise = (program) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -145,7 +150,7 @@ export const updateExercise = program => async dispatch => {
 
   try {
     const res = await axios.patch(
-      `/api/fitness/${program.fitnessId}/exerciseNumber/${program.exerciseId}`,
+      `http://localhost:5000/api/fitness/${program.fitnessId}/exerciseNumber/${program.exerciseId}`,
       body,
       config
     );
@@ -167,7 +172,7 @@ export const updateExercise = program => async dispatch => {
  * @returns {Promise} Ett axios.delete() Promise
  *
  */
-export const deleteExercise = (programId, exerciseId) => async dispatch => {
+export const deleteExercise = (programId, exerciseId) => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -180,7 +185,7 @@ export const deleteExercise = (programId, exerciseId) => async dispatch => {
 
   try {
     const res = await axios.delete(
-      `/api/fitness/${programId}/exerciseNumber/${exerciseId}`,
+      `http://localhost:5000/api/fitness/${programId}/exerciseNumber/${exerciseId}`,
       config
     );
     dispatch({
@@ -199,7 +204,7 @@ export const deleteExercise = (programId, exerciseId) => async dispatch => {
  * @returns {Promise} Ett axios.delete() Promise
  *
  */
-export const deleteFitnessSchema = id => async dispatch => {
+export const deleteFitnessSchema = (id) => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -212,7 +217,7 @@ export const deleteFitnessSchema = id => async dispatch => {
 
   try {
     const res = await axios.delete(
-      `/api/fitness/${id}`,
+      `http://localhost:5000/api/fitness/${id}`,
       config
     );
     dispatch({
