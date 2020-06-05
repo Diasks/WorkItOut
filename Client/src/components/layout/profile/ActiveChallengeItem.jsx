@@ -10,6 +10,7 @@ import {
 } from "../../../_actions/userAction";
 import { useEffect } from "react";
 import store from "../../../store";
+import GoBackButton from "../../layout/GoBackButton";
 
 export const ActiveChallengeItem = ({
   auth: { admin },
@@ -106,6 +107,8 @@ export const ActiveChallengeItem = ({
             }
           })
         )}
+
+      <GoBackButton />
     </div>
   );
 
