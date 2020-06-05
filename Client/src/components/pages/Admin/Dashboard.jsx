@@ -36,7 +36,7 @@ const Dashboard = ({ auth: { admin }, selectedUser, loading, users }) => {
             Hejsan, {selectedUser && selectedUser.firstname}!
           </h2>
           <p className="label cream">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.{" "}
+            Välkommen.{" "}
           </p>
         </div>
 
