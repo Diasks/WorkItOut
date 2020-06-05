@@ -161,7 +161,7 @@ router.delete(
   }
 );
 
-// @route DELETE api/users/deleteaccount
+// @route DELETE api/users/removeaccount
 // @desc Delete account
 // @access Private
 router.patch("/removeaccount", verifyToken, async (req, res) => {
@@ -174,7 +174,33 @@ router.patch("/removeaccount", verifyToken, async (req, res) => {
   }
 });
 
-router.patch("/password", verifyToken, async (req, res) => {
+// @route PATCH api/users/password
+// @desc Update password
+// @access Public
+router.patch("/password", async (req, res) => {
+  if (req.body.email) {
+    const emailExist = await User.findOne({ email: req.body.email });
+    if (emailExist == null) return res.status(400).send("E-post finns inte");
+
+    const passwordMatch = await bcrypt.compare(
+      req.body.oldPassword,
+      emailExist.password
+    );
+
+    if (passwordMatch) {
+      const hashedPassword = await bcrypt.hash(req.body.newPassword, 10);
+
+      const updatedUser = await User.findOneAndUpdate(
+        { email: req.body.email },
+        { $set: { password: hashedPassword } },
+        { new: true }
+      );
+
+      return res.json(updatedUser);
+    } else {
+      return res.status(400).send("Det gamla lösenordet matchar inte!");
+    }
+  }
   const userExist = await User.findOne({ _id: req.user.id });
 
   const passwordMatch = await bcrypt.compare(

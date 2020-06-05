@@ -11,6 +11,12 @@ const CreateProgramTemplate = ({ auth: { admin }, successful }) => {
     title: "",
   });
 
+  /**
+   * Metod som används för att hantera när värdet av ett element har ändrats.
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
+
   const handleFitnessChange = (e) =>
     setFitnessState({
       ...fitnessState,
@@ -48,6 +54,12 @@ const CreateProgramTemplate = ({ auth: { admin }, successful }) => {
     setWorkoutObjectState([...workoutObjectState, { ...blankWorkoutObject }]);
   };
 
+  /**
+   * Metod som används för att hantera när värdet av ett element har ändrats
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
+
   const handleExerciseObjectChange = (e) => {
     const updatedExerciseObject = [...exerciseObjectState];
 
@@ -55,6 +67,10 @@ const CreateProgramTemplate = ({ auth: { admin }, successful }) => {
       e.target.value;
     setExerciseObjectState(updatedExerciseObject);
   };
+
+  /**
+   * Metod som används för att lägga till ett nytt objekt till exerciseObjectState.
+   */
 
   const addExerciseObject = () => {
     setExerciseObjectState([
@@ -64,6 +80,12 @@ const CreateProgramTemplate = ({ auth: { admin }, successful }) => {
   };
 
   const { register, handleSubmit, errors } = useForm({});
+
+  /**
+   * Metod som används för att hantera när formuläret skickas.
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
 
   const onSubmit = async (e) => {
     //

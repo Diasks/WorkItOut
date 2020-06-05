@@ -6,6 +6,7 @@ import ProgramList from "./ProgramList";
 import { getFitnessSchemas } from "../../../_actions/fitnessAction";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
+import GoBackButton from "../../layout/GoBackButton";
 
 const ProgramTemplates = ({ auth: { admin }, schemas, loading }) => {
   useEffect(() => {
@@ -38,8 +39,14 @@ const ProgramTemplates = ({ auth: { admin }, schemas, loading }) => {
           <span className="icon icon-add"></span>
           <span>Lägg till program</span>
         </Link>
+<<<<<<< HEAD
       </div>
     </section>
+=======
+        <GoBackButton/>
+      </section>
+    </div>
+>>>>>>> 78f3ffcc1a250c808a4c2d8faf87608c5fc56e2d
   );
 
   const redirectUser = <Redirect to="/overview" />;

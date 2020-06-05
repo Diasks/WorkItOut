@@ -23,11 +23,19 @@ const Overview = ({ auth: { admin }, selectedUser, loading, addActivity }) => {
   const [formData, setFormData] = useState("");
   const { title, time } = formData;
   const userId = selectedUser._id;
-
+    /**
+   * Metod som används för att hantera när värdet av ett element har ändrats
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+   /**
+   * Metod som används för att hantera när formuläret skickas
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const onSubmit = (e) => {
     addActivity({ userId, title, time });
     window.location.reload();

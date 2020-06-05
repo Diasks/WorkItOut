@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { getFaq, deleteFaq } from "../../_actions/faqAction";
 import { useEffect } from "react";
 import store from "../../store";
-
+import GoBackButton from "../layout/GoBackButton";
 import Alert from "../layout/Alert";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
@@ -30,10 +30,18 @@ const Faq = ({
     store.dispatch(getFaq(page));
   }, [page]);
 
+  /**
+   * Metod som används för att ???
+   */
   const handlePageChange = () => {
     setPagination(!page);
   };
 
+    /**
+   * Metod som används för att hantera radering av aktivitet via ett onClick-event
+   *
+   * @param {Number} id Nummer som innehåller ID på objektet som ska raderas
+   */
   const handleDeleteFaq = (id) => {
     deleteFaq(id);
     window.location.reload();
@@ -99,6 +107,7 @@ const Faq = ({
               </ul>
             )}
           </div>
+          <GoBackButton/>
         </main>
       </LoadingOverlay>
     </Fragment>
@@ -113,6 +122,7 @@ Faq.propTypes = {
   loading: PropTypes.bool,
   pager: PropTypes.object.isRequired,
   pageOfFaq: PropTypes.array.isRequired,
+  getFaq: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

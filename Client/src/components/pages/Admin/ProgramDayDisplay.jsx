@@ -7,6 +7,7 @@ import { deleteFitnessSchema } from "../../../_actions/fitnessAction";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
 import Collapse from "@material-ui/core/Collapse";
+import GoBackButton from "../../layout/GoBackButton";
 
 export const ProgramDayDisplay = ({
   auth: { admin },
@@ -19,6 +20,12 @@ export const ProgramDayDisplay = ({
 
   const [expanded, setExpanded] = useState(false);
 
+  /**
+   * Metod som används för att hantera ett toggle-onClick-event.
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
+
   const handleExpandClick = (e) => setExpanded(!expanded);
   useEffect(() => {
     store.dispatch(getFitnessSchema(programId));
@@ -28,6 +35,12 @@ export const ProgramDayDisplay = ({
   if (successful === true) {
     return <Redirect to="/programs" />;
   }
+
+  /**
+   * Metod som används för att hämta träningsmallarna och dess innehåll
+   *
+   * @param {*} program
+   */
 
   const getProgramContent = (fitness) => {
     let programs = [];
@@ -55,45 +68,49 @@ export const ProgramDayDisplay = ({
   };
 
   const displayProgramDayDisplay = (
-    <section>
-      {selectedSchema == null ? (
-        <LoadingOverlay
-          active={loading}
-          spinner={<PulseLoader color={"#f5af61"} />}
-          styles={{
-            overlay: (base) => ({
-              ...base,
-              background: "#efeeee",
-            }),
-          }}
-        />
-      ) : (
-        <div className="form-container">
-          <div className="form-heading">
-            <div className="link-view-more">
-              <h2 className="heading rose no-margin">
-                {selectedSchema.programTitle}
-              </h2>
-              <button className="btn btn-toggle" onClick={handleExpandClick}>
-                <span className="icon icon-view-more"></span>
-              </button>
+    <div>
+      <section>
+        {selectedSchema == null ? (
+          <LoadingOverlay
+            active={loading}
+            spinner={<PulseLoader color={"#f5af61"} />}
+            styles={{
+              overlay: (base) => ({
+                ...base,
+                background: "#efeeee",
+              }),
+            }}
+          />
+        ) : (
+          <div className="form-container">
+            <div className="form-heading">
+              <div className="link-view-more">
+                <h2 className="heading rose no-margin">
+                  {selectedSchema.programTitle}
+                </h2>
+                <button className="btn btn-toggle" onClick={handleExpandClick}>
+                  <span className="icon icon-view-more"></span>
+                </button>
+              </div>
             </div>
-          </div>
-          <Collapse in={expanded}>
-            <button
-              className="btn btn-sky"
-              onClick={() => store.dispatch(deleteFitnessSchema(programId))}
-            >
-              Ta bort
-            </button>
-          </Collapse>
+            <Collapse in={expanded}>
+              <button
+                className="btn btn-sky"
+                onClick={() => store.dispatch(deleteFitnessSchema(programId))}
+              >
+                Ta bort
+              </button>
+            </Collapse>
 
-          <ul className="list-column-item">
-            {getProgramContent(selectedSchema.exerciseInformation)}
-          </ul>
-        </div>
-      )}
-    </section>
+            <ul className="list-column-item">
+              {getProgramContent(selectedSchema.exerciseInformation)}
+            </ul>
+          </div>
+        )}
+      </section>
+
+      <GoBackButton />
+    </div>
   );
 
   const redirectUser = <Redirect to="/overview" />;

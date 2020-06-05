@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import store from "../../../store";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
+import GoBackButton from "../../layout/GoBackButton";
 
 const Challenges = ({ auth: { admin }, loading, schemas }) => {
   useEffect(() => {
@@ -42,6 +43,7 @@ const Challenges = ({ auth: { admin }, loading, schemas }) => {
             ? displayChallengesList && displayChallengesList
             : redirectUser}
         </ul>
+        <GoBackButton/>
       </main>
     </LoadingOverlay>
   );

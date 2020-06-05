@@ -5,8 +5,9 @@ import { registerNewPassword } from "../../_actions/userAction";
 import { connect } from "react-redux";
 import Alert from "../layout/Alert";
 import { removeAccount } from "../../_actions/userAction";
-import store from "../../store";
+import PropTypes from "prop-types";
 import { logout } from "../../_actions/authAction";
+import GoBackButton from "../layout/GoBackButton";
 
 const Settings = ({setAlert, registerNewPassword, removeAccount, logout, successful}) => {
   let defaultValues = {
@@ -25,11 +26,21 @@ const Settings = ({setAlert, registerNewPassword, removeAccount, logout, success
   });
 
   const { oldPassword, newPassword, confirmPassword } = passwordData;
-
+  
+    /**
+   * Metod som används för att hantera när värdet av ett element har ändrats
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const onChange = (e) => {
     setPasswordData({ ...passwordData, [e.target.name]: e.target.value });
   };
 
+   /**
+   * Metod används för att hantera när formuläret skickas
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const onSubmit = async (e) => {
     if (newPassword !== confirmPassword) {
       setAlert("Lösenord matchar inte", "danger");
@@ -48,10 +59,7 @@ logout();
 
     <main className="main column">
       <h1>Inställningar</h1>
-      <h3>Tillåt push-notiser</h3> <button>switch me</button>
-      <p>någon text här</p>
-      <h3>Tillåt push-notiser</h3> <button>switch me</button>
-      <p>någon text här</p>
+
 
       <h3>Ändra lösenord</h3>
       <Alert />
@@ -117,12 +125,20 @@ logout();
 
       <h3>Radera konto</h3>
       <p>Om du raderar ditt konto kan du inte ångra dig</p>
-      <button className="btn btn-sky" onClick={() => store.dispatch(removeAccount())}>Radera</button>
+      <button className="btn btn-sky" onClick={() => removeAccount()}>Radera</button>
 
                     
-                
+      <GoBackButton/>
     </main>
   );
+};
+
+Settings.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  registerNewPassword: PropTypes.func.isRequired,
+  removeAccount: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
+  successful: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({

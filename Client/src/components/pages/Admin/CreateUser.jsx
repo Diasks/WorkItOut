@@ -4,8 +4,10 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { createUser } from "../../../_actions/userAction";
 import { useForm } from "react-hook-form";
+import GoBackButton from "../../layout/GoBackButton";
 
 const CreateUser = ({ isAdmin, createUser, successful }) => {
+    
   let defaultValues = {
     firstname: "",
     lastname: "",
@@ -25,11 +27,19 @@ const CreateUser = ({ isAdmin, createUser, successful }) => {
   });
 
   const { firstname, lastname, email, password, admin } = formData;
-
+    /**
+   * Metod som används för att hantera när värdet av ett element har ändrats
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+   /**
+   * Metod som används för att hantera när formuläret skickas
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const onSubmit = async (e) => {
     createUser({ firstname, lastname, email, password, admin });
   };
@@ -145,6 +155,7 @@ const CreateUser = ({ isAdmin, createUser, successful }) => {
             Skapa
           </button>
         </form>
+        <GoBackButton/>
       </section>
     </div>
   );
@@ -162,6 +173,8 @@ const CreateUser = ({ isAdmin, createUser, successful }) => {
 
 CreateUser.propTypes = {
   createUser: PropTypes.func.isRequired,
+  isAdmin: PropTypes.bool,
+  successful: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({

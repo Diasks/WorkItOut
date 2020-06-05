@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 export const UserList = ({ auth: { admin }, user }) => {
   const displayUserList = (
@@ -19,6 +20,12 @@ export const UserList = ({ auth: { admin }, user }) => {
       {admin === true || admin === "true" ? displayUserList : redirectUser}
     </div>
   );
+};
+
+
+UserList.propTypes = {
+  auth: PropTypes.object.isRequired,
+  user: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({

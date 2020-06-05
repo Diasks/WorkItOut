@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import store from "../../../store";
@@ -7,43 +7,60 @@ import UserList from "./UserList";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
 import { Redirect } from "react-router-dom";
+import GoBackButton from "../../layout/GoBackButton";
 
 const Users = ({ auth: { admin }, users, loading }) => {
   useEffect(() => {
     store.dispatch(getUsers());
   }, []);
 
-  const onSearchUsers = () => {
-    console.log("search!!");
-  };
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const searchUsers = users;
 
-  const onSubmit = () => {
-    console.log("submitted!");
+
+  useEffect(() => {
+    if (searchUsers !== undefined) { 
+    const results = searchUsers.filter(user =>
+      user.firstname.toLowerCase().includes(searchTerm)
+    );
+    setSearchResults(results);}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchTerm]);
+
+  /**
+   * Metod som används för att hantera när värdet av ett element har ändrats
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
+  const handleChange = e => {
+    setSearchTerm(e.target.value);
   };
 
   const displayUsers = (
     <section>
       <h2 className="heading rose no-margin">Användarlista</h2>
       <div className="search-wrap">
-        <form onSubmit={onSubmit}>
-          <input
-            className="input input-search"
-            type="text"
-            name="#"
-            placeholder="Sök"
-          />
-
-          <input
-            type="button"
-            onClick={onSearchUsers}
-            className="icon icon-search"
-          />
-        </form>
+        <input
+          className="input input-search"
+          type="text"
+          name="#"
+          value={searchTerm}
+          placeholder="Sök användare"
+          onChange={handleChange}
+        />
       </div>
       <ul>
         {users &&
+          searchResults.length < 1 &&
           users.map((user, index) => <UserList key={index} user={user} />)}
       </ul>
+      <ul>
+        {searchResults.map((user, index) => (
+          <UserList key={index} user={user} />
+        ))}
+      </ul>
+      <GoBackButton />
     </section>
   );
 
@@ -54,7 +71,7 @@ const Users = ({ auth: { admin }, users, loading }) => {
       active={loading}
       spinner={<PulseLoader color={"#f5af61"} />}
       styles={{
-        overlay: (base) => ({
+        overlay: base => ({
           ...base,
           background: "#efeeee",
         }),
@@ -69,9 +86,12 @@ const Users = ({ auth: { admin }, users, loading }) => {
 
 Users.propTypes = {
   getUsers: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  users: PropTypes.object.isRequired,
+  loading:PropTypes.bool,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   users: state.user.users,
   loading: state.user.loading,
   auth: state.auth,

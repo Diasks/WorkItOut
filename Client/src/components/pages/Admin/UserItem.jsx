@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import Collapse from "@material-ui/core/Collapse";
 import LoadingOverlay from "react-loading-overlay";
 import PulseLoader from "react-spinners/PulseLoader";
+import GoBackButton from "../../layout/GoBackButton";
 
 export const UserItem = (props) => {
   let user = props.user;
@@ -21,7 +22,11 @@ export const UserItem = (props) => {
   }, []);
 
   const [expanded, setExpanded] = useState(false);
-
+   /**
+   * Metod som används för att hantera ett toggle-onClick-event
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const handleExpandClick = (e) => setExpanded(!expanded);
 
   const { handleSubmit } = useForm();
@@ -34,11 +39,19 @@ export const UserItem = (props) => {
   });
 
   const { firstname, lastname, email, admin } = formData;
-
+    /**
+   * Metod som används för att hantera när värdet av ett element har ändrats
+   *
+   * @param {*} e Det event som gjorde att denna callback anropades
+   */
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+   /**
+   * Metod som används för att hantera när formuläret skickas
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const onSubmit = async (e) => {
     props.updateUser({ userId, firstname, lastname, email, admin });
   };
@@ -141,6 +154,7 @@ export const UserItem = (props) => {
                   Spara
                 </button>
               </form>
+              <GoBackButton/>
             </div>
           )}
         </section>
@@ -163,6 +177,9 @@ UserItem.propTypes = {
   getUser: PropTypes.func.isRequired,
   deleteUser: PropTypes.func.isRequired,
   updateUser: PropTypes.func.isRequired,
+  successful: PropTypes.bool,
+  auth: PropTypes.object.isRequired,
+  loading: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({

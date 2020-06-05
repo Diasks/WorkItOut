@@ -6,6 +6,7 @@ import UserProfileForm from "../layout/profile/UserProfileForm";
 import ActiveChallenges from "../layout/profile/ActiveChallenges";
 import HorizontalLine from "../layout/HorizontalLine";
 import { Link } from "react-router-dom";
+import GoBackButton from "../layout/GoBackButton";
 
 const UserProfile = ({ loading }) => {
   return (
@@ -31,6 +32,7 @@ const UserProfile = ({ loading }) => {
           <span>Inställningar</span>
           <span className="icon icon-arrow-right"></span>
         </Link>
+        <GoBackButton/>
       </main>
     </LoadingOverlay>
   );

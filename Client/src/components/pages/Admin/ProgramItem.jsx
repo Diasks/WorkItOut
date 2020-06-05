@@ -34,6 +34,11 @@ export const ProgramItem = ({
 
   const { exerciseId, exerciseTitle, sets, reps, url } = exerciseObjectState;
 
+  /**
+   * Metod som används för att hantera toggle av formuläret vid uppdatering av övningar
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const handleExpandClick = (e) => setExpanded(!expanded);
 
   let exerciseNumberInformation;
@@ -46,6 +51,11 @@ export const ProgramItem = ({
       }
     });
 
+  /**
+   * Metod som används för att hantera när värdet av ett element har ändrats
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
   const onChange = async (e) => {
     let excerciseId = e.currentTarget.form.id;
     setExerciseObjectState({
@@ -54,6 +64,12 @@ export const ProgramItem = ({
       exerciseId: excerciseId,
     });
   };
+
+  /**
+   * Metod som används för att uppdatera övningar i passet
+   *
+   * @param {*} e Det event som gjorde att denna funktion anropades
+   */
 
   const onSubmit = async (e) => {
     const fitnessId = selectedSchema._id;
