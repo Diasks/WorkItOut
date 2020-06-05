@@ -22,7 +22,7 @@ export const getFitnessSchemas = () => async dispatch => {
   }
 
   try {
-    const res = await axios.get("http://localhost:5000/api/fitness");
+    const res = await axios.get("/api/fitness");
 
     dispatch({
       type: GET_FITNESSSCHEMAS,
@@ -47,7 +47,7 @@ export const getFitnessSchema = programId => async dispatch => {
 
   try {
     const res = await axios.get(
-      `http://localhost:5000/api/fitness/${programId}`
+      `/api/fitness/${programId}`
     );
 
     dispatch({
@@ -87,7 +87,7 @@ export const createFitnessSchema = (
 
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/fitness",
+      "/api/fitness",
       body,
       config
     );
@@ -113,7 +113,7 @@ export const updateFitnessSchema = program => async dispatch => {
 
   try {
     const res = await axios.patch(
-      `http://localhost:5000/api/fitness/${program.programId}`,
+      `/api/fitness/${program.programId}`,
       body,
       config
     );
@@ -145,7 +145,7 @@ export const updateExercise = program => async dispatch => {
 
   try {
     const res = await axios.patch(
-      `http://localhost:5000/api/fitness/${program.fitnessId}/exerciseNumber/${program.exerciseId}`,
+      `/api/fitness/${program.fitnessId}/exerciseNumber/${program.exerciseId}`,
       body,
       config
     );
@@ -180,7 +180,7 @@ export const deleteExercise = (programId, exerciseId) => async dispatch => {
 
   try {
     const res = await axios.delete(
-      `http://localhost:5000/api/fitness/${programId}/exerciseNumber/${exerciseId}`,
+      `/api/fitness/${programId}/exerciseNumber/${exerciseId}`,
       config
     );
     dispatch({
@@ -212,7 +212,7 @@ export const deleteFitnessSchema = id => async dispatch => {
 
   try {
     const res = await axios.delete(
-      `http://localhost:5000/api/fitness/${id}`,
+      `/api/fitness/${id}`,
       config
     );
     dispatch({
